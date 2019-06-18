@@ -14,7 +14,5 @@
 	</p>
 </div>
 @endif
-<?php
-print_r(Auth::user()->login);
-?>
+<?php print_r(Auth::user()->login); ?>
 @stop
