@@ -212,7 +212,7 @@ class WebServicesController extends Controller
 		->where('cad_automovel.militar_id', '=', $usuario_vtr->id)
 		->get();
 
-		if(empty($veiculos)){
+		if($veiculos->isEmpty()){
 			echo "<p style=\"margin-bottom: 0px;vertical-align:middle;\" class=\"alert-warning\">Nenhum Registro Encontrado!</p>";
 			die();
 		}
@@ -281,7 +281,7 @@ class WebServicesController extends Controller
 		->where('cad_automovel.militar_id', '=', $request->id)
 		->get();
 
-		if(empty($veiculos)){
+		if($veiculos->isEmpty()){
 			echo "<p style=\"margin-bottom: 0px;vertical-align:middle;\" class=\"alert-warning\">Nenhum Registro Encontrado!</p>";
 			die();
 		}

@@ -47,6 +47,8 @@ $(document).ready(function(){
 	});
 
 	$("select[name='om_viatura']").change(function(){
+		var om = $("select[name='om_viatura']").val();
+		$("input[name='om_id']").val(om);
 		$('#panel-viatura').show();
 	});
 

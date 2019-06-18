@@ -61,8 +61,8 @@ class OmController extends Controller
 
 		try{
 			$om = new Cad_om;
-			$om->nome = trim($dados['nome_om']);
-			$om->descricao = trim($dados['nome_abreviado']);
+			$om->nome = trim($dados['nome_abreviado']);
+			$om->descricao = trim($dados['nome_om']);
 			$om->codom = $dados['codom'];
 			$om->cep = $dados['cep'];
 			$om->estado = $dados['estado'];
@@ -131,8 +131,8 @@ class OmController extends Controller
 		}
 
 		try{
-			$om->nome = trim($dados['nome_om']);
-			$om->descricao = trim($dados['nome_abreviado']);
+			$om->nome = trim($dados['nome_abreviado']);
+			$om->descricao = trim($dados['nome_om']);
 			$om->codom = $dados['codom'];
 			$om->cep = $dados['cep'];
 			$om->estado = $dados['estado'];
