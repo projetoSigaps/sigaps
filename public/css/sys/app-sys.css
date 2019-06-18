@@ -1,0 +1,18 @@
+div.box-opaco{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	z-index: 99999;
+	opacity: 0.7;
+	background: url('/images/loading.svg') no-repeat, #000;
+	background-position: center center;
+}
+td.details-control {
+	background: url('/images/details_open.png') no-repeat center center;
+	cursor: pointer;
+}
+tr.details td.details-control {
+	background: url('/images/details_close.png') no-repeat center center;
+}
