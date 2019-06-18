@@ -18,6 +18,5 @@
 <?php
 print_r(Auth::user()->login);
 ?>
-Olá Mundo, 
-teste 123
+
 @stop
