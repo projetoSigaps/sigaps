@@ -19,5 +19,5 @@
 print_r(Auth::user()->login);
 ?>
 Olá Mundo, 
-teste
+teste 123
 @stop
