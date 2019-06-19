@@ -562,8 +562,9 @@ $(document).ready(function () {
 			success: function (data) {
 				if (data.error) {
 					alert(data.error);
-				} else
+				} else {
 					alert(data.msg);
+				}
 			}
 		});
 	});

@@ -40,10 +40,11 @@ class ViaturasController extends Controller
 		$tp_veiculo = Cad_tipo_automovel::where('id', 3)->first();
 		$marca = DB::table('cad_marca')->where('tipo_id', $viatura->tipo_id)->get();
 		$modelo = DB::table('cad_modelo')->where('marca_id', $viatura->marca_id)->get();
-		return view('sys.configuracoes.viaturas.editar', compact('om','vtr','viatura','tp_veiculo','marca','modelo'));
+		return view('sys.configuracoes.viaturas.editar', compact('om', 'vtr', 'viatura', 'tp_veiculo', 'marca', 'modelo'));
 	}
 
-	public function criar_log($id_operacao,$id_militar,$id_veiculo, $id_operador, $endereco_ip){
+	public function criar_log($id_operacao, $id_militar, $id_veiculo, $id_operador, $endereco_ip)
+	{
 		$log = new Cad_logs;
 		$log->id_operacao = $id_operacao;
 		$log->id_militar = $id_militar;
@@ -69,23 +70,23 @@ class ViaturasController extends Controller
 			'vtr_cmt' => 'required',
 			'categoria' => 'required',
 			'ano_auto' => 'required'
-		]; 
+		];
 
 		$validacao = Validator::make($dados, $regras);
-		if($validacao->fails()){
+		if ($validacao->fails()) {
 			return back()->with('error', $validacao->errors()->first());
-		} 
+		}
 
 		$crtl = Cad_automovel::where('placa', '=', $request->placa)
-		->orWhere('renavan', '=', $request->renavam)
-		->exists();
+			->orWhere('renavan', '=', $request->renavam)
+			->exists();
 
-		if($crtl){
+		if ($crtl) {
 			return back()->with('error', 'Esta viatura já possui cadastro!');
 		}
 
-		try{
-			$usuario_vtr = Cad_militar::where('om_id',$dados['om_id'])->where('posto', 34)->first();
+		try {
+			$usuario_vtr = Cad_militar::where('om_id', $dados['om_id'])->where('posto', 34)->first();
 
 			$veiculo = new Cad_automovel;
 			$veiculo->militar_id = $usuario_vtr->id;
@@ -96,19 +97,19 @@ class ViaturasController extends Controller
 			$veiculo->renavan = $dados['renavam'];
 			$veiculo->cor = $dados['cor'];
 			$veiculo->origem = "BRASIL";
-			$veiculo->doc_venc = date('Y-m-d', strtotime(str_replace('/', '-',$dados['doc_venc'])));
+			$veiculo->doc_venc = date('Y-m-d', strtotime(str_replace('/', '-', $dados['doc_venc'])));
 			$veiculo->ano_auto = $dados['ano_auto'];
 			$veiculo->baixa = 0;
-			$veiculo->save();	
+			$veiculo->save();
 
 			$viatura = new Cad_viaturas;
 			$viatura->vtr_cmt = $dados['vtr_cmt'];
 			$viatura->cat = $dados['categoria'];
 			$viatura->automovel_id = $veiculo->id;
-			$viatura->save();	
-			$this->criar_log(3,0,$veiculo->id,Auth::user()->id, $request->getClientIp());
-			return redirect()->route('sys.configuracoes.viaturas.editar',$viatura->id)->with('success', 'Cadastro realizado com sucesso!');
-		}catch(QueryException $e) {
+			$viatura->save();
+			$this->criar_log(3, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
+			return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Cadastro realizado com sucesso!');
+		} catch (QueryException $e) {
 			return back()->with('error', $e);
 		}
 	}
@@ -132,29 +133,28 @@ class ViaturasController extends Controller
 			'ano_auto' => 'required'
 		];
 
-		$validacao = Validator::make($dados, $regras);   
-		if($validacao->fails()){
+		$validacao = Validator::make($dados, $regras);
+		if ($validacao->fails()) {
 			return back()->with('error', $validacao->errors()->first());
-		} 
+		}
 
-		try{
+		try {
 			$veiculo->modelo_id = $dados['modelo_id'];
 			$veiculo->marca_id = $dados['marca_id'];
 			$veiculo->tipo_id = $dados['tipo_id'];
 			$veiculo->placa = $dados['placa'];
 			$veiculo->renavan = $dados['renavam'];
 			$veiculo->cor = $dados['cor'];
-			$veiculo->doc_venc = date('Y-m-d', strtotime(str_replace('/', '-',$dados['doc_venc'])));
+			$veiculo->doc_venc = date('Y-m-d', strtotime(str_replace('/', '-', $dados['doc_venc'])));
 			$veiculo->ano_auto = $dados['ano_auto'];
 			$veiculo->save();
 
 			$viatura = Cad_viaturas::where('automovel_id', $id)->update(['vtr_cmt' => $dados['vtr_cmt'], 'cat' => $dados['categoria']]);
 
-			$this->criar_log(6,0,$veiculo->id,Auth::user()->id, $request->getClientIp());
-			return redirect()->route('sys.configuracoes.viaturas.editar',$veiculo->id)->with('success', 'Viatura atualizada com sucesso!');
-			
-		}catch(QueryException $e) {
-			if($e->errorInfo[1] == 1062) {
+			$this->criar_log(6, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
+			return redirect()->route('sys.configuracoes.viaturas.editar', $veiculo->id)->with('success', 'Viatura atualizada com sucesso!');
+		} catch (QueryException $e) {
+			if ($e->errorInfo[1] == 1062) {
 				return back()->with('error', 'Número da Placa ou Renavam já cadastrado!');
 			} else {
 				return back()->with('error', $e);
@@ -167,8 +167,8 @@ class ViaturasController extends Controller
 		$viatura = Cad_automovel::findOrFail($id);
 		$viatura->baixa = 1;
 		$viatura->save();
-		$this->criar_log(18,0,$veiculo->id,Auth::user()->id, $request->getClientIp());
-		return redirect()->route('sys.configuracoes.viaturas.editar',$viatura->id)->with('success', 'Desativado com sucesso!');
+		$this->criar_log(18, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
+		return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Desativado com sucesso!');
 	}
 
 	public function enable(Request $request, $id)
@@ -176,7 +176,7 @@ class ViaturasController extends Controller
 		$viatura = Cad_automovel::findOrFail($id);
 		$viatura->baixa = 0;
 		$viatura->save();
-		$this->criar_log(28,0,$veiculo->id,Auth::user()->id, $request->getClientIp());
-		return redirect()->route('sys.configuracoes.viaturas.editar',$viatura->id)->with('success', 'Ativado com sucesso!');
+		$this->criar_log(28, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
+		return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Ativado com sucesso!');
 	}
 }

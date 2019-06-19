@@ -8,7 +8,6 @@ use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_viaturas;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Sys\Cad_logs;
-
 use DB;
 
 class CrachaController extends Controller
@@ -19,9 +18,9 @@ class CrachaController extends Controller
 		return view('sys.configuracoes.trocarCracha');
 	}
 
-
 	public function update(Request $request)
 	{
+		$nameDB = DB::connection()->getDatabaseName();
 		$crtl = Cad_militar::where('ident_militar', '=', $request->ident_militar)->exists();
 		if (!$crtl) {
 			return response()->json([
@@ -29,7 +28,14 @@ class CrachaController extends Controller
 			]);
 		}
 
-		$id = DB::select("SELECT AUTO_INCREMENT as LAST_ID FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'sigaps' AND   TABLE_NAME   = 'cad_militar';");
+		$value = DB::table('INFORMATION_SCHEMA.TABLES')
+			->select('AUTO_INCREMENT as last_id')
+			->where('TABLE_SCHEMA', $nameDB)
+			->where('TABLE_NAME', 'cad_militar')
+			->first();
+
+		//Cad_militar::where('ident_militar', $request->ident_militar)->update(['id' => $value->last_id]);
+		print_r($value);
 	}
 
 	public function veiculo(Request $request, $id)
@@ -88,7 +94,7 @@ class CrachaController extends Controller
 			return back()->with('error', 'Veículo com STATUS DESATIVADO!');
 		}
 
-		$this->criar_log(30, 0, $veiculo->id, Auth::user()->id, $request->getClientIp());
+		$this->criar_log(30, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 		return view('sys.cracha.veiculo', compact('veiculo'));
 	}
 
@@ -156,7 +162,7 @@ class CrachaController extends Controller
 			return back()->with('error', 'Viatura com STATUS DESATIVADO!');
 		}
 
-		$this->criar_log(31, 0, $viatura->id, Auth::user()->id, $request->getClientIp());
+		$this->criar_log(31, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
 		return view('sys.cracha.viatura', compact('veiculo'));
 	}
 
@@ -200,7 +206,7 @@ class CrachaController extends Controller
 			return back()->with('error', 'Militar com STATUS DESATIVADO!');
 		}
 
-		$this->criar_log(29, $militar->id, 0, Auth::user()->id, $request->getClientIp());
+		$this->criar_log(29, $militar->id, NULL, Auth::user()->id, $request->getClientIp());
 		return view('sys.cracha.pedestre', compact('militar'));
 	}
 

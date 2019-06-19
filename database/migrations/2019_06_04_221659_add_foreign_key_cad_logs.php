@@ -14,6 +14,8 @@ class AddForeignKeyCadLogs extends Migration
     public function up()
     {
         Schema::table('cad_logs', function(Blueprint $table) {
+            $table->foreign('id_militar')->references('id')->on('cad_militar')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_veiculo')->references('id')->on('cad_automovel')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_operacao')->references('id')->on('cad_operacao')->onDelete('cascade');
             $table->foreign('id_operador')->references('id')->on('users')->onDelete('cascade');
         });
@@ -28,6 +30,8 @@ class AddForeignKeyCadLogs extends Migration
     {
         Schema::table('cad_logs', function(Blueprint $table)
         {
+            $table->dropForeign('cad_logs_id_militar_foreign');
+            $table->dropForeign('cad_logs_id_veiculo_foreign');
             $table->dropForeign('cad_logs_id_operacao_foreign');
             $table->dropForeign('cad_logs_id_operador_foreign');
         });

@@ -116,7 +116,7 @@ class VeiculosController extends Controller
 			$veiculo->origem = $dados['origem'];
 			$veiculo->ano_auto = $dados['ano_auto'];
 			$veiculo->save();
-			$this->criar_log(5,0,$veiculo->id,Auth::user()->id, $request->getClientIp());
+			$this->criar_log(5,NULL,$veiculo->id,Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.veiculos.cadastro.editar',$veiculo->id)->with('success', 'Veículo atualizado com sucesso!');
 		}catch(QueryException $e) {
 			if($e->errorInfo[1] == 1062) {
@@ -169,7 +169,7 @@ class VeiculosController extends Controller
 			$veiculo->ano_auto = $dados['ano_auto'];
 			$veiculo->baixa = 0;
 			$veiculo->save();		
-			$this->criar_log(2,0,$veiculo->id,Auth::user()->id, $request->getClientIp());
+			$this->criar_log(2,NULL,$veiculo->id,Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.veiculos.cadastro.editar',$veiculo->id)->with('success', 'Cadastro realizado com sucesso!');
 		}catch(QueryException $e) {
 			return back()->with('error', $e);

@@ -14,7 +14,7 @@ class AddForeignKeyCadAutomovel extends Migration
     public function up()
     {
         Schema::table('cad_automovel', function(Blueprint $table) {
-            $table->foreign('militar_id')->references('id')->on('cad_militar')->onDelete('cascade');
+            $table->foreign('militar_id')->references('id')->on('cad_militar')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('tipo_id')->references('id')->on('cad_tipo_automovel')->onDelete('cascade');
             $table->foreign('marca_id')->references('id')->on('cad_marca')->onDelete('cascade');
             $table->foreign('modelo_id')->references('id')->on('cad_modelo')->onDelete('cascade');

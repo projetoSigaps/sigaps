@@ -134,7 +134,7 @@ class MilitaresController extends Controller
 			$militar->datafile = $nome_foto;
 			$militar->status = 1;
 			$militar->save();
-			$this->criar_log(1,$militar->id,0,Auth::user()->id, $request->getClientIp());
+			$this->criar_log(1,$militar->id,NULL,Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.militares.cadastro.editar',$militar->id)->with('success', 'Cadastro realizado com sucesso!');
 		}catch(QueryException $e) {
 			return back()->with('error', $e);
@@ -194,7 +194,7 @@ class MilitaresController extends Controller
 			$militar->om_id = $dados['om_id'];
 			$militar->posto = $dados['posto'];
 			$militar->save();
-			$this->criar_log(4,$militar->id,0,Auth::user()->id, $request->getClientIp());
+			$this->criar_log(4,$militar->id,NULL,Auth::user()->id, $request->getClientIp());
 		}catch(QueryException $e) {
 			if($e->errorInfo[1] == 1062) {
 				return back()->with('error', 'Número de identidade ja cadastrada!');
