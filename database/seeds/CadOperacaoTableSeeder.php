@@ -29,11 +29,11 @@ class CadOperacaoTableSeeder extends Seeder
                 array('evento'=>'DESATIVOU MILITAR', 'descricao'=>'RESTRINÇÃO NA SECÃO DE INTELIGÊNCIA'),
                 array('evento'=>'DESATIVOU MILITAR', 'descricao'=>'RESTRINÇÃO EM ORGÃO DE SEGURANÇA'),
 
-                array('evento'=>'DESATIVOU VEICULO', 'descricao'=>'PERDA/ROUBO'),
-                array('evento'=>'DESATIVOU VEICULO', 'descricao'=>'VENDA/TROCA'),
-                array('evento'=>'DESATIVOU VEICULO', 'descricao'=>'DADOS CADASTRAIS INCOMPLETOS'),
-                array('evento'=>'DESATIVOU VEICULO', 'descricao'=>'RESTRINÇÃO NA SECÃO DE INTELIGÊNCIA'),
-                array('evento'=>'DESATIVOU VEICULO', 'descricao'=>'RESTRINÇÃO EM ORGÃO DE SEGURANÇA'),
+                array('evento'=>'DESATIVOU VEÍCULO', 'descricao'=>'PERDA/ROUBO'),
+                array('evento'=>'DESATIVOU VEÍCULO', 'descricao'=>'VENDA/TROCA'),
+                array('evento'=>'DESATIVOU VEÍCULO', 'descricao'=>'DADOS CADASTRAIS INCOMPLETOS'),
+                array('evento'=>'DESATIVOU VEÍCULO', 'descricao'=>'RESTRINÇÃO NA SECÃO DE INTELIGÊNCIA'),
+                array('evento'=>'DESATIVOU VEÍCULO', 'descricao'=>'RESTRINÇÃO EM ORGÃO DE SEGURANÇA'),
 
                 array('evento'=>'DESATIVOU VIATURA', 'descricao'=>'DESATIVAÇÃO DE VTR'),
 
@@ -43,10 +43,10 @@ class CadOperacaoTableSeeder extends Seeder
                 array('evento'=>'ATIVOU MILITAR', 'descricao'=>'REGULARIZADO NO ORGÃO DE SEGURANÇA'),
                 array('evento'=>'ATIVOU MILITAR', 'descricao'=>'CONTRATADO COMO PTTC'),
 
-                array('evento'=>'ATIVOU VEICULO', 'descricao'=>'REGULARIZADO NO ORGÃO DE SEGURANÇA'),
-                array('evento'=>'ATIVOU VEICULO', 'descricao'=>'REGULARIZADO NA SEÇÃO DE INTELIGÊNCIA'),
-                array('evento'=>'ATIVOU VEICULO', 'descricao'=>'DADOS CADASTRAIS REGULARIZADOS'),
-                array('evento'=>'ATIVOU VEICULO', 'descricao'=>'ATIVAÇÃO DIVERSA'),
+                array('evento'=>'ATIVOU VEÍCULO', 'descricao'=>'REGULARIZADO NO ORGÃO DE SEGURANÇA'),
+                array('evento'=>'ATIVOU VEÍCULO', 'descricao'=>'REGULARIZADO NA SEÇÃO DE INTELIGÊNCIA'),
+                array('evento'=>'ATIVOU VEÍCULO', 'descricao'=>'DADOS CADASTRAIS REGULARIZADOS'),
+                array('evento'=>'ATIVOU VEÍCULO', 'descricao'=>'ATIVAÇÃO DIVERSA'),
 
                 array('evento'=>'ATIVOU VIATURA', 'descricao'=>'ATIVAÇÃO DE VTR'),
 

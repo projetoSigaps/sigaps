@@ -8,7 +8,7 @@
 @section('content')
 <div class="box box-red" style="border-top: 3px solid #dd4b39;">
 	<div class="box-header">
-		<h5 class="box-title"><i class="icon fa fa-cog"></i>   Trocar Crachá</h5>
+		<h5 class="box-title"><i class="icon fa fa-cog"></i> Trocar Crachá</h5>
 	</div>
 	<div class="box-body">
 		@if (session('success'))
@@ -68,7 +68,7 @@
 							</select>
 						</div>
 						<div class="col-md-3">
-							<input type="text" id="numero_documento" class="maskIdentidade form-control"  placeholder="Número do documento" >
+							<input type="text" id="numero_documento" class="maskIdentidade form-control" placeholder="Número do documento">
 						</div>
 						<div class="col-md-3">
 							<button class="btn btn-flat btn-default buscar-militar" type="submit" onclick="return false;" id="buscar-militar">
@@ -84,6 +84,7 @@
 			<div class="panel-heading">Informações do Militar</div>
 			<div class="panel-body">
 				<table class="table">
+					{{csrf_field()}}
 					<tbody>
 						<tr>
 							<td>Nome Completo:</td>
@@ -97,7 +98,7 @@
 						</tr>
 						<tr>
 							<td>Identidade Militar:</td>
-							<td><span id="ident_militar" class="text-primary"></span></td>
+							<td><span id="ident_militar" class="text-primary ident_militar"></span></td>
 							<td>OM:</td>
 							<td><span id="om" class="text-primary"></span></td>
 						</tr>
@@ -113,6 +114,9 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="panel-footer">
+				<button type="button" name="trocar_cracha" class="btn btn-flat btn-success">Trocar <i class="fa fa-exchange "></i></button>
 			</div>
 		</div>
 	</div>

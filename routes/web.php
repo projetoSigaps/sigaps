@@ -168,8 +168,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/cracha/trocar', 'TrocarCrachaController@index')->name('sys.configuracoes.trocarCracha');
-	
+	Route::get('configuracoes/cracha/trocar', 'CrachaController@trocarCrachaIndex')->name('sys.configuracoes.trocarCracha');
+	Route::post('configuracoes/cracha/trocar', 'CrachaController@update');
+
 
 	/*
 	*
