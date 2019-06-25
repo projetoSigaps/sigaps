@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
+Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function () {
 
 	/*
 	*
@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	Route::get('militares/cadastro', 'MilitaresController@create')->name('sys.militares.cadastro');
 	Route::get('militar/{id}', 'MilitaresController@show')->name('sys.militares.cadastro.editar');
 	Route::get('militar/{id}/cracha', 'CrachaController@pedestre')->name('sys.cracha.pedestre');
-	Route::get('militar/{id}/pdf','MilitaresController@downloadPDF')->name('sys.militares.pdf');
+	Route::get('militar/{id}/pdf', 'MilitaresController@downloadPDF')->name('sys.militares.pdf');
 	Route::post('militar/{id}', 'MilitaresController@update')->name('sys.militares.cadastro.atualiza');
 	Route::post('militar/{id}/ativar', 'MilitaresController@enable')->name('sys.militar.ativar');
 	Route::post('militar/{id}/desativar', 'MilitaresController@disable')->name('sys.militar.desativar');
@@ -73,12 +73,12 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/OM','OmController@lista');
+	Route::get('configuracoes/OM', 'OmController@lista');
 	Route::get('configuracoes/OM/cadastrar', 'OmController@create')->name('sys.configuracoes.om.cadastrar');
-	Route::get('configuracoes/OM/{id}','OmController@show')->name('sys.configuracoes.om.editar');
-	Route::post('configuracoes/OM/listagem','OmController@OMsListagem');
-	Route::post('configuracoes/OM/cadastrar','OmController@store')->name('sys.configuracoes.om.salvar');
-	Route::post('configuracoes/OM/{id}','OmController@update')->name('sys.configuracoes.om.atualizar');
+	Route::get('configuracoes/OM/{id}', 'OmController@show')->name('sys.configuracoes.om.editar');
+	Route::post('configuracoes/OM/listagem', 'OmController@OMsListagem');
+	Route::post('configuracoes/OM/cadastrar', 'OmController@store')->name('sys.configuracoes.om.salvar');
+	Route::post('configuracoes/OM/{id}', 'OmController@update')->name('sys.configuracoes.om.atualizar');
 
 	/*
 	*
@@ -87,9 +87,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*/
 
 	Route::get('configuracoes/postos', 'PostosController@index')->name('sys.configuracoes.postos');
-	Route::post('configuracoes/postos/cadastrar','PostosController@store')->name('sys.configuracoes.postos.cadastrar');
-	Route::post('configuracoes/postos/editar/{id}','PostosController@update')->name('sys.configuracoes.postos.editar');
-	Route::post('configuracoes/postos/listagem','PostosController@postosListagem');
+	Route::post('configuracoes/postos/cadastrar', 'PostosController@store')->name('sys.configuracoes.postos.cadastrar');
+	Route::post('configuracoes/postos/editar/{id}', 'PostosController@update')->name('sys.configuracoes.postos.editar');
+	Route::post('configuracoes/postos/listagem', 'PostosController@postosListagem');
 
 	/*
 	*
@@ -97,12 +97,12 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/usuarios','UsuariosController@lista');
-	Route::get('configuracoes/usuarios/cadastrar','UsuariosController@create')->name('sys.configuracoes.usuarios.cadastrar');
-	Route::get('configuracoes/usuarios/{id}','UsuariosController@show')->name('sys.configuracoes.usuarios.editar');
-	Route::post('configuracoes/usuarios/listagem','UsuariosController@UsuariosListagem');
-	Route::post('configuracoes/usuarios/cadastrar','UsuariosController@store')->name('sys.configuracoes.usuarios.salvar');
-	Route::post('configuracoes/usuarios/{id}','UsuariosController@update')->name('sys.configuracoes.usuarios.atualizar');
+	Route::get('configuracoes/usuarios', 'UsuariosController@lista');
+	Route::get('configuracoes/usuarios/cadastrar', 'UsuariosController@create')->name('sys.configuracoes.usuarios.cadastrar');
+	Route::get('configuracoes/usuarios/{id}', 'UsuariosController@show')->name('sys.configuracoes.usuarios.editar');
+	Route::post('configuracoes/usuarios/listagem', 'UsuariosController@UsuariosListagem');
+	Route::post('configuracoes/usuarios/cadastrar', 'UsuariosController@store')->name('sys.configuracoes.usuarios.salvar');
+	Route::post('configuracoes/usuarios/{id}', 'UsuariosController@update')->name('sys.configuracoes.usuarios.atualizar');
 
 	/*
 	*
@@ -110,10 +110,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/veiculos/tipo','TipoVeiculosController@index')->name('sys.configuracoes.veiculos.tipo_veiculos');
-	Route::post('configuracoes/veiculos/tipo/cadastrar','TipoVeiculosController@store')->name('sys.configuracoes.veiculos.tipo_veiculos.cadastrar');
-	Route::post('configuracoes/veiculos/tipo/editar/{id}','TipoVeiculosController@update')->name('sys.configuracoes.veiculos.tipo_veiculos.editar');
-	Route::post('configuracoes/veiculos/tipo/listagem','TipoVeiculosController@listagem');
+	Route::get('configuracoes/veiculos/tipo', 'TipoVeiculosController@index')->name('sys.configuracoes.veiculos.tipo_veiculos');
+	Route::post('configuracoes/veiculos/tipo/cadastrar', 'TipoVeiculosController@store')->name('sys.configuracoes.veiculos.tipo_veiculos.cadastrar');
+	Route::post('configuracoes/veiculos/tipo/editar/{id}', 'TipoVeiculosController@update')->name('sys.configuracoes.veiculos.tipo_veiculos.editar');
+	Route::post('configuracoes/veiculos/tipo/listagem', 'TipoVeiculosController@listagem');
 
 	/*
 	*
@@ -121,10 +121,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/veiculos/marca','MarcaVeiculosController@index')->name('sys.configuracoes.veiculos.marca_veiculos');
-	Route::post('configuracoes/veiculos/marca/cadastrar','MarcaVeiculosController@store')->name('sys.configuracoes.veiculos.marca_veiculos.cadastrar');
-	Route::post('configuracoes/veiculos/marca/editar/{id}','MarcaVeiculosController@update')->name('sys.configuracoes.veiculos.marca_veiculos.editar');
-	Route::post('configuracoes/veiculos/marca/listagem','MarcaVeiculosController@listagem');
+	Route::get('configuracoes/veiculos/marca', 'MarcaVeiculosController@index')->name('sys.configuracoes.veiculos.marca_veiculos');
+	Route::post('configuracoes/veiculos/marca/cadastrar', 'MarcaVeiculosController@store')->name('sys.configuracoes.veiculos.marca_veiculos.cadastrar');
+	Route::post('configuracoes/veiculos/marca/editar/{id}', 'MarcaVeiculosController@update')->name('sys.configuracoes.veiculos.marca_veiculos.editar');
+	Route::post('configuracoes/veiculos/marca/listagem', 'MarcaVeiculosController@listagem');
 
 	/*
 	*
@@ -132,10 +132,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/veiculos/modelo','ModeloVeiculosController@index')->name('sys.configuracoes.veiculos.modelo_veiculos');
-	Route::post('configuracoes/veiculos/modelo/cadastrar','ModeloVeiculosController@store')->name('sys.configuracoes.veiculos.modelo_veiculos.cadastrar');
-	Route::post('configuracoes/veiculos/modelo/editar/{id}','ModeloVeiculosController@update')->name('sys.configuracoes.veiculos.modelo_veiculos.editar');
-	Route::post('configuracoes/veiculos/modelo/listagem','ModeloVeiculosController@listagem');
+	Route::get('configuracoes/veiculos/modelo', 'ModeloVeiculosController@index')->name('sys.configuracoes.veiculos.modelo_veiculos');
+	Route::post('configuracoes/veiculos/modelo/cadastrar', 'ModeloVeiculosController@store')->name('sys.configuracoes.veiculos.modelo_veiculos.cadastrar');
+	Route::post('configuracoes/veiculos/modelo/editar/{id}', 'ModeloVeiculosController@update')->name('sys.configuracoes.veiculos.modelo_veiculos.editar');
+	Route::post('configuracoes/veiculos/modelo/listagem', 'ModeloVeiculosController@listagem');
 
 	/*
 	*
@@ -143,14 +143,14 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::get('configuracoes/viaturas','ViaturasController@lista');
-	Route::get('configuracoes/viaturas/cadastrar','ViaturasController@create')->name('sys.configuracoes.viaturas.cadastro');
-	Route::get('configuracoes/viaturas/{id}','ViaturasController@show')->name('sys.configuracoes.viaturas.editar');
+	Route::get('configuracoes/viaturas', 'ViaturasController@lista');
+	Route::get('configuracoes/viaturas/cadastrar', 'ViaturasController@create')->name('sys.configuracoes.viaturas.cadastro');
+	Route::get('configuracoes/viaturas/{id}', 'ViaturasController@show')->name('sys.configuracoes.viaturas.editar');
 	Route::get('configuracoes/viaturas/{id}/ativar', 'ViaturasController@enable')->name('sys.configuracoes.viaturas.ativar');
 	Route::get('configuracoes/viaturas/{id}/desativar', 'ViaturasController@disabled')->name('sys.configuracoes.viaturas.desativar');
 	Route::get('configuracoes/viaturas/{id}/cracha', 'CrachaController@viatura')->name('sys.cracha.viatura');
-	Route::post('configuracoes/viaturas/cadastrar','ViaturasController@store')->name('sys.configuracoes.viaturas.salvar');
-	Route::post('configuracoes/viaturas/listagem','OmController@OMsListagem');
+	Route::post('configuracoes/viaturas/cadastrar', 'ViaturasController@store')->name('sys.configuracoes.viaturas.salvar');
+	Route::post('configuracoes/viaturas/listagem', 'OmController@OMsListagem');
 	Route::post('configuracoes/viaturas/{id}', 'ViaturasController@update')->name('sys.configuracoes.viaturas.atualiza');
 
 	/*
@@ -169,7 +169,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*/
 
 	Route::get('configuracoes/cracha/trocar', 'CrachaController@trocarCrachaIndex')->name('sys.configuracoes.trocarCracha');
-	Route::post('configuracoes/cracha/trocar', 'CrachaController@update');
+	Route::post('configuracoes/cracha/trocar', 'CrachaController@trocarCracha');
 
 
 	/*
@@ -178,29 +178,28 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 	*
 	*/
 
-	Route::post('webservices/validacao/identidade','WebServicesController@validacaoIdentidade');
-	Route::post('webservices/validacao/placa','WebServicesController@validacaoPlaca');
-	Route::post('webservices/validacao/renavam','WebServicesController@validacaoRenavam');
-	Route::post('webservices/validacao/cnh','WebServicesController@validacaoCnh');
-	Route::post('webservices/militares/listagem','WebServicesController@listagemMilitares');
-	Route::post('webservices/militares/pesquisar','WebServicesController@pesquisaMilitar');
-	Route::post('webservices/veiculos/pesquisar','WebServicesController@pesquisarVeiculo');
-	Route::post('webservices/viaturas/pesquisar','WebServicesController@pesquisarViatura');
-	Route::post('webservices/veiculos/marca/pesquisar','WebServicesController@pesquisaMarca');
-	Route::post('webservices/veiculos/modelo/pesquisar','WebServicesController@pesquisaModelo');
-	Route::post('webservices/OM/consulta','WebServicesController@pesquisaOM');
-	Route::post('webservices/posto/consulta','WebServicesController@pesquisaPosto');
-	Route::post('webservices/tipo_veiculo/consulta','WebServicesController@pesquisaTipoVeiculo');
-	Route::post('webservices/marca_veiculo/consulta','WebServicesController@pesquisaMarcaVeiculo');
-	Route::post('webservices/modelo_veiculo/consulta','WebServicesController@pesquisaModeloVeiculo');
-	Route::post('webservices/consultas/pedestres/','ConsultaController@consultaPedestres');
-	Route::post('webservices/consultas/automoveis/','ConsultaController@consultaAutomoveis');
-	Route::post('webservices/configuraçoes/usuario/','WebServicesController@trocarSenha');
+	Route::post('webservices/validacao/identidade', 'WebServicesController@validacaoIdentidade');
+	Route::post('webservices/validacao/placa', 'WebServicesController@validacaoPlaca');
+	Route::post('webservices/validacao/renavam', 'WebServicesController@validacaoRenavam');
+	Route::post('webservices/validacao/cnh', 'WebServicesController@validacaoCnh');
+	Route::post('webservices/militares/listagem', 'WebServicesController@listagemMilitares');
+	Route::post('webservices/militares/pesquisar', 'WebServicesController@pesquisaMilitar');
+	Route::post('webservices/veiculos/pesquisar', 'WebServicesController@pesquisarVeiculo');
+	Route::post('webservices/viaturas/pesquisar', 'WebServicesController@pesquisarViatura');
+	Route::post('webservices/veiculos/marca/pesquisar', 'WebServicesController@pesquisaMarca');
+	Route::post('webservices/veiculos/modelo/pesquisar', 'WebServicesController@pesquisaModelo');
+	Route::post('webservices/OM/consulta', 'WebServicesController@pesquisaOM');
+	Route::post('webservices/posto/consulta', 'WebServicesController@pesquisaPosto');
+	Route::post('webservices/tipo_veiculo/consulta', 'WebServicesController@pesquisaTipoVeiculo');
+	Route::post('webservices/marca_veiculo/consulta', 'WebServicesController@pesquisaMarcaVeiculo');
+	Route::post('webservices/modelo_veiculo/consulta', 'WebServicesController@pesquisaModeloVeiculo');
+	Route::post('webservices/consultas/pedestres/', 'ConsultaController@consultaPedestres');
+	Route::post('webservices/consultas/automoveis/', 'ConsultaController@consultaAutomoveis');
+	Route::post('webservices/configuraçoes/usuario/', 'WebServicesController@trocarSenha');
 
 
-	Route::get('storage/doc/{filename}', function ($filename)
-	{
-		$path = storage_path('app/_DOC/'.base64_decode($filename));
+	Route::get('storage/doc/{filename}', function ($filename) {
+		$path = storage_path('app/_DOC/' . base64_decode($filename));
 		if (!File::exists($path)) {
 			abort(404);
 		}
@@ -216,8 +215,6 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function(){
 Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/logout' , 'Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::post('senha/trocar', 'Auth\ChangePasswordController@changePassword')->name('password.change');
-
-

@@ -18,24 +18,42 @@ class CrachaController extends Controller
 		return view('sys.configuracoes.trocarCracha');
 	}
 
-	public function update(Request $request)
+	public function trocarCracha(Request $request)
 	{
+		$item = new Cad_militar;
+		$nameTB = $item->getTable();
 		$nameDB = DB::connection()->getDatabaseName();
+
 		$crtl = Cad_militar::where('ident_militar', '=', $request->ident_militar)->exists();
 		if (!$crtl) {
-			return response()->json([
-				'error' => "Número de Identidade não existe!"
-			]);
+			return response()->json(['error' => "Número de Identidade não existe!"]);
 		}
 
-		$value = DB::table('INFORMATION_SCHEMA.TABLES')
-			->select('AUTO_INCREMENT as last_id')
-			->where('TABLE_SCHEMA', $nameDB)
-			->where('TABLE_NAME', 'cad_militar')
-			->first();
+		try {
+			/*
+			** Consulta qual foi o ulitmo número registrado
+			*/
+			$value = DB::table('INFORMATION_SCHEMA.TABLES')
+				->select('AUTO_INCREMENT as last_id')
+				->where('TABLE_SCHEMA', $nameDB)
+				->where('TABLE_NAME', $nameTB)
+				->first();
 
-		//Cad_militar::where('ident_militar', $request->ident_militar)->update(['id' => $value->last_id]);
-		print_r($value);
+			/*
+			** Atualiza o ID do Militar
+			*/
+			Cad_militar::where('ident_militar', $request->ident_militar)->update(['id' => $value->last_id]);
+			/*
+			** Atualiza o número no Auto Increment da Tablea.
+			*/
+			DB::statement('ALTER TABLE ' . $nameTB . ' AUTO_INCREMENT =' . $value->last_id);
+
+			$this->criar_log(32, $value->last_id, NULL, Auth::user()->id, $request->getClientIp());
+
+			return response()->json(['msg' => "Número do crachá alterado com sucesso!"]);
+		} catch (QueryException $e) {
+			return back()->with('error', $e);
+		}
 	}
 
 	public function veiculo(Request $request, $id)
