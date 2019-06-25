@@ -25,10 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         if ((Auth::user()->password_changed_at == null)) {
-            return view('senha');    
-        }
-        else{
-            return view('home');    
+            return view('senha');
+        } else {
+            return view('home');
         }
     }
 }

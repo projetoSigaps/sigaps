@@ -29,45 +29,54 @@ class ConsultaController extends Controller
 	{
 
 		$totalData = Cad_entrada_saida::count();
-		$totalFiltered = Cad_entrada_saida::where('tp','=','Pedestre')->count();
+		$totalFiltered = Cad_entrada_saida::where('tp', '=', 'Pedestre')->count();
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = 0;
 		$dir = "desc";
 		$horarios = DB::table('cad_entrada_saida')
-		->select(
-			'cad_militar.nome_guerra', 
-			'cad_posto.nome as posto_nome', 
-			'cad_om.nome as om_nome',
-			'cad_entrada_saida.cod_cracha', 
-			'cad_entrada_saida.dtEntrada', 
-			'cad_entrada_saida.dtSaida')
-		->leftJoin('cad_militar', 
-			'cad_militar.id', 
-			'=', 
-			'cad_entrada_saida.cod_cracha')
-		->leftJoin('cad_posto', 
-			'cad_militar.posto', 
-			'=', 
-			'cad_posto.id')
-		->leftJoin('cad_om', 
-			'cad_militar.om_id', 
-			'=', 
-			'cad_om.id')
-		->where('cad_entrada_saida.tp','=','Pedestre')
-		->skip($start)
-		->take($limit)
-		->orderBy('cad_entrada_saida.id','desc')
-		->get();
+			->select(
+				'cad_militar.nome_guerra',
+				'cad_posto.nome as posto_nome',
+				'cad_om.nome as om_nome',
+				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.dtEntrada',
+				'cad_entrada_saida.dtSaida'
+			)
+			->leftJoin(
+				'cad_militar',
+				'cad_militar.id',
+				'=',
+				'cad_entrada_saida.cod_cracha'
+			)
+			->leftJoin(
+				'cad_posto',
+				'cad_militar.posto',
+				'=',
+				'cad_posto.id'
+			)
+			->leftJoin(
+				'cad_om',
+				'cad_militar.om_id',
+				'=',
+				'cad_om.id'
+			)
+			->where('cad_entrada_saida.tp', '=', 'Pedestre')
+			->skip($start)
+			->take($limit)
+			->orderBy('cad_entrada_saida.id', 'desc')
+			->get();
 
 		$data = array();
-		if(!empty($horarios))
-		{
-			foreach ($horarios as $value)
-			{
-				if(!empty($value->dtEntrada)){ $value->dtEntrada = date('d/m/Y H:i', strtotime($value->dtEntrada));}
-				if(!empty($value->dtSaida)){ $value->dtSaida = date('d/m/Y H:i', strtotime($value->dtSaida));}
+		if (!empty($horarios)) {
+			foreach ($horarios as $value) {
+				if (!empty($value->dtEntrada)) {
+					$value->dtEntrada = date('d/m/Y H:i', strtotime($value->dtEntrada));
+				}
+				if (!empty($value->dtSaida)) {
+					$value->dtSaida = date('d/m/Y H:i', strtotime($value->dtSaida));
+				}
 
 				$nestedData['cod_cracha'] = $value->cod_cracha;
 				$nestedData['nome_guerra'] = $value->nome_guerra;
@@ -80,77 +89,92 @@ class ConsultaController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),  
-			"recordsTotal"    => intval($totalData),  
-			"recordsFiltered" => intval($totalFiltered), 
-			"data"            => $data   
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
 		);
-		echo json_encode($json_data); 
+		echo json_encode($json_data);
 	}
 
 	public function consultaAutomoveis(Request $request)
 	{
 
 		$totalData = Cad_entrada_saida::count();
-		$totalFiltered = Cad_entrada_saida::where('tp','=','Automovel')->count();
+		$totalFiltered = Cad_entrada_saida::where('tp', '=', 'Automovel')->count();
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$order = 0;
 		$dir = "desc";
 		$horarios = DB::table('cad_entrada_saida')
-		->select(
-			'cad_militar.nome_guerra', 
-			'cad_posto.nome as posto_nome', 
-			'cad_om.nome as om_nome',
-			'cad_marca.nome as marca',
-			'cad_automovel.placa',
-			'cad_modelo.nome as modelo',
-			'cad_entrada_saida.cod_cracha', 
-			'cad_entrada_saida.dtEntrada', 
-			'cad_entrada_saida.dtSaida')
-		->leftJoin('cad_automovel', 
-			'cad_automovel.id', 
-			'=', 
-			'cad_entrada_saida.cod_cracha')
-		->leftJoin('cad_militar', 
-			'cad_automovel.militar_id', 
-			'=', 
-			'cad_militar.id')
-		->leftJoin('cad_posto', 
-			'cad_militar.posto', 
-			'=', 
-			'cad_posto.id')
-		->leftJoin('cad_om', 
-			'cad_militar.om_id', 
-			'=', 
-			'cad_om.id')
-		->leftJoin('cad_modelo', 
-			'cad_automovel.modelo_id', 
-			'=', 
-			'cad_modelo.id')
-		->leftJoin('cad_marca', 
-			'cad_automovel.marca_id', 
-			'=', 
-			'cad_marca.id')
-		->where('cad_entrada_saida.tp','=','Automovel')
-		->skip($start)
-		->take($limit)
-		->orderBy('cad_entrada_saida.id','desc')
-		->get();
+			->select(
+				'cad_militar.nome_guerra',
+				'cad_posto.nome as posto_nome',
+				'cad_om.nome as om_nome',
+				'cad_marca.nome as marca',
+				'cad_automovel.placa',
+				'cad_modelo.nome as modelo',
+				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.dtEntrada',
+				'cad_entrada_saida.dtSaida'
+			)
+			->leftJoin(
+				'cad_automovel',
+				'cad_automovel.id',
+				'=',
+				'cad_entrada_saida.cod_cracha'
+			)
+			->leftJoin(
+				'cad_militar',
+				'cad_automovel.militar_id',
+				'=',
+				'cad_militar.id'
+			)
+			->leftJoin(
+				'cad_posto',
+				'cad_militar.posto',
+				'=',
+				'cad_posto.id'
+			)
+			->leftJoin(
+				'cad_om',
+				'cad_militar.om_id',
+				'=',
+				'cad_om.id'
+			)
+			->leftJoin(
+				'cad_modelo',
+				'cad_automovel.modelo_id',
+				'=',
+				'cad_modelo.id'
+			)
+			->leftJoin(
+				'cad_marca',
+				'cad_automovel.marca_id',
+				'=',
+				'cad_marca.id'
+			)
+			->where('cad_entrada_saida.tp', '=', 'Automovel')
+			->skip($start)
+			->take($limit)
+			->orderBy('cad_entrada_saida.id', 'desc')
+			->get();
 
 		$data = array();
-		if(!empty($horarios))
-		{
-			foreach ($horarios as $value)
-			{
-				if(!empty($value->dtEntrada)){ $value->dtEntrada = date('d/m/Y H:i', strtotime($value->dtEntrada));}
-				if(!empty($value->dtSaida)){ $value->dtSaida = date('d/m/Y H:i', strtotime($value->dtSaida));}
+		if (!empty($horarios)) {
+			foreach ($horarios as $value) {
+				if (!empty($value->dtEntrada)) {
+					$value->dtEntrada = date('d/m/Y H:i', strtotime($value->dtEntrada));
+				}
+				if (!empty($value->dtSaida)) {
+					$value->dtSaida = date('d/m/Y H:i', strtotime($value->dtSaida));
+				}
 
 				$nestedData['posto_nome'] = $value->posto_nome;
 				$nestedData['nome_guerra'] = $value->nome_guerra;
 				$nestedData['cod_cracha'] = $value->cod_cracha;
-				$nestedData['marca_modelo'] = $value->marca." ".$value->modelo;
+				$nestedData['marca_modelo'] = $value->marca . " " . $value->modelo;
 				$nestedData['placa'] = $value->placa;
 				$nestedData['om_nome'] = $value->om_nome;
 				$nestedData['dtEntrada'] = $value->dtEntrada;
@@ -160,11 +184,11 @@ class ConsultaController extends Controller
 		}
 
 		$json_data = array(
-			"draw"            => intval($request->input('draw')),  
-			"recordsTotal"    => intval($totalData),  
-			"recordsFiltered" => intval($totalFiltered), 
-			"data"            => $data   
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
 		);
-		echo json_encode($json_data); 
+		echo json_encode($json_data);
 	}
 }
