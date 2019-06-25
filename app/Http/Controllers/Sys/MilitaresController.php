@@ -38,7 +38,7 @@ class MilitaresController extends Controller
 
 	public function create()
 	{
-		$posto	 = Cad_posto::where('id', '!=', 34)->orderBy('ordem', 'DESC')->get();
+		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		$om 	 = Cad_om::all();
 		return view('sys.militares.cadastro', compact('om', 'posto'));
 	}
