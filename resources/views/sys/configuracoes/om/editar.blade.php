@@ -57,7 +57,7 @@
 			<div class="form-group has-feedback">
 				<label class="control-label col-md-2"></label>
 				<div class="field col-md-8">
-					<input class="form-control" type="text" id="nome_om" name="nome_om" placeholder="Nome da OM" value="{{$om->nome}}" required="">
+					<input class="form-control" type="text" id="nome_om" name="nome_om" placeholder="Nome da OM" value="{{$om->descricao}}" required="">
 					<span class="form-control-feedback" id="nome_om1"></span>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 			<div class="form-group has-feedback">
 				<label class="control-label col-md-2"></label>
 				<div class="field col-md-4">
-					<input class="form-control" id="nome_abreviado" type="text" name="nome_abreviado" placeholder="Sigla da OM" value="{{$om->descricao}}" required="">
+					<input class="form-control" id="nome_abreviado" type="text" name="nome_abreviado" placeholder="Sigla da OM" value="{{$om->nome}}" required="">
 					<span class="form-control-feedback" id="nome_abreviado1"></span>
 				</div>
 				<div class="field col-md-4">
