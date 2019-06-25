@@ -55,7 +55,7 @@ class MilitaresController extends Controller
 			->orderBy('cad_logs.id', 'desc')
 			->get();
 		$evento  = Cad_operacao::all();
-		$posto	 = Cad_posto::orderBy('ordem')->get();
+		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		$om 	 = Cad_om::all();
 		return view('sys.militares.editar', compact('militar', 'om', 'posto', 'log', 'evento'));
 	}
