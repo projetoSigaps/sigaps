@@ -94,7 +94,7 @@ class ConsultaController extends Controller
 			"recordsFiltered" => intval($totalFiltered),
 			"data"            => $data
 		);
-		echo json_encode($json_data);
+		return response()->json($json_data);
 	}
 
 	public function consultaAutomoveis(Request $request)
@@ -189,6 +189,6 @@ class ConsultaController extends Controller
 			"recordsFiltered" => intval($totalFiltered),
 			"data"            => $data
 		);
-		echo json_encode($json_data);
+		return response()->json($json_data);
 	}
 }

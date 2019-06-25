@@ -66,6 +66,7 @@ class MarcaVeiculosController extends Controller
 
 	public function listagem(Request $request)
 	{
+		$data = "";
 		$marcas = DB::table('cad_marca')
 			->select(
 				'cad_marca.id',
@@ -94,15 +95,13 @@ class MarcaVeiculosController extends Controller
 					"<button title='Editar' id={$value->id} class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></button>";
 				$data[] = $nestedData;
 			}
-			$json_data = array(
-				"draw"            => intval($request->input('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-			);
-			echo json_encode($json_data);
-		} else {
-			echo '{"error":"Nenhuma marca encontrada!"}';
 		}
+		$json_data = array(
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
+		);
+		return response()->json($json_data);
 	}
 }

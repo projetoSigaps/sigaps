@@ -129,6 +129,7 @@ class PostosController extends Controller
 
 	public function postosListagem(Request $request)
 	{
+		$data = "";
 		$postos = Cad_posto::all()->sortBy('ordem');
 		$totalData = Cad_posto::count();
 		$totalFiltered = $totalData;
@@ -142,15 +143,13 @@ class PostosController extends Controller
 					"<button title='Editar' id={$value->id} class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></button>";
 				$data[] = $nestedData;
 			}
-			$json_data = array(
-				"draw"            => intval($request->input('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-			);
-			echo json_encode($json_data);
-		} else {
-			echo '{"error":"Nenhuma Posto/Graduação encontrado!"}';
 		}
+		$json_data = array(
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
+		);
+		return response()->json($json_data);
 	}
 }

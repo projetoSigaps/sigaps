@@ -183,7 +183,7 @@ class WebServicesController extends Controller
 			"recordsFiltered" => intval($totalFiltered),
 			"data"            => $data
 		);
-		echo json_encode($json_data);
+		return response()->json($json_data);
 	}
 
 	public function pesquisarViatura(Request $request)
@@ -372,9 +372,11 @@ class WebServicesController extends Controller
 					->where('cad_militar.cnh', '=', $num_doc)
 					->first();
 				if (!empty($militar)) {
-					echo json_encode($militar);
+					return response()->json($militar);
 				} else {
-					echo '{"error":"Nenhum militar encontrado!"}';
+					return response()->json([
+						'error' => "Nenhum militar encontrado!"
+					]);
 				}
 				break;
 
@@ -406,14 +408,18 @@ class WebServicesController extends Controller
 					->where('cad_militar.ident_militar', '=', $num_doc)
 					->first();
 				if (!empty($militar)) {
-					echo json_encode($militar);
+					return response()->json($militar);
 				} else {
-					echo '{"error":"Nenhum militar encontrado!"}';
+					return response()->json([
+						'error' => "Nenhum militar encontrado!"
+					]);
 				}
 				break;
 
 			default:
-				echo '{"error":"Tipo de documento inválido!"}';
+				return response()->json([
+					'error' => "Tipo de documento inválido!"
+				]);
 				break;
 		}
 	}
@@ -446,9 +452,11 @@ class WebServicesController extends Controller
 	{
 		$result = Cad_Om::where('id', '=', $request->id)->first();
 		if (!empty($result)) {
-			echo json_encode($result);
+			return response()->json($result);
 		} else {
-			echo '{"error":"Nenhuma OM encontrada!"}';
+			return response()->json([
+				'error' => "Nenhuma OM encontrada!"
+			]);
 		}
 	}
 
@@ -478,9 +486,11 @@ class WebServicesController extends Controller
 					$result->tipo = 6;
 					break;
 			}
-			echo json_encode($result);
+			return response()->json($result);
 		} else {
-			echo '{"error":"Nenhum Posto/Graduação encontrado!"}';
+			return response()->json([
+				'error' => "Nenhum Posto/Graduação encontrado"
+			]);
 		}
 	}
 
@@ -488,18 +498,22 @@ class WebServicesController extends Controller
 	{
 		$result = Cad_tipo_automovel::where('id', '=', $request->id)->first();
 		if (!empty($result)) {
-			echo json_encode($result);
+			return response()->json($result);
 		} else {
-			echo '{"error":"Nenhum Tipo encontrado!"}';
+			return response()->json([
+				'error' => "Nenhum Tipo encontrado!"
+			]);
 		}
 	}
 	public function pesquisaMarcaVeiculo(Request $request)
 	{
 		$result = Cad_marca::where('id', '=', $request->id)->first();
 		if (!empty($result)) {
-			echo json_encode($result);
+			return response()->json($result);
 		} else {
-			echo '{"error":"Nenhuma Marca encontrada!"}';
+			return response()->json([
+				'error' => "Nenhuma Marca encontrada!"
+			]);
 		}
 	}
 
@@ -511,9 +525,11 @@ class WebServicesController extends Controller
 			->get();
 
 		if (!empty($result)) {
-			echo json_encode($result);
+			return response()->json($result);
 		} else {
-			echo '{"error":"Nenhuma Modelo encontrado!"}';
+			return response()->json([
+				'error' => "Nenhum Modelo encontrado!"
+			]);
 		}
 	}
 
@@ -523,9 +539,13 @@ class WebServicesController extends Controller
 
 		if (!empty($result)) {
 			$usuario = User::where('id', $result->id)->update(['password' => bcrypt($result->login), 'password_changed_at' => NULL]);
-			echo '{"msg":"Senha trocada com sucesso!"}';
+			return response()->json([
+				'msg' => "Senha trocada com sucesso!"
+			]);
 		} else {
-			echo '{"error":"Usuário não encontrado!"}';
+			return response()->json([
+				'error' => "Usuário não encontrado!"
+			]);
 		}
 	}
 }

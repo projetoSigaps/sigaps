@@ -61,6 +61,7 @@ class TipoVeiculosController extends Controller
 
 	public function listagem(Request $request)
 	{
+		$data = "";
 		$tipos = Cad_tipo_automovel::all()->sortBy('nome');
 		$totalData = Cad_tipo_automovel::count();
 		$totalFiltered = $totalData;
@@ -73,15 +74,13 @@ class TipoVeiculosController extends Controller
 					"<button title='Editar' id={$value->id} class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></button>";
 				$data[] = $nestedData;
 			}
-			$json_data = array(
-				"draw"            => intval($request->input('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-			);
-			echo json_encode($json_data);
-		} else {
-			echo '{"error":"Nenhum Tipo encontrado!"}';
 		}
+		$json_data = array(
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
+		);
+		return response()->json($json_data);
 	}
 }

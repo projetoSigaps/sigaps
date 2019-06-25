@@ -113,6 +113,7 @@ class UsuariosController extends Controller
 
 	public function UsuariosListagem(Request $request)
 	{
+		$data = "";
 		$usuarios = User::select('users.*', 'cad_om.nome as om_nome')->join('cad_om', 'users.om_id', '=', 'cad_om.id')->get();
 		$totalData = User::count();
 		$totalFiltered = $totalData;
@@ -129,14 +130,14 @@ class UsuariosController extends Controller
 					"<a title='Editar' href='{$editar}' class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></a>";
 				$data[] = $nestedData;
 			}
-
-			$json_data = array(
-				"draw"            => intval($request->input('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-			);
-			echo json_encode($json_data);
 		}
+
+		$json_data = array(
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
+		);
+		return response()->json($json_data);
 	}
 }

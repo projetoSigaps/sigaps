@@ -170,6 +170,7 @@ class OmController extends Controller
 
 	public function OMsListagem(Request $request)
 	{
+		$data = "";
 		$om = Cad_om::all();
 		$totalData = Cad_om::count();
 		$totalFiltered = $totalData;
@@ -185,13 +186,13 @@ class OmController extends Controller
 					"<a title='Editar' href='{$editar}' class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></a>";
 				$data[] = $nestedData;
 			}
-			$json_data = array(
-				"draw"            => intval($request->input('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-			);
-			echo json_encode($json_data);
 		}
+		$json_data = array(
+			"draw"            => intval($request->input('draw')),
+			"recordsTotal"    => intval($totalData),
+			"recordsFiltered" => intval($totalFiltered),
+			"data"            => $data
+		);
+		return response()->json($json_data);
 	}
 }
