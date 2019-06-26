@@ -441,7 +441,6 @@ class ComposerStaticInitf393c98e1a0475109f4b781dfe683be2
         'App\\Http\\Controllers\\Sys\\PostosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/PostosController.php',
         'App\\Http\\Controllers\\Sys\\RelatoriosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/RelatoriosController.php',
         'App\\Http\\Controllers\\Sys\\TipoVeiculosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/TipoVeiculosController.php',
-        'App\\Http\\Controllers\\Sys\\TrocarCrachaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/TrocarCrachaController.php',
         'App\\Http\\Controllers\\Sys\\UsuariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/UsuariosController.php',
         'App\\Http\\Controllers\\Sys\\VeiculosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/VeiculosController.php',
         'App\\Http\\Controllers\\Sys\\ViaturasController' => __DIR__ . '/../..' . '/app/Http/Controllers/Sys/ViaturasController.php',

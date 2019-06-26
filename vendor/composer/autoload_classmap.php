@@ -26,7 +26,6 @@ return array(
     'App\\Http\\Controllers\\Sys\\PostosController' => $baseDir . '/app/Http/Controllers/Sys/PostosController.php',
     'App\\Http\\Controllers\\Sys\\RelatoriosController' => $baseDir . '/app/Http/Controllers/Sys/RelatoriosController.php',
     'App\\Http\\Controllers\\Sys\\TipoVeiculosController' => $baseDir . '/app/Http/Controllers/Sys/TipoVeiculosController.php',
-    'App\\Http\\Controllers\\Sys\\TrocarCrachaController' => $baseDir . '/app/Http/Controllers/Sys/TrocarCrachaController.php',
     'App\\Http\\Controllers\\Sys\\UsuariosController' => $baseDir . '/app/Http/Controllers/Sys/UsuariosController.php',
     'App\\Http\\Controllers\\Sys\\VeiculosController' => $baseDir . '/app/Http/Controllers/Sys/VeiculosController.php',
     'App\\Http\\Controllers\\Sys\\ViaturasController' => $baseDir . '/app/Http/Controllers/Sys/ViaturasController.php',

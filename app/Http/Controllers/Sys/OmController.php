@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
-
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_militar;
 
@@ -170,7 +169,7 @@ class OmController extends Controller
 
 	public function OMsListagem(Request $request)
 	{
-		$data = "";
+		$data = array();
 		$om = Cad_om::all();
 		$totalData = Cad_om::count();
 		$totalFiltered = $totalData;

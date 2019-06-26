@@ -13,9 +13,6 @@ use App\Http\Controllers\Controller;
 use App\Model\Sys\Cad_tipo_automovel;
 use App\Model\Sys\Cad_automovel;
 use App\Model\Sys\Cad_operacao;
-use App\Model\Sys\Cad_modelo;
-use App\Model\Sys\Cad_marca;
-use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_logs;
 use DB;
 
@@ -23,7 +20,7 @@ class VeiculosController extends Controller
 {
 	public function create()
 	{
-		$tp_veiculo = Cad_tipo_automovel::all();
+		$tp_veiculo = Cad_tipo_automovel::where('id', '!=', 3)->orderBy('nome')->get();;
 		return view('sys.veiculos.cadastro', compact('tp_veiculo'));
 	}
 

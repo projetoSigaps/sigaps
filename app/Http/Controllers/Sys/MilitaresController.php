@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Sys;
 
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_automovel;

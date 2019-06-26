@@ -8,13 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_posto;
 use App\Model\Sys\Cad_tipo_automovel;
-use App\Model\Sys\Cad_entrada_saida;
-use App\Model\Sys\Cad_militar;
-use App\Model\Sys\Cad_automovel;
-use App\Model\Sys\Cad_marca;
-use App\Model\Sys\Cad_modelo;
 use DB;
-use Response;
 
 
 class RelatoriosController extends Controller

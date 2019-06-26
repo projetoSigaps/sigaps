@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
 
 use App\User;
@@ -113,7 +112,7 @@ class UsuariosController extends Controller
 
 	public function UsuariosListagem(Request $request)
 	{
-		$data = "";
+		$data = array();
 		$usuarios = User::select('users.*', 'cad_om.nome as om_nome')->join('cad_om', 'users.om_id', '=', 'cad_om.id')->get();
 		$totalData = User::count();
 		$totalFiltered = $totalData;

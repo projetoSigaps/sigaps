@@ -61,7 +61,7 @@ class TipoVeiculosController extends Controller
 
 	public function listagem(Request $request)
 	{
-		$data = "";
+		$data = array();
 		$tipos = Cad_tipo_automovel::all()->sortBy('nome');
 		$totalData = Cad_tipo_automovel::count();
 		$totalFiltered = $totalData;

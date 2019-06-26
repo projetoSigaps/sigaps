@@ -5,10 +5,6 @@ namespace App\Http\Controllers\Sys;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Sys\Cad_entrada_saida;
-use App\Model\Sys\Cad_militar;
-use App\Model\Sys\Cad_automovel;
-use App\Model\Sys\Cad_marca;
-use App\Model\Sys\Cad_modelo;
 use DB;
 
 
@@ -29,18 +25,16 @@ class ConsultaController extends Controller
 	{
 
 		$totalData = Cad_entrada_saida::count();
-		$totalFiltered = Cad_entrada_saida::where('tp', '=', 'Pedestre')->count();
+		$totalFiltered = Cad_entrada_saida::where('militar_id', '!=', NULL)->count();
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
-		$order = 0;
-		$dir = "desc";
 		$horarios = DB::table('cad_entrada_saida')
 			->select(
 				'cad_militar.nome_guerra',
 				'cad_posto.nome as posto_nome',
 				'cad_om.nome as om_nome',
-				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.militar_id as cod_cracha',
 				'cad_entrada_saida.dtEntrada',
 				'cad_entrada_saida.dtSaida'
 			)
@@ -48,7 +42,7 @@ class ConsultaController extends Controller
 				'cad_militar',
 				'cad_militar.id',
 				'=',
-				'cad_entrada_saida.cod_cracha'
+				'cad_entrada_saida.militar_id'
 			)
 			->leftJoin(
 				'cad_posto',
@@ -62,7 +56,7 @@ class ConsultaController extends Controller
 				'=',
 				'cad_om.id'
 			)
-			->where('cad_entrada_saida.tp', '=', 'Pedestre')
+			->where('cad_entrada_saida.militar_id', '!=', NULL)
 			->skip($start)
 			->take($limit)
 			->orderBy('cad_entrada_saida.id', 'desc')
@@ -101,12 +95,10 @@ class ConsultaController extends Controller
 	{
 
 		$totalData = Cad_entrada_saida::count();
-		$totalFiltered = Cad_entrada_saida::where('tp', '=', 'Automovel')->count();
+		$totalFiltered = Cad_entrada_saida::where('automovel_id', '!=', NULL)->count();
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
-		$order = 0;
-		$dir = "desc";
 		$horarios = DB::table('cad_entrada_saida')
 			->select(
 				'cad_militar.nome_guerra',
@@ -115,7 +107,7 @@ class ConsultaController extends Controller
 				'cad_marca.nome as marca',
 				'cad_automovel.placa',
 				'cad_modelo.nome as modelo',
-				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.automovel_id as cod_cracha',
 				'cad_entrada_saida.dtEntrada',
 				'cad_entrada_saida.dtSaida'
 			)
@@ -123,7 +115,7 @@ class ConsultaController extends Controller
 				'cad_automovel',
 				'cad_automovel.id',
 				'=',
-				'cad_entrada_saida.cod_cracha'
+				'cad_entrada_saida.automovel_id'
 			)
 			->leftJoin(
 				'cad_militar',
@@ -155,7 +147,7 @@ class ConsultaController extends Controller
 				'=',
 				'cad_marca.id'
 			)
-			->where('cad_entrada_saida.tp', '=', 'Automovel')
+			->where('cad_entrada_saida.automovel_id', '!=', NULL)
 			->skip($start)
 			->take($limit)
 			->orderBy('cad_entrada_saida.id', 'desc')
@@ -174,7 +166,7 @@ class ConsultaController extends Controller
 				$nestedData['posto_nome'] = $value->posto_nome;
 				$nestedData['nome_guerra'] = $value->nome_guerra;
 				$nestedData['cod_cracha'] = $value->cod_cracha;
-				$nestedData['marca_modelo'] = $value->marca . " " . $value->modelo;
+				$nestedData['marca_modelo'] = $value->marca . "/" . $value->modelo;
 				$nestedData['placa'] = $value->placa;
 				$nestedData['om_nome'] = $value->om_nome;
 				$nestedData['dtEntrada'] = $value->dtEntrada;

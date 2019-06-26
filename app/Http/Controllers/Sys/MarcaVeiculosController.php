@@ -66,7 +66,7 @@ class MarcaVeiculosController extends Controller
 
 	public function listagem(Request $request)
 	{
-		$data = "";
+		$data = array();
 		$marcas = DB::table('cad_marca')
 			->select(
 				'cad_marca.id',

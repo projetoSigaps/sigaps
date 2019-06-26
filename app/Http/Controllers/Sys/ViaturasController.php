@@ -11,8 +11,6 @@ use App\Model\Sys\Cad_automovel;
 use App\Model\Sys\Cad_tipo_automovel;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_viaturas;
-use App\Model\Sys\Cad_modelo;
-use App\Model\Sys\Cad_marca;
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_logs;
 use DB;

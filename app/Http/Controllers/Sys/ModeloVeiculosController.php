@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 use App\Model\Sys\Cad_tipo_automovel;
-use App\Model\Sys\Cad_marca;
 use App\Model\Sys\Cad_modelo;
 use DB;
 
@@ -71,7 +70,7 @@ class ModeloVeiculosController extends Controller
 
 	public function listagem(Request $request)
 	{
-		$data = "";
+		$data = array();
 		$modelos = DB::table('cad_modelo')
 			->select(
 				'cad_modelo.id',

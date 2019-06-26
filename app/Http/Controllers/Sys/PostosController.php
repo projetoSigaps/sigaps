@@ -129,7 +129,7 @@ class PostosController extends Controller
 
 	public function postosListagem(Request $request)
 	{
-		$data = "";
+		$data = array();
 		$postos = Cad_posto::all()->sortBy('ordem');
 		$totalData = Cad_posto::count();
 		$totalFiltered = $totalData;

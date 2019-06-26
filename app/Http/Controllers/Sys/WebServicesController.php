@@ -7,8 +7,6 @@ namespace App\Http\Controllers\Sys;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Sys;
-use App\Model\Sys\Cad_entrada_saida;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_automovel;
 use App\Model\Sys\Cad_marca;
@@ -95,6 +93,7 @@ class WebServicesController extends Controller
 					'cad_militar.id',
 					'cad_militar.status'
 				)
+				->selectRaw('LPAD(cad_posto.ordem,2,0) as ordem')
 				->join(
 					'cad_posto',
 					'cad_militar.posto',
@@ -110,7 +109,7 @@ class WebServicesController extends Controller
 				->where('cad_posto.id', '!=', 34)
 				->skip($start)
 				->take($limit)
-				->orderBy('cad_posto.ordem', 'asc')
+				->orderBy('ordem', 'asc')
 				->get();
 		} else {
 			$search = $request->input('search.value');
@@ -125,6 +124,7 @@ class WebServicesController extends Controller
 					'cad_militar.id',
 					'cad_militar.status'
 				)
+				->selectRaw('LPAD(cad_posto.ordem,2,0) as ordem')
 				->join(
 					'cad_posto',
 					'cad_militar.posto',
@@ -142,7 +142,7 @@ class WebServicesController extends Controller
 				->orWhere('cad_militar.nome_guerra', 'LIKE', "%{$search}%")
 				->skip($start)
 				->take($limit)
-				->orderBy('cad_posto.ordem', 'asc')
+				->orderBy('ordem', 'asc')
 				->get();
 
 			$totalFiltered = Cad_militar::where('nome', 'LIKE', "%{$search}%")
