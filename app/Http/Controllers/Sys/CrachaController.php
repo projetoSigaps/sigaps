@@ -52,7 +52,7 @@ class CrachaController extends Controller
 
 			return response()->json(['msg' => "Número do crachá alterado com sucesso!"]);
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 

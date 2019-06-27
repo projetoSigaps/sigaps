@@ -70,7 +70,7 @@ class UsuariosController extends Controller
 			}
 			return redirect()->route('sys.configuracoes.usuarios.editar', $usuario->id)->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
@@ -106,7 +106,7 @@ class UsuariosController extends Controller
 			}
 			return redirect()->route('sys.configuracoes.usuarios.atualizar', $usuario->id)->with('success', 'Cadastro editado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 

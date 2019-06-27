@@ -37,7 +37,7 @@ class MarcaVeiculosController extends Controller
 			$marca->save();
 			return redirect()->route('sys.configuracoes.veiculos.marca_veiculos')->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
@@ -60,7 +60,7 @@ class MarcaVeiculosController extends Controller
 			$marca->save();
 			return redirect()->route('sys.configuracoes.veiculos.marca_veiculos')->with('success', 'Cadastro editado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 

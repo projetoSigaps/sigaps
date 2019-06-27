@@ -93,7 +93,7 @@ class OmController extends Controller
 			$upload = Storage::disk('_DOC')->putFileAs($dir, $imagem, $nome_foto);
 			return redirect()->route('sys.configuracoes.om.editar', $om->id)->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
@@ -158,7 +158,7 @@ class OmController extends Controller
 			if ($e->errorInfo[1] == 1062) {
 				return back()->with('error', 'CODOM já cadastrado!');
 			} else {
-				return back()->with('error', $e);
+				return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 			}
 		}
 		if ($novoDir != $antigoDir) {

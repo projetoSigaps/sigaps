@@ -125,7 +125,7 @@ class VeiculosController extends Controller
 			if ($e->errorInfo[1] == 1062) {
 				return back()->with('error', 'Número da Placa ou Renavam já existe!');
 			} else {
-				return back()->with('error', $e);
+				return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 			}
 		}
 	}
@@ -175,7 +175,7 @@ class VeiculosController extends Controller
 			$this->criar_log(2, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 

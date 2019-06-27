@@ -108,7 +108,7 @@ class ViaturasController extends Controller
 			$this->criar_log(3, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
@@ -155,7 +155,7 @@ class ViaturasController extends Controller
 			if ($e->errorInfo[1] == 1062) {
 				return back()->with('error', 'Número da Placa ou Renavam já cadastrado!');
 			} else {
-				return back()->with('error', $e);
+				return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 			}
 		}
 	}

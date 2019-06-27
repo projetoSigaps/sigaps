@@ -67,7 +67,7 @@ class PostosController extends Controller
 			$posto->save();
 			return redirect()->route('sys.configuracoes.postos')->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
@@ -123,7 +123,7 @@ class PostosController extends Controller
 			$posto->save();
 			return redirect()->route('sys.configuracoes.postos')->with('success', 'Cadastro editado com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
