@@ -39,11 +39,11 @@ class HorariosController extends Controller
 
 		if (!empty($dados['gdh_entrada'])) {
 			$gdh_entrada = date('Y-m-d H:i', strtotime(str_replace('/', '-', $dados['gdh_entrada'])));
-			$flag = "Entrou";
+			$flag = 1;
 		}
 		if (!empty($dados['gdh_saida'])) {
 			$gdh_saida = date('Y-m-d H:i', strtotime(str_replace('/', '-', $dados['gdh_saida'])));
-			$flag = "Saiu";
+			$flag = 0;
 		}
 
 		switch ($dados['reg_horario']) {
@@ -55,8 +55,7 @@ class HorariosController extends Controller
 				}
 
 				$registra = new Cad_entrada_saida;
-				$registra->cod_cracha = $dados['cod_cracha'];
-				$registra->tp = "Pedestre";
+				$registra->militar_id = $dados['cod_cracha'];
 				$registra->flag = $flag;
 				$registra->dtEntrada = $gdh_entrada;
 				$registra->dtSaida = $gdh_saida;
@@ -72,8 +71,7 @@ class HorariosController extends Controller
 				}
 
 				$registra = new Cad_entrada_saida;
-				$registra->cod_cracha = $dados['cod_cracha'];
-				$registra->tp = "Automovel";
+				$registra->automovel_id = $dados['cod_cracha'];
 				$registra->flag = $flag;
 				$registra->dtEntrada = $gdh_entrada;
 				$registra->dtSaida = $gdh_saida;
