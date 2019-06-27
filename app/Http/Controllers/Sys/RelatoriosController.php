@@ -15,20 +15,20 @@ class RelatoriosController extends Controller
 {
 	public function horarios()
 	{
-		$posto	 = Cad_posto::orderBy('ordem')->get();
+		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		$om 	 = Cad_om::all();
 		return view('sys.relatorios.horarios', compact('om', 'posto'));
 	}
 	public function automoveis()
 	{
 		$tp_veiculo = Cad_tipo_automovel::all();
-		$posto	 = Cad_posto::orderBy('ordem')->get();
+		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		$om 	 = Cad_om::all();
 		return view('sys.relatorios.automoveis', compact('tp_veiculo', 'om', 'posto'));
 	}
 	public function militares()
 	{
-		$posto	 = Cad_posto::orderBy('ordem')->get();
+		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		$om 	 = Cad_om::all();
 		return view('sys.relatorios.militares', compact('om', 'posto'));
 	}
@@ -57,7 +57,7 @@ class RelatoriosController extends Controller
 				'cad_automovel.cor',
 				'cad_automovel.placa',
 				'cad_modelo.nome as modelo',
-				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.automovel_id as cod_cracha',
 				'cad_entrada_saida.dtEntrada',
 				'cad_entrada_saida.dtSaida'
 			)
@@ -65,7 +65,7 @@ class RelatoriosController extends Controller
 				'cad_automovel',
 				'cad_automovel.id',
 				'=',
-				'cad_entrada_saida.cod_cracha'
+				'cad_entrada_saida.automovel_id'
 			)
 			->join(
 				'cad_militar',
@@ -97,11 +97,10 @@ class RelatoriosController extends Controller
 				'=',
 				'cad_marca.id'
 			)
-			->where('cad_entrada_saida.tp', '=', 'Automovel')
 			->whereBetween('cad_entrada_saida.dtEntrada', [$gdh_inicio, $gdh_fim]);
 
 		if ($request->cod_cracha) {
-			$query->where('cad_entrada_saida.cod_cracha', $request->cod_cracha);
+			$query->where('cad_entrada_saida.automovel_id', $request->cod_cracha);
 		}
 		if ($request->rel_posto) {
 			$query->where('cad_posto.id', $request->rel_posto);
@@ -117,6 +116,14 @@ class RelatoriosController extends Controller
 		}
 
 		foreach ($query as $key => $value) {
+
+			if ($value->dtEntrada) {
+				$value->dtEntrada = date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtEntrada)));
+			}
+			if ($value->dtSaida) {
+				$value->dtSaida = date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtSaida)));
+			}
+
 			$key++;
 			$rows_values[$key] = array(
 				'ordem' => htmlspecialchars($key),
@@ -127,8 +134,8 @@ class RelatoriosController extends Controller
 				'modelo' => htmlspecialchars($value->modelo),
 				'placa' => htmlspecialchars($value->placa),
 				'cor' => htmlspecialchars($value->cor),
-				'dt_entrada' => htmlspecialchars(date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtEntrada)))),
-				'dt_saida' => htmlspecialchars(date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtSaida)))),
+				'dt_entrada' => htmlspecialchars($value->dtEntrada),
+				'dt_saida' => htmlspecialchars($value->dtSaida),
 				'om_nome' => htmlspecialchars($value->om_nome)
 			);
 		}
@@ -159,13 +166,13 @@ class RelatoriosController extends Controller
 				'cad_militar.nome_guerra',
 				'cad_posto.nome as posto_nome',
 				'cad_om.nome as om_nome',
-				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.militar_id as cod_cracha',
 				'cad_entrada_saida.dtEntrada',
 				'cad_entrada_saida.dtSaida'
 			)
 			->join(
 				'cad_militar',
-				'cad_entrada_saida.cod_cracha',
+				'cad_entrada_saida.militar_id',
 				'=',
 				'cad_militar.id'
 			)
@@ -181,11 +188,10 @@ class RelatoriosController extends Controller
 				'=',
 				'cad_om.id'
 			)
-			->where('cad_entrada_saida.tp', '=', 'Pedestre')
 			->whereBetween('cad_entrada_saida.dtEntrada', [$gdh_inicio, $gdh_fim]);
 
 		if ($request->cod_cracha) {
-			$query->where('cad_entrada_saida.cod_cracha', $request->cod_cracha);
+			$query->where('cad_entrada_saida.militar_id', $request->cod_cracha);
 		}
 		if ($request->rel_posto) {
 			$query->where('cad_posto.id', $request->rel_posto);
@@ -201,14 +207,22 @@ class RelatoriosController extends Controller
 		}
 
 		foreach ($query as $key => $value) {
+
+			if ($value->dtEntrada) {
+				$value->dtEntrada = date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtEntrada)));
+			}
+			if ($value->dtSaida) {
+				$value->dtSaida = date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtSaida)));
+			}
+
 			$key++;
 			$rows_values[$key] = array(
 				'ordem' => htmlspecialchars($key),
 				'posto_nome' => htmlspecialchars($value->posto_nome),
 				'nome_guerra' => htmlspecialchars($value->nome_guerra),
 				'cod_cracha' => htmlspecialchars($value->cod_cracha),
-				'dt_entrada' => htmlspecialchars(date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtEntrada)))),
-				'dt_saida' => htmlspecialchars(date('d/m/Y H:i', strtotime(str_replace('-', '/', $value->dtSaida)))),
+				'dt_entrada' => htmlspecialchars($value->dtEntrada),
+				'dt_saida' => htmlspecialchars($value->dtSaida),
 				'om_nome' => htmlspecialchars($value->om_nome)
 			);
 		}
@@ -275,6 +289,11 @@ class RelatoriosController extends Controller
 		}
 
 		foreach ($query as $key => $value) {
+
+			if ($value->cnh_venc) {
+				$value->cnh_venc = date('d/m/Y', strtotime(str_replace('-', '/', $value->cnh_venc)));
+			}
+
 			$key++;
 
 			if ($value->status == 1) {
@@ -291,7 +310,7 @@ class RelatoriosController extends Controller
 				'status' => htmlspecialchars($value->status),
 				'cnh' => htmlspecialchars($value->cnh),
 				'cnh_cat' => htmlspecialchars($value->cnh_cat),
-				'cnh_venc' => htmlspecialchars(date('d/m/Y', strtotime(str_replace('-', '/', $value->cnh_venc)))),
+				'cnh_venc' => htmlspecialchars($value->cnh_venc),
 				'om_nome' => htmlspecialchars($value->om_nome)
 			);
 		}
@@ -400,9 +419,15 @@ class RelatoriosController extends Controller
 		foreach ($query as $key => $value) {
 			$key++;
 
+			if ($value->doc_venc) {
+				$value->doc_venc = date('d/m/Y', strtotime(str_replace('-', '/', $value->doc_venc)));
+			}
+
 			if ($value->baixa == 1) {
 				$value->baixa = "Desativado";
-			} else $value->baixa = "Ativado";
+			} else {
+				$value->baixa = "Ativado";
+			}
 
 			$rows_values[$key] = array(
 				'ordem' => htmlspecialchars($key),
@@ -417,7 +442,7 @@ class RelatoriosController extends Controller
 				'origem' => htmlspecialchars($value->origem),
 				'status' => htmlspecialchars($value->baixa),
 				'renavam' => htmlspecialchars($value->renavan),
-				'doc_venc' => htmlspecialchars(date('d/m/Y', strtotime(str_replace('-', '/', $value->doc_venc)))),
+				'doc_venc' => htmlspecialchars($value->doc_venc),
 				'om_nome' => htmlspecialchars($value->om_nome)
 			);
 		}

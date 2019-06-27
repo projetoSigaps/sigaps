@@ -81,7 +81,7 @@
 				<div class="form-group">
 					<label class="col-xs-2 control-label">Tipo: </label>
 					<div class="col-md-2">
-						<select required class="form-control" name="tipo_id" id="automovel_tipo">
+						<select required class="form-control automovel_tipo" name="tipo_id">
 							<option value="">Todos</option>
 							@foreach($tp_veiculo as $value)
 							<option value="{{$value->id}}">{{$value->nome}}</option>
@@ -90,13 +90,13 @@
 					</div>
 					<label class="col-xs-1 control-label">Marca: </label>
 					<div class="col-md-2">
-						<select required name="marca_id" id="automovel_marca" class="form-control" disabled>
+						<select required name="marca_id" class="form-control automovel_marca" disabled>
 							<option value="0">Todas</option>
 						</select>
 					</div>
 					<label class="col-xs-1 control-label">Modelo: </label>
 					<div class="col-md-2">
-						<select required name="modelo_id" id="automovel_modelo" class="form-control" disabled>
+						<select required name="modelo_id" class="form-control automovel_modelo" disabled>
 							<option value="0">Todos</option>
 						</select>
 					</div>
