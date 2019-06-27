@@ -44,7 +44,7 @@ class ChangePasswordController extends Controller
 			User::where('id', Auth::id())->update(['password' => bcrypt($dados['password_new']), 'password_changed_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 			return redirect('/home')->with('success', 'Senha alterada com sucesso!');
 		} catch (QueryException $e) {
-			return back()->with('error', $e);
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 }
