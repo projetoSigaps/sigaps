@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Sys;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_entrada_saida;
 use App\Model\Sys\Cad_automovel;
@@ -59,6 +59,7 @@ class HorariosController extends Controller
 				$registra->flag = $flag;
 				$registra->dtEntrada = $gdh_entrada;
 				$registra->dtSaida = $gdh_saida;
+				$registra->om_id = Auth::user()->om_id;
 				$registra->save();
 				return redirect()->route('sys.configuracoes.horarios')->with('success', 'Registro adicionado com sucesso!');
 				break;
@@ -75,6 +76,7 @@ class HorariosController extends Controller
 				$registra->flag = $flag;
 				$registra->dtEntrada = $gdh_entrada;
 				$registra->dtSaida = $gdh_saida;
+				$registra->om_id = Auth::user()->om_id;
 				$registra->save();
 				return redirect()->route('sys.configuracoes.horarios')->with('success', 'Registro adicionado com sucesso!');
 				break;
