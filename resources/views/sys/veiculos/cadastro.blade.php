@@ -123,7 +123,7 @@
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">
-							<input id="renavan" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" required>
+							<input id="renavan" maxlength="13" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" required>
 							<span class="form-control-feedback" id="renavan1"></span>
 						</div>
 					</div>
@@ -143,7 +143,7 @@
 					</div>
 					<div class="form-group has-feedback">
 						<div class="field col-md-4">
-							<input id="ano_auto" type="text" name="ano_auto" class="maskAno form-control" placeholder="Ano do veículo" required>
+							<input id="ano_auto" maxlength="4" type="text" name="ano_auto" class="maskAno form-control" placeholder="Ano do veículo" required>
 							<span class="form-control-feedback" id="ano_auto1"></span>
 						</div>
 					</div>

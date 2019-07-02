@@ -119,7 +119,7 @@ if($veiculo->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">
-							<input id="renavan" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" value="{{$veiculo->renavan}}" required>
+							<input id="renavan"  maxlength="13" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" value="{{$veiculo->renavan}}" required>
 							<span class="form-control-feedback" id="renavan1"></span>
 						</div>
 					</div>
@@ -140,7 +140,7 @@ if($veiculo->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 					</div>
 					<div class="form-group has-feedback">
 						<div class="field col-md-4">
-							<input id="ano_auto" type="text" name="ano_auto" class="maskAno form-control" placeholder="Ano do veículo" value="{{$veiculo->ano_auto}}" required>
+							<input id="ano_auto" maxlength="4" type="text" name="ano_auto" class="maskAno form-control" placeholder="Ano do veículo" value="{{$veiculo->ano_auto}}" required>
 							<span class="form-control-feedback" id="ano_auto1"></span>
 						</div>
 					</div>
@@ -207,7 +207,7 @@ if($veiculo->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 						{{csrf_field()}}
 						<select name="motivo-atv" class="form-control" id="motivo-atv" required>
 							@foreach($evento as $value)
-							@if($value->evento == 'ATIVOU VEICULO')
+							@if($value->evento == 'ATIVOU VEÍCULO')
 							<option value="{{$value->id}}">{{$value->descricao}}</option>
 							@endif
 							@endforeach
@@ -233,7 +233,7 @@ if($veiculo->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 						{{csrf_field()}}
 						<select name="motivo-dtv" class="form-control" id="motivo-dtv" required>
 							@foreach($evento as $value)
-							@if($value->evento == 'DESATIVOU VEICULO')
+							@if($value->evento == 'DESATIVOU VEÍCULO')
 							<option value="{{$value->id}}">{{$value->descricao}}</option>
 							@endif
 							@endforeach

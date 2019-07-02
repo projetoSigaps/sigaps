@@ -49,20 +49,20 @@ class WebServicesController extends Controller
 
 	public function validacaoPlaca(Request $request)
 	{
-		$crtl = Cad_automovel::where('placa', '=', $request->placa)->exists();
+		$crtl = Cad_automovel::where('placa', '=', $request->placa)->where('baixa', '=', 0)->exists();
 		if ($crtl) {
 			return response()->json([
-				'error' => "Placa já cadastrada!"
+				'error' => "Já existe um veículo ATIVO com esta placa!"
 			]);
 		}
 	}
 
 	public function validacaoRenavam(Request $request)
 	{
-		$crtl = Cad_automovel::where('renavan', '=', $request->renavam)->exists();
+		$crtl = Cad_automovel::where('renavan', '=', $request->renavam)->where('baixa', '=', 0)->exists();
 		if ($crtl) {
 			return response()->json([
-				'error' => "Renavam já cadastrado!"
+				'error' => "Já existe um veículo ATIVO com este renavam!"
 			]);
 		}
 	}

@@ -96,12 +96,21 @@ class VeiculosController extends Controller
 			'marca_id' => 'required',
 			'modelo_id' => 'required',
 			'placa' => 'required',
-			'renavan' => 'required',
+			'renavan' => 'required|max:13',
 			'cor' => 'required',
 			'doc_venc' => 'required',
 			'origem' => 'required',
-			'ano_auto' => 'required'
+			'ano_auto' => 'required|max:4'
 		];
+
+		$crtl = Cad_automovel::where('placa', '=', $request->placa)
+			->where('baixa', '=', 0)
+			->where('id', '<>', $id)
+			->exists();
+		if ($crtl) {
+			return back()->with('error', 'Já existe algum veículo ativo com esta placa!');
+		}
+
 
 		$validacao = Validator::make($dados, $regras);
 		if ($validacao->fails()) {
@@ -122,11 +131,7 @@ class VeiculosController extends Controller
 			$this->criar_log(5, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Veículo atualizado com sucesso!');
 		} catch (QueryException $e) {
-			if ($e->errorInfo[1] == 1062) {
-				return back()->with('error', 'Número da Placa ou Renavam já existe!');
-			} else {
-				return back()->with('error', "ERROR: " . $e->errorInfo[2]);
-			}
+			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
 	}
 
@@ -139,11 +144,11 @@ class VeiculosController extends Controller
 			'marca_id' => 'required',
 			'modelo_id' => 'required',
 			'placa' => 'required',
-			'renavan' => 'required',
+			'renavan' => 'required|max:13',
 			'cor' => 'required',
 			'doc_venc' => 'required',
 			'origem' => 'required',
-			'ano_auto' => 'required'
+			'ano_auto' => 'required|max:4'
 		];
 
 		$validacao = Validator::make($dados, $regras);
@@ -152,10 +157,10 @@ class VeiculosController extends Controller
 		}
 
 		$crtl = Cad_automovel::where('placa', '=', $request->placa)
-			->orWhere('renavan', '=', $request->renavam)
+			->where('baixa', '=', 0)
 			->exists();
 		if ($crtl) {
-			return back()->with('error', 'Este veiculo já possui cadastro!');
+			return back()->with('error', 'Este veículo já possui cadastro ATIVO!');
 		}
 
 		try {
@@ -194,7 +199,7 @@ class VeiculosController extends Controller
 
 		$veiculo->baixa = 1;
 		$veiculo->save();
-		$this->criar_log($dados['motivo-dtv'], 0, $veiculo->id, Auth::user()->id, $request->getClientIp());
+		$this->criar_log($dados['motivo-dtv'], NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Desativado com sucesso!');
 	}
 
@@ -211,9 +216,16 @@ class VeiculosController extends Controller
 			return back()->with('error', $validacao->errors()->first());
 		}
 
+		$crtl = Cad_automovel::where('placa', '=', $veiculo->placa)
+			->where('baixa', '=', 0)
+			->exists();
+		if ($crtl) {
+			return back()->with('error', 'Já existe algum veículo ativo com esta placa!');
+		}
+
 		$veiculo->baixa = 0;
 		$veiculo->save();
-		$this->criar_log($dados['motivo-atv'], 0, $veiculo->id, Auth::user()->id, $request->getClientIp());
+		$this->criar_log($dados['motivo-atv'], NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Ativado com sucesso!');
 	}
 }

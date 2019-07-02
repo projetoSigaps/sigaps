@@ -14,7 +14,7 @@ class CreateCadEntradaSaida extends Migration
     public function up()
     {
         Schema::create('cad_entrada_saida', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('militar_id')->nullable()->unsigned();
             $table->integer('automovel_id')->nullable()->unsigned();
             $table->dateTime('dtEntrada')->nullable();

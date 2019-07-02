@@ -107,6 +107,13 @@ class CrachaController extends Controller
 			->where('cad_automovel.id', '=', $id)
 			->first();
 
+		$crtl = DB::table('cad_automovel')->where('placa', '=', $veiculo->placa)
+			->where('baixa', '=', 0)
+			->where('id', '<>', $veiculo->id)
+			->exists();
+		if ($crtl) {
+			return back()->with('error', 'Já existe algum veículo ativo com esta placa!');
+		}
 
 		if ($veiculo->baixa == 1) {
 			return back()->with('error', 'Veículo com STATUS DESATIVADO!');
