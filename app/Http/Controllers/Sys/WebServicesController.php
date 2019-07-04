@@ -14,8 +14,9 @@ use App\Model\Sys\Cad_modelo;
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_posto;
 use App\Model\Sys\Cad_tipo_automovel;
-use App\User;
+use Illuminate\Support\Facades\Auth;
 
+use App\User;
 use DB;
 
 class WebServicesController extends Controller
@@ -72,15 +73,18 @@ class WebServicesController extends Controller
 	Para cada página, faz um request no DB.
 	*/
 	{
+		$this->authorize('list', Cad_militar::class);
 
-		$totalData = Cad_militar::count();
+		if (!Auth::user()->hasRole('super-admin')) {
+			$totalData = Cad_militar::where('om_id', Auth::user()->om_id)->count();
+		} else {
+			$totalData = Cad_militar::count();
+		}
+
 		$totalFiltered = $totalData;
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
-
-		$order = 0;
-		$dir = "desc";
 
 		if (empty($request->input('search.value'))) {
 			$militares = DB::table('cad_militar')
@@ -106,11 +110,11 @@ class WebServicesController extends Controller
 					'=',
 					'cad_om.id'
 				)
-				->where('cad_posto.id', '!=', 34)
-				->skip($start)
-				->take($limit)
-				->orderBy('ordem', 'asc')
-				->get();
+				->where('cad_posto.id', '!=', 34);
+			if (!Auth::user()->hasRole('super-admin')) {
+				$militares->where('cad_militar.om_id', Auth::user()->om_id);
+			}
+			$militares = $militares->skip($start)->take($limit)->orderBy('ordem', 'asc')->get();
 		} else {
 			$search = $request->input('search.value');
 
@@ -137,17 +141,17 @@ class WebServicesController extends Controller
 					'=',
 					'cad_om.id'
 				)
-				->where('cad_militar.nome', 'LIKE', "%{$search}%")
-				->orWhere('cad_militar.ident_militar', 'LIKE', "%{$search}%")
-				->orWhere('cad_militar.nome_guerra', 'LIKE', "%{$search}%")
-				->skip($start)
-				->take($limit)
-				->orderBy('ordem', 'asc')
-				->get();
-
-			$totalFiltered = Cad_militar::where('nome', 'LIKE', "%{$search}%")
-				->orWhere('ident_militar', 'LIKE', "%{$search}%")
-				->count();
+				->where(
+					function ($query) use ($search) {
+						$query->where('cad_militar.nome', 'LIKE', "%{$search}%")
+							->orWhere('cad_militar.ident_militar', 'LIKE', "%{$search}%")
+							->orWhere('cad_militar.nome_guerra', 'LIKE', "%{$search}%");
+					}
+				);
+			if (!Auth::user()->hasRole('super-admin')) {
+				$militares->where('cad_militar.om_id', Auth::user()->om_id);
+			}
+			$militares = $militares->skip($start)->take($limit)->orderBy('ordem', 'asc')->get();
 		}
 
 		$data = array();
