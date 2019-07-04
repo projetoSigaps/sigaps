@@ -99,10 +99,12 @@ class UsuariosController extends Controller
 			$usuario->save();
 
 			$roles = $dados['perfil_id'];
-			if (isset($roles)) {
+			if (isset($roles) && $usuario->roles->first()) {
 				$usuario->removeRole($usuario->roles->first());
 				$role_r = Role::where('id', '=', $roles)->firstOrFail();
 				$usuario->assignRole($role_r);
+			} else {
+				$usuario->assignRole($roles);
 			}
 			return redirect()->route('sys.configuracoes.usuarios.atualizar', $usuario->id)->with('success', 'Cadastro editado com sucesso!');
 		} catch (QueryException $e) {
