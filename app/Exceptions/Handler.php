@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Exceptions;
+use Illuminate\Auth\Access\AuthorizationException;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -48,6 +49,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof AuthorizationException) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        // this will still show the error if there is any in your code.
         return parent::render($request, $exception);
     }
 }
