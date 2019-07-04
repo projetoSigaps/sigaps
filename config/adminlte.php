@@ -108,7 +108,6 @@ return [
     */
 
     'menu' => [
-        '',
         [
             'text'        => 'Início',
             'url'         => '/',
@@ -119,18 +118,21 @@ return [
             'text' => 'Militares',
             'icon' => 'user',
             'icon_color' => 'green',
+            'can'       => 'militares-menu',
             'submenu' => [
                 [
                     'text' => 'Cadastrar',
                     'url'  => 'militares/cadastro',
                     'icon_color' => 'green',
                     'icon' => 'plus-square',
+                    'can'       => 'militares-add',
                 ],
                 [
                     'text' => 'Listagem',
                     'url'  => 'militares/',
                     'icon_color' => 'green',
                     'icon' => 'list',
+                    'can'       => 'militares-list',
                 ],
             ],
         ],
@@ -138,18 +140,21 @@ return [
             'text' => 'Veículos',
             'icon' => 'car',
             'icon_color' => 'yellow',
+            'can'       => 'veiculos-menu',
             'submenu' => [
                 [
                     'text' => 'Cadastrar',
                     'url'  => 'veiculos/cadastro',
                     'icon_color' => 'yellow',
                     'icon' => 'plus-square',
+                    'can'       => 'veiculos-add',
                 ],
                 [
                     'text' => 'Listagem',
                     'url'  => 'veiculos/',
                     'icon_color' => 'yellow',
                     'icon' => 'list',
+                    'can'       => 'veiculos-list',
                 ],
             ],
         ],
@@ -157,16 +162,19 @@ return [
             'text' => 'Consultas',
             'icon' => 'search',
             'icon_color' => 'purple',
+            'can'       => 'consultas-menu',
             'submenu' => [
                 [
                     'text' => 'Horários Pedestres',
                     'url'  => 'consulta/pedestres',
                     'icon_color' => 'purple',
+                    'can'       => 'consultas-ped',
                 ],
                 [
                     'text' => 'Horários Veículos',
                     'url'  => 'consulta/automoveis',
                     'icon_color' => 'purple',
+                    'can'       => 'consultas-aut',
                 ],
             ],
         ],
@@ -174,21 +182,25 @@ return [
             'text' => 'Relatórios',
             'icon' => 'bar-chart',
             'icon_color' => 'blue',
+            'can'       => 'relatorios-menu',
             'submenu' => [
                 [
                     'text' => 'Entrada e Saída',
                     'url'  => 'relatorios/horarios',
                     'icon_color' => 'blue',
+                    'can'       => 'relatorios-hrs',
                 ],
                 [
                     'text' => 'Militares',
                     'url'  => 'relatorios/militares',
                     'icon_color' => 'blue',
+                    'can'       => 'relatorios-mil',
                 ],
                 [
                     'text' => 'Automovéis',
                     'url'  => 'relatorios/automoveis',
                     'icon_color' => 'blue',
+                    'can'       => 'relatorios-aut',
                 ],
             ],
         ],
@@ -202,43 +214,43 @@ return [
                     'text' => 'OM\'s',
                     'icon_color' => 'red',
                     'icon' => 'gear',
+                    'can'       => 'config-om-menu',
                     'submenu' => [
                         [
                             'text' => 'Cadastrar',
                             'url'  => 'configuracoes/OM/cadastrar/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-om-add',
                         ],
                         [
                             'text' => 'Listagem',
                             'url'  => 'configuracoes/OM/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-om-list',
                         ],
                     ],
-                ],
-                [
-                    'text' => 'Postos/Graduações',
-                    'url'  => 'configuracoes/postos/',
-                    'icon_color' => 'red',
-                    'icon' => 'gear'
                 ],
                 [
                     'text'    => 'Usuários do Sistema',
                     'icon_color' => 'red',
                     'icon' => 'gear',
+                    'can'       => 'config-usuario-menu',
                     'submenu' => [
                         [
                             'text' => 'Cadastrar',
                             'url'  => 'configuracoes/usuarios/cadastrar/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-usuario-add',
                         ],
                         [
                             'text' => 'Listagem',
                             'url'  => 'configuracoes/usuarios/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-usuario-list',
                         ],
                     ],
                 ],
@@ -246,24 +258,28 @@ return [
                     'text'    => 'Veículos',
                     'icon_color' => 'red',
                     'icon' => 'gear',
+                    'can'       => 'config-veiculos-menu',
                     'submenu' => [
                         [
                             'text' => 'Marca',
                             'url'  => 'configuracoes/veiculos/marca/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-veiculos-marca',
                         ],
                         [
                             'text' => 'Modelo',
                             'url'  => 'configuracoes/veiculos/modelo/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-veiculos-modelo',
                         ],
                         [
                             'text' => 'Tipo',
                             'url'  => 'configuracoes/veiculos/tipo/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-veiculos-tipo',
                         ],
                     ],
                 ],
@@ -271,18 +287,21 @@ return [
                     'text'    => 'Viaturas',
                     'icon_color' => 'red',
                     'icon' => 'gear',
+                    'can'       => 'config-vtr-menu',
                     'submenu' => [
                         [
                             'text' => 'Cadastrar',
                             'url'  => 'configuracoes/viaturas/cadastrar/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-vtr-add',
                         ],
                         [
                             'text' => 'Listagem',
                             'url'  => 'configuracoes/viaturas/',
                             'icon_color' => 'red',
-                            'icon' => 'circle-o'
+                            'icon' => 'circle-o',
+                            'can'       => 'config-vtr-list',
                         ],
                     ],
                 ],
@@ -290,17 +309,26 @@ return [
                     'text' => 'Registrar Horário',
                     'url'  => 'configuracoes/horarios/',
                     'icon_color' => 'red',
-                    'icon' => 'gear'
+                    'icon' => 'gear',
+                    'can'       => 'config-horarios',
                 ],
                 [
                     'text' => 'Trocar Crachá',
                     'url'  => 'configuracoes/cracha/trocar',
                     'icon_color' => 'red',
-                    'icon' => 'gear'
+                    'icon' => 'gear',
+                    'can'       => 'config-trocar-cracha',
+                ],
+                [
+                    'text' => 'Postos/Graduações',
+                    'url'  => 'configuracoes/postos/',
+                    'icon_color' => 'red',
+                    'icon' => 'gear',
+                    'can'       => 'config-postos',
                 ],
             ],
         ],
-        [ 
+        [
             'text'    => 'Testar Crachá',
             'icon'    => 'check-square-o',
             'icon_color' => 'white',
