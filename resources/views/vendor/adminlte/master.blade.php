@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
 
     <!-- DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css">
+    <link rel="stylesheet" href="{{ asset('css/sys/components/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sys/components/buttons.dataTables.min.css') }}">
 
     <!-- Theme style -->
@@ -38,7 +38,7 @@
     <script src="{{ asset('js/sys/app-sys.js') }}"></script>
     <script src="{{ asset('js/sys/components/mask.js') }}"></script>
     <!-- DataTables -->
-    <script src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+    <script src="{{ asset('js/sys/components/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/sys/components/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('js/sys/components/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('js/sys/components/pdfmake.min.js') }}"></script>

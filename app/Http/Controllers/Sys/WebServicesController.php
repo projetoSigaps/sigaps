@@ -75,14 +75,6 @@ class WebServicesController extends Controller
 	{
 		$this->authorize('list', Cad_militar::class);
 
-		if (!Auth::user()->hasRole('super-admin')) {
-			$totalData = Cad_militar::where('om_id', Auth::user()->om_id)->count();
-		} else {
-			$totalData = Cad_militar::count();
-		}
-
-		$totalFiltered = $totalData;
-
 		$limit = $request->input('length');
 		$start = $request->input('start');
 
@@ -113,11 +105,11 @@ class WebServicesController extends Controller
 				->where('cad_posto.id', '!=', 34);
 			if (!Auth::user()->hasRole('super-admin')) {
 				$militares->where('cad_militar.om_id', Auth::user()->om_id);
-			}
+			} 
+			$totalData = $militares->count();
 			$militares = $militares->skip($start)->take($limit)->orderBy('ordem', 'asc')->get();
 		} else {
 			$search = $request->input('search.value');
-
 			$militares = DB::table('cad_militar')
 				->select(
 					'cad_militar.nome',
@@ -151,8 +143,11 @@ class WebServicesController extends Controller
 			if (!Auth::user()->hasRole('super-admin')) {
 				$militares->where('cad_militar.om_id', Auth::user()->om_id);
 			}
+			$totalData = $militares->count();
 			$militares = $militares->skip($start)->take($limit)->orderBy('ordem', 'asc')->get();
 		}
+
+		$totalFiltered = $totalData;
 
 		$data = array();
 		if (!empty($militares)) {

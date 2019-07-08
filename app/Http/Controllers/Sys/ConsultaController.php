@@ -2,36 +2,55 @@
 
 namespace App\Http\Controllers\Sys;
 
+/* Vendors Laravel */
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Sys\Cad_entrada_saida;
 use DB;
 
+/* Models SIGAPS */
+use App\Model\Sys\Cad_entrada_saida;
 
 class ConsultaController extends Controller
 {
-
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retornam as páginas referente aos Horarios de Entrada e Saída 
+    | HTML disponível em resources/views/sys/consultas
+	*/
+	
 	public function pedestres()
 	{
+		$this->authorize('ped', Cad_entrada_saida::class);
 		return view('sys.consultas.pedestre');
 	}
 
 	public function automoveis()
 	{
+		$this->authorize('auto', Cad_entrada_saida::class);
 		return view('sys.consultas.automoveis');
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Faz as consultas dos Horários de entrada e saída dos Militares
+    */
+
 	public function consultaPedestres(Request $request)
+	/*	Consulta horários de entrada e saida de pedestres (Crachá Indívidual) 
+	*	Obs: Os dados vem por Ajax, via DataTables
+	*/
 	{
-
-		$totalData = Cad_entrada_saida::count();
-		$totalFiltered = Cad_entrada_saida::where('militar_id', '!=', NULL)->count();
-
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$horarios = DB::table('cad_entrada_saida')
 			->select(
 				'cad_militar.nome_guerra',
+				'cad_militar.om_id',
 				'cad_posto.nome as posto_nome',
 				'cad_om.nome as om_nome',
 				'cad_entrada_saida.militar_id as cod_cracha',
@@ -56,7 +75,15 @@ class ConsultaController extends Controller
 				'=',
 				'cad_om.id'
 			)
-			->where('cad_entrada_saida.militar_id', '!=', NULL)
+			->where('cad_entrada_saida.militar_id', '!=', NULL);
+			if (!Auth::user()->hasRole('super-admin')) {
+				$horarios = $horarios->where('cad_militar.om_id', Auth::user()->om_id);
+			}
+
+			$totalData = $horarios->count();
+			$totalFiltered = $totalData;
+
+			$horarios = $horarios
 			->skip($start)
 			->take($limit)
 			->orderBy('cad_entrada_saida.id', 'desc')
@@ -92,11 +119,10 @@ class ConsultaController extends Controller
 	}
 
 	public function consultaAutomoveis(Request $request)
+	/*	Consulta horários de entrada e saida de automoveis (Crachá do Veículo)
+	*	Obs: Os dados vem por Ajax, via DataTables
+	*/
 	{
-
-		$totalData = Cad_entrada_saida::count();
-		$totalFiltered = Cad_entrada_saida::where('automovel_id', '!=', NULL)->count();
-
 		$limit = $request->input('length');
 		$start = $request->input('start');
 		$horarios = DB::table('cad_entrada_saida')
@@ -147,7 +173,15 @@ class ConsultaController extends Controller
 				'=',
 				'cad_marca.id'
 			)
-			->where('cad_entrada_saida.automovel_id', '!=', NULL)
+			->where('cad_entrada_saida.automovel_id', '!=', NULL);
+
+			if (!Auth::user()->hasRole('super-admin')) {
+				$horarios = $horarios->where('cad_militar.om_id', Auth::user()->om_id);
+			}
+
+			$totalData = $horarios->count();
+			$totalFiltered = $totalData;
+			$horarios = $horarios
 			->skip($start)
 			->take($limit)
 			->orderBy('cad_entrada_saida.id', 'desc')

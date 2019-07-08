@@ -29,6 +29,7 @@ class CrachaController extends Controller
 			return response()->json(['error' => "Número de Identidade não existe!"]);
 		}
 
+		DB::beginTransaction();
 		try {
 			/*
 			** Consulta qual foi o ulitmo número registrado
@@ -44,16 +45,16 @@ class CrachaController extends Controller
 			*/
 			Cad_militar::where('ident_militar', $request->ident_militar)->update(['id' => $value->last_id]);
 			/*
-			** Atualiza o número no Auto Increment da Tablea.
+			** Atualiza o número do Auto Increment da Tabela.
 			*/
 			DB::statement('ALTER TABLE ' . $nameTB . ' AUTO_INCREMENT =' . $value->last_id);
-
 			$this->criar_log(32, $value->last_id, NULL, Auth::user()->id, $request->getClientIp());
-
-			return response()->json(['msg' => "Número do crachá alterado com sucesso!"]);
 		} catch (QueryException $e) {
+			DB::rollback();
 			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
+		DB::commit();
+		return response()->json(['msg' => "Número do crachá alterado com sucesso!"]);
 	}
 
 	public function veiculo(Request $request, $id)
