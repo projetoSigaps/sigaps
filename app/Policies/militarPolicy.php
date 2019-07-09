@@ -9,17 +9,17 @@ class militarPolicy
 {
     use HandlesAuthorization;
 
-    public function create(User $user)
+    public function militares_add(User $user)
     {
         return $user->hasPermissionTo('militares-add');
     }
 
-    public function list(User $user)
+    public function militares_list(User $user)
     {
         return $user->hasPermissionTo('militares-list');
     }
 
-    public function edit(User $user, $militar)
+    public function militares_edit(User $user, $militar)
     {
         if ($user->hasRole('super-admin')) {
             return true;
@@ -41,5 +41,10 @@ class militarPolicy
         if ($user->om_id == $militar->om_id) {
             return true;
         }
+    }
+
+    public function trocarCracha(User $user)
+    {
+        return $user->hasPermissionTo('config-trocar-cracha');
     }
 }
