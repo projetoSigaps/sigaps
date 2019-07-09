@@ -73,7 +73,7 @@ class WebServicesController extends Controller
 	Para cada página, faz um request no DB.
 	*/
 	{
-		$this->authorize('list', Cad_militar::class);
+		$this->authorize('militares_list', Cad_militar::class);
 
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -105,7 +105,7 @@ class WebServicesController extends Controller
 				->where('cad_posto.id', '!=', 34);
 			if (!Auth::user()->hasRole('super-admin')) {
 				$militares->where('cad_militar.om_id', Auth::user()->om_id);
-			} 
+			}
 			$totalData = $militares->count();
 			$militares = $militares->skip($start)->take($limit)->orderBy('ordem', 'asc')->get();
 		} else {
@@ -368,8 +368,13 @@ class WebServicesController extends Controller
 						'=',
 						'cad_om.id'
 					)
-					->where('cad_militar.cnh', '=', $num_doc)
-					->first();
+					->where('cad_militar.cnh', '=', $num_doc);
+
+				if (!Auth::user()->hasRole('super-admin')) {
+					$militar->where('cad_militar.om_id', Auth::user()->om_id);
+				}
+
+				$militar = $militar->first();
 				if (!empty($militar)) {
 					return response()->json($militar);
 				} else {
@@ -404,8 +409,13 @@ class WebServicesController extends Controller
 						'=',
 						'cad_om.id'
 					)
-					->where('cad_militar.ident_militar', '=', $num_doc)
-					->first();
+					->where('cad_militar.ident_militar', '=', $num_doc);
+
+				if (!Auth::user()->hasRole('super-admin')) {
+					$militar->where('cad_militar.om_id', Auth::user()->om_id);
+				}
+
+				$militar = $militar->first();
 				if (!empty($militar)) {
 					return response()->json($militar);
 				} else {
