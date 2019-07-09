@@ -23,13 +23,13 @@ class ConsultaController extends Controller
 	
 	public function pedestres()
 	{
-		$this->authorize('ped', Cad_entrada_saida::class);
+		$this->authorize('consultas_ped', Cad_entrada_saida::class);
 		return view('sys.consultas.pedestre');
 	}
 
 	public function automoveis()
 	{
-		$this->authorize('auto', Cad_entrada_saida::class);
+		$this->authorize('consultas_aut', Cad_entrada_saida::class);
 		return view('sys.consultas.automoveis');
 	}
 
