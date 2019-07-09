@@ -34,14 +34,14 @@ class VeiculosController extends Controller
 	public function index()
 	{
 		/* Listagem de Veiculos */
-		$this->authorize('list', Cad_automovel::class);
+		$this->authorize('veiculos_list', Cad_automovel::class);
 		return view('sys.veiculos.listagem');
 	}
 
 	public function create()
 	{
 		/* Cadastro de Veiculos */
-		$this->authorize('create', Cad_automovel::class);
+		$this->authorize('veiculos_add', Cad_automovel::class);
 		$tp_veiculo = Cad_tipo_automovel::where('id', '!=', 3)->orderBy('nome')->get();
 		return view('sys.veiculos.cadastro', compact('tp_veiculo'));
 	}
@@ -76,7 +76,7 @@ class VeiculosController extends Controller
 			->where('cad_militar.id', '=', $veiculo->militar_id)
 			->first();
 
-		$this->authorize('edit', $militar);
+		$this->authorize('militares_edit', $militar);
 		$log = DB::table('cad_logs')
 			->select('users.name', 'cad_logs.data_hora', 'cad_operacao.descricao', 'cad_operacao.evento')
 			->join('users', 'cad_logs.id_operador', '=', 'users.id')
