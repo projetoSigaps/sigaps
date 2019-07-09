@@ -7,9 +7,16 @@ use App\User;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_automovel;
 use App\Model\Sys\Cad_entrada_saida;
+use App\Model\Sys\Cad_om;
+use App\Model\Sys\Cad_viaturas;
+
 use App\Policies\militarPolicy;
 use App\Policies\veiculosPolicy;
 use App\Policies\consultaPolicy;
+use App\Policies\omPolicy;
+use App\Policies\usuarioPolicy;
+use App\Policies\viaturaPolicy;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -22,7 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Cad_automovel::class => veiculosPolicy::class,
         Cad_militar::class => militarPolicy::class,
         Cad_entrada_saida::class => consultaPolicy::class,
-        
+        Cad_om::class => omPolicy::class,
+        User::class => usuarioPolicy::class,
+        Cad_viaturas::class => viaturaPolicy::class
     ];
 
     /**

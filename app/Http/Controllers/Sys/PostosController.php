@@ -5,6 +5,7 @@ namespace App\Model\Sys;
 namespace App\Http\Controllers\Sys;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,6 +15,13 @@ class PostosController extends Controller
 {
 	public function index()
 	{
+		if (!Auth::user()->hasRole('super-admin')) {
+			return response()->json([
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
+		}
 		return view('sys.configuracoes.postos');
 	}
 

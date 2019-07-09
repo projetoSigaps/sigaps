@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sys;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_posto;
@@ -15,21 +16,59 @@ class RelatoriosController extends Controller
 {
 	public function horarios()
 	{
+		if (!Auth::user()->can('relatorios-hrs')) {
+			return response()->json([
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
+		}
+
+		if (!Auth::user()->hasRole('super-admin')) {
+			$om = Cad_om::where('id', Auth::user()->om_id)->get();
+		} else {
+			$om = Cad_om::all();
+		}
+
 		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
-		$om 	 = Cad_om::all();
 		return view('sys.relatorios.horarios', compact('om', 'posto'));
 	}
 	public function automoveis()
 	{
+		if (!Auth::user()->can('relatorios-aut')) {
+			return response()->json([
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
+		}
+
+		if (!Auth::user()->hasRole('super-admin')) {
+			$om = Cad_om::where('id', Auth::user()->om_id)->get();
+		} else {
+			$om = Cad_om::all();
+		}
 		$tp_veiculo = Cad_tipo_automovel::all();
 		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
-		$om 	 = Cad_om::all();
 		return view('sys.relatorios.automoveis', compact('tp_veiculo', 'om', 'posto'));
 	}
 	public function militares()
 	{
+		if (!Auth::user()->can('relatorios-mil')) {
+			return response()->json([
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
+		}
+
+		if (!Auth::user()->hasRole('super-admin')) {
+			$om = Cad_om::where('id', Auth::user()->om_id)->get();
+		} else {
+			$om = Cad_om::all();
+		}
+		
 		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
-		$om 	 = Cad_om::all();
 		return view('sys.relatorios.militares', compact('om', 'posto'));
 	}
 

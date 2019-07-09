@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sys;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Model\Sys\Cad_om;
@@ -14,16 +15,19 @@ class OmController extends Controller
 {
 	public function create()
 	{
+		$this->authorize('config_om_add', Cad_om::class);
 		return view('sys.configuracoes.om.cadastro');
 	}
 
 	public function lista()
 	{
+		$this->authorize('config_om_list', Cad_om::class);
 		return view('sys.configuracoes.om.listagem');
 	}
 
 	public function show($id)
 	{
+		$this->authorize('config_om_edit', Cad_om::class);
 		$om  = Cad_om::findOrFail($id);
 		return view('sys.configuracoes.om.editar', compact('om'));
 	}
@@ -125,7 +129,7 @@ class OmController extends Controller
 			Storage::disk('_DOC')->delete($antigoDir . "/" . $om->datafile);
 			$nome_foto = md5(rand(0, 999)) . "." . $imagem->extension();
 			$om->datafile = $nome_foto;
-			$upload = Storage::disk('_DOC')->putFileAs($antigoDir, $imagem, $nome_foto);
+			Storage::disk('_DOC')->putFileAs($antigoDir, $imagem, $nome_foto);
 		}
 
 		try {
@@ -140,7 +144,7 @@ class OmController extends Controller
 			$om->numero = $dados['numero'];
 			$om->save();
 
-			$usuario_vtr = Cad_militar::where('om_id', '=', $om->id)
+			Cad_militar::where('om_id', '=', $om->id)
 				->where('posto', '=', 34)
 				->update([
 					'nome' => trim($dados['nome_abreviado']),
@@ -170,8 +174,13 @@ class OmController extends Controller
 	public function OMsListagem(Request $request)
 	{
 		$data = array();
-		$om = Cad_om::all();
-		$totalData = Cad_om::count();
+		if (!Auth::user()->hasRole('super-admin')) {
+			$om = Cad_om::where('id', Auth::user()->om_id)->get();
+		} else {
+			$om = Cad_om::all();
+		}
+
+		$totalData = $om->count();
 		$totalFiltered = $totalData;
 
 		if (!empty($om)) {

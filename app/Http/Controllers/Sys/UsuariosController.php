@@ -18,12 +18,13 @@ class UsuariosController extends Controller
 
 	public function lista()
 	{
+		$this->authorize('config_usuario_list', User::class);
 		return view('sys.configuracoes.usuarios.listagem');
 	}
 
 	public function create()
 	{
-
+		$this->authorize('config_usuario_add', User::class);
 		$roles  = Role::get();
 		$om 	 = Cad_om::all();
 		return view('sys.configuracoes.usuarios.cadastro', compact('roles', 'om'));
@@ -31,6 +32,7 @@ class UsuariosController extends Controller
 
 	public function show($id)
 	{
+		$this->authorize('config_usuario_edit', User::class);
 		$usuario = User::findOrFail($id);
 		$roles 	 = Role::get();
 		$om 	 = Cad_om::all();

@@ -50,7 +50,11 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof AuthorizationException) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+            return response()->json([
+            'Error' => '403, Forbidden', 
+            'Exception' => strtoupper( substr( md5(rand()), 0, 20)), 
+            'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+        ], 403);
         }
         // this will still show the error if there is any in your code.
         return parent::render($request, $exception);

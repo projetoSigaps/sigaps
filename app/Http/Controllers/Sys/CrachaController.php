@@ -35,7 +35,11 @@ class CrachaController extends Controller
 	*/
 	{
 		if (!Auth::user()->hasRole(['super-admin', 'administrador'])) {
-			return response()->json(['error' => 'Unauthorized'], 403);
+			return response()->json([
+				'Error' => '403, Forbidden', 
+				'Exception' => strtoupper( substr( md5(rand()), 0, 20)), 
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
 		}
 
 		$veiculo = Cad_automovel::select(
@@ -170,7 +174,7 @@ class CrachaController extends Controller
 			return back()->with('error', 'Viatura com STATUS DESATIVADO!');
 		}
 		$this->criar_log(31, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
-		return view('sys.cracha.viatura', compact('veiculo'));
+		return view('sys.cracha.viatura', compact('viatura'));
 	}
 
 	public function pedestre(Request $request, $id)
@@ -180,7 +184,11 @@ class CrachaController extends Controller
 	*/
 	{
 		if (!Auth::user()->hasRole(['super-admin', 'administrador'])) {
-			return response()->json(['error' => 'Unauthorized'], 403);
+			return response()->json([
+				'Error' => '403, Forbidden', 
+				'Exception' => strtoupper( substr( md5(rand()), 0, 20)), 
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
 		}
 
 		$militar = Cad_militar::select(

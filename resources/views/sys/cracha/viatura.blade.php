@@ -5,7 +5,7 @@ include app_path().'/Libraries/phpqrcode/qrlib.php';
 $rand = strtoupper( substr( md5(rand()), 0, 4));
 $qrTempDir = '/tmp';
 $filePath = $qrTempDir.'/'.uniqid();
-QRcode::png("http://192.168.1.33/servicopolicia/controllers/RegEntradaAuto.php?token=".$rand."-".$veiculo->id, $filePath,QR_ECLEVEL_Q,3,1);
+QRcode::png("http://192.168.1.33/servicopolicia/controllers/RegEntradaAuto.php?token=".$rand."-".$viatura->id, $filePath,QR_ECLEVEL_Q,3,1);
 $qrImage = file_get_contents($filePath);
 unlink($filePath);
 
@@ -14,6 +14,7 @@ unlink($filePath);
 
 <html>
 <head>
+	<title>CRACHÁ - VIATURA MILITAR</title>
 	<style type="text/css">table td{overflow: auto;}</style>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
@@ -23,14 +24,14 @@ unlink($filePath);
 			<td style="font-size: 18px;font-weight: bold;border-bottom: 1px solid black;padding-top:15px;padding-bottom: 15px;"><center>COMANDO MILITAR DO OESTE</center></td>
 		</tr>
 		<tr>
-			<td style="font-size: 40px;font-weight: bold;"><center>Nº {{$veiculo->id}}</center></td>
+			<td style="font-size: 40px;font-weight: bold;"><center>Nº {{$viatura->id}}</center></td>
 		</tr>
 	</table>
 	<table style="min-width:196px;height:226px;TABLE-LAYOUT: fixed;position:static;font-size:12px;font-family:sans-serif;border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;">
 		<tbody>
 			<tr>
 				<td>
-					<p style="width:120px;font-size: 160px;">{{$veiculo->letra}}</p>
+					<p style="width:120px;font-size: 160px;">{{$viatura->letra}}</p>
 				</td>
 
 				<td style="padding:26px;border:3px solid black;"><img src="data:image/png;base64,{{base64_encode($qrImage)}}"></td>
@@ -38,9 +39,9 @@ unlink($filePath);
 			<tr style="border-size:2px;border-style:solid;border-color:black;width: 100%;height:10%;">
 				<td colspan="3" style="border-top:1px solid black;padding-top: 8px;padding-bottom: 8px;">
 
-					<p style='text-transform: uppercase;font-size:16px;'><b>{{$veiculo->nome_guerra}}</b></p>
-					<p style='text-transform: uppercase;font-size:15px;'><b>{{$veiculo->om_nome}}</b></p>
-					<p style='text-transform: uppercase;font-size:15px;'><b>{{$veiculo->marca."/".$veiculo->modelo}} · {{$veiculo->placa}}</b></p>
+					<p style='text-transform: uppercase;font-size:16px;'><b>{{$viatura->nome_guerra}}</b></p>
+					<p style='text-transform: uppercase;font-size:15px;'><b>{{$viatura->om_nome}}</b></p>
+					<p style='text-transform: uppercase;font-size:15px;'><b>{{$viatura->marca."/".$viatura->modelo}} · {{$viatura->placa}}</b></p>
 				</td>
 			</tr>
 		</tbody>

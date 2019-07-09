@@ -13,18 +13,27 @@ use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_viaturas;
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_logs;
+use App\User;
 use DB;
 
 class ViaturasController extends Controller
 {
 	public function create()
 	{
-		$om = Cad_om::all();
+		$this->authorize('config_vtr_add', Cad_viaturas::class);
+
+		if (!Auth::user()->hasRole('super-admin')) {
+			$om = Cad_om::where('id', Auth::user()->om_id)->get();
+		} else {
+			$om = Cad_om::all();
+		}
+
 		return view('sys.configuracoes.viaturas.cadastro', compact('om'));
 	}
 
 	public function lista()
 	{
+		$this->authorize('config_vtr_list', Cad_viaturas::class);
 		return view('sys.configuracoes.viaturas.listagem');
 	}
 
@@ -33,8 +42,10 @@ class ViaturasController extends Controller
 		$viatura = Cad_automovel::findOrFail($id);
 		$vtr = Cad_viaturas::where('automovel_id', $viatura->id)->first();
 		$usuario_vtr = Cad_militar::where('id', $viatura->militar_id)->first();
-		$om = Cad_om::where('id', $usuario_vtr->om_id)->first();
 
+		$this->authorize('militares_edit', $usuario_vtr);
+
+		$om = Cad_om::where('id', $usuario_vtr->om_id)->first();
 		$tp_veiculo = Cad_tipo_automovel::where('id', 3)->first();
 		$marca = DB::table('cad_marca')->where('tipo_id', $viatura->tipo_id)->get();
 		$modelo = DB::table('cad_modelo')->where('marca_id', $viatura->marca_id)->get();
@@ -106,7 +117,7 @@ class ViaturasController extends Controller
 			$viatura->automovel_id = $veiculo->id;
 			$viatura->save();
 			$this->criar_log(3, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
-			return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Cadastro realizado com sucesso!');
+			return redirect()->route('sys.configuracoes.viaturas.editar', $veiculo->id)->with('success', 'Cadastro realizado com sucesso!');
 		} catch (QueryException $e) {
 			return back()->with('error', "ERROR: " . $e->errorInfo[2]);
 		}
