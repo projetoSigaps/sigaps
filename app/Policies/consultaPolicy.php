@@ -14,13 +14,18 @@ class consultaPolicy
      *
      * @return void
      */
-    public function ped(User $user)
+    public function consultas_ped(User $user)
     {
         return $user->hasPermissionTo('consultas-ped');
     }
 
-    public function auto(User $user)
+    public function consultas_aut(User $user)
     {
         return $user->hasPermissionTo('consultas-aut');
+    }
+
+    public function config_horarios(User $user)
+    {
+        return $user->hasPermissionTo('config-horarios');
     }
 }
