@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Model\Sys;
+
 namespace App\Http\Controllers\Sys;
 
 /* Vendors Laravel */
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -35,14 +37,14 @@ class MilitaresController extends Controller
 	public function index()
 	/* Listagem de Militares */
 	{
-		$this->authorize('list', Cad_militar::class);
+		$this->authorize('militares_list', Cad_militar::class);
 		return view('sys.militares.listagem');
 	}
 
 	public function create()
 	/* Cadastro de Militares */
 	{
-		$this->authorize('create', Cad_militar::class);
+		$this->authorize('militares_add', Cad_militar::class);
 		if (!Auth::user()->hasRole('super-admin')) {
 			$om = Cad_om::where('id', Auth::user()->om_id)->get();
 		} else {
@@ -57,7 +59,7 @@ class MilitaresController extends Controller
 	/* Editar dados do militar */
 	{
 		$militar = Cad_militar::findOrFail($id);
-		$this->authorize('edit', $militar);
+		$this->authorize('militares_edit', $militar);
 
 		if (!Auth::user()->hasRole('super-admin')) {
 			$om = Cad_om::where('id', Auth::user()->om_id)->get();
