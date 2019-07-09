@@ -111,7 +111,6 @@ class RoleTableSeeder extends Seeder
                 $rhp->givePermissionTo('config-vtr-edit');
                 $rhp->givePermissionTo('config-vtr-list');
 
-                $rhp->givePermissionTo('config-horarios');
                 $rhp->givePermissionTo('config-trocar-cracha');
 
                 break;
