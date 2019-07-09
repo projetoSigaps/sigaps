@@ -14,13 +14,14 @@ class veiculosPolicy
      *
      * @return void
      */
-    public function create(User $user)
+    public function veiculos_add(User $user)
     {
         return $user->hasPermissionTo('veiculos-add');
     }
 
-    public function list(User $user)
+    public function veiculos_list(User $user)
     {
         return $user->hasPermissionTo('veiculos-list');
     }
+
 }
