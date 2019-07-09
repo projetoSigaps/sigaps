@@ -14,11 +14,14 @@ class HorariosController extends Controller
 {
 	public function index()
 	{
+		$this->authorize('config_horarios', Cad_entrada_saida::class);
 		return view('sys.configuracoes.horarios');
 	}
 
 	public function registrar(Request $request)
 	{
+
+
 		$dados 	= $request->all();
 		$regras = [
 			'reg_horario' => 'required',
@@ -47,6 +50,7 @@ class HorariosController extends Controller
 		}
 
 		switch ($dados['reg_horario']) {
+
 			case 'pedestre':
 				$pedestre = Cad_militar::where('id', $dados['cod_cracha'])->exists();
 
