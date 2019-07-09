@@ -36,8 +36,8 @@ class CrachaController extends Controller
 	{
 		if (!Auth::user()->hasRole(['super-admin', 'administrador'])) {
 			return response()->json([
-				'Error' => '403, Forbidden', 
-				'Exception' => strtoupper( substr( md5(rand()), 0, 20)), 
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
 				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
 			], 403);
 		}
@@ -117,6 +117,14 @@ class CrachaController extends Controller
 	Registra na tabela cad_logs a operação;
 	*/
 	{
+		if (!Auth::user()->hasRole(['super-admin', 'administrador'])) {
+			return response()->json([
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+			], 403);
+		}
+
 		$viatura = DB::table('cad_automovel')
 			->select(
 				'cad_automovel.id',
@@ -162,6 +170,15 @@ class CrachaController extends Controller
 			->where('cad_automovel.id', '=', $id)
 			->first();
 
+		if (!Auth::user()->hasRole('super-admin')) {
+			$viatura = $viatura->where('cad_militar.om_id', Auth::user()->om_id);
+		}
+		$viatura = $viatura->first();
+
+		if (!$viatura) {
+			return abort(404);
+		}
+
 		$vtr = Cad_viaturas::where('automovel_id', '=', $id)->first();
 
 		if ($vtr->vtr_cmt == 1) {
@@ -185,8 +202,8 @@ class CrachaController extends Controller
 	{
 		if (!Auth::user()->hasRole(['super-admin', 'administrador'])) {
 			return response()->json([
-				'Error' => '403, Forbidden', 
-				'Exception' => strtoupper( substr( md5(rand()), 0, 20)), 
+				'Error' => '403, Forbidden',
+				'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
 				'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
 			], 403);
 		}
@@ -220,7 +237,7 @@ class CrachaController extends Controller
 		if (!Auth::user()->hasRole('super-admin')) {
 			$militar = $militar->where('cad_militar.om_id', Auth::user()->om_id);
 		}
-		
+
 		$militar = $militar->first();
 
 		if (!$militar) {
@@ -244,7 +261,13 @@ class CrachaController extends Controller
 		$nameTB = $item->getTable();
 		$nameDB = DB::connection()->getDatabaseName();
 
-		$crtl = Cad_militar::where('ident_militar', '=', $request->ident_militar)->exists();
+		$crtl = Cad_militar::where('ident_militar', '=', $request->ident_militar);
+		if (!Auth::user()->hasRole('super-admin')) {
+			$crtl = $crtl->where('cad_militar.om_id', Auth::user()->om_id);
+		}
+
+		$crtl = $crtl->exists();
+
 		if (!$crtl) {
 			return response()->json(['error' => "Número de Identidade não existe!"]);
 		}
