@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sys;
 
 /* Vendors Laravel */
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,7 @@ class ConsultaController extends Controller
     | Retornam as páginas referente aos Horarios de Entrada e Saída 
     | HTML disponível em resources/views/sys/consultas
 	*/
-	
+
 	public function pedestres()
 	{
 		$this->authorize('consultas_ped', Cad_entrada_saida::class);
@@ -76,14 +77,14 @@ class ConsultaController extends Controller
 				'cad_om.id'
 			)
 			->where('cad_entrada_saida.militar_id', '!=', NULL);
-			if (!Auth::user()->hasRole('super-admin')) {
-				$horarios = $horarios->where('cad_militar.om_id', Auth::user()->om_id);
-			}
+		if (!Auth::user()->hasRole('super-admin')) {
+			$horarios = $horarios->where('cad_militar.om_id', Auth::user()->om_id);
+		}
 
-			$totalData = $horarios->count();
-			$totalFiltered = $totalData;
+		$totalData = $horarios->count();
+		$totalFiltered = $totalData;
 
-			$horarios = $horarios
+		$horarios = $horarios
 			->skip($start)
 			->take($limit)
 			->orderBy('cad_entrada_saida.id', 'desc')
@@ -175,13 +176,13 @@ class ConsultaController extends Controller
 			)
 			->where('cad_entrada_saida.automovel_id', '!=', NULL);
 
-			if (!Auth::user()->hasRole('super-admin')) {
-				$horarios = $horarios->where('cad_militar.om_id', Auth::user()->om_id);
-			}
+		if (!Auth::user()->hasRole('super-admin')) {
+			$horarios = $horarios->where('cad_militar.om_id', Auth::user()->om_id);
+		}
 
-			$totalData = $horarios->count();
-			$totalFiltered = $totalData;
-			$horarios = $horarios
+		$totalData = $horarios->count();
+		$totalFiltered = $totalData;
+		$horarios = $horarios
 			->skip($start)
 			->take($limit)
 			->orderBy('cad_entrada_saida.id', 'desc')

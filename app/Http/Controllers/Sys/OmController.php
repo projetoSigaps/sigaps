@@ -13,26 +13,47 @@ use App\Model\Sys\Cad_militar;
 
 class OmController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna a página referente a inserir uma nova organização militar
+    | HTML disponível em resources/views/sys/configuraçoes/om
+    */
+
 	public function create()
+	/* Retona a tela para criar uma nova OM */
 	{
 		$this->authorize('config_om_add', Cad_om::class);
 		return view('sys.configuracoes.om.cadastro');
 	}
 
 	public function lista()
+	/* Retorna a tela onde lista todas OM */
 	{
 		$this->authorize('config_om_list', Cad_om::class);
 		return view('sys.configuracoes.om.listagem');
 	}
 
 	public function show($id)
+	/* Retorna a tela para editar dados da OM */
 	{
 		$this->authorize('config_om_edit', Cad_om::class);
 		$om  = Cad_om::findOrFail($id);
 		return view('sys.configuracoes.om.editar', compact('om'));
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
+
 	public function store(Request $request)
+	/*	Cadastra uma nova OM
+	*	Obs: Verificar que na hora de cadastrar uma nova OM, é criado um usuário para vincular Viatura futuramente
+	*/
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -102,6 +123,9 @@ class OmController extends Controller
 	}
 
 	public function update(Request $request)
+	/*	Atualiza dos dados da OM
+	*	Obs: Verificar que ele atualiza os dados da usuário viatura vinculado da OM
+	*/
 	{
 		$om = Cad_om::findOrFail($request->id);
 		$dados = $request->all();
@@ -172,6 +196,7 @@ class OmController extends Controller
 	}
 
 	public function OMsListagem(Request $request)
+	/* Lista todas OM */
 	{
 		$data = array();
 		if (!Auth::user()->hasRole('super-admin')) {

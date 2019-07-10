@@ -79,7 +79,6 @@ class UsuariosController extends Controller
 
 	public function update(Request $request, $id)
 	{
-
 		$usuario = User::findOrFail($id);
 		$dados 	= $request->all();
 		$regras = [

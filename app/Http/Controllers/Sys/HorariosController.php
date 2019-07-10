@@ -12,13 +12,29 @@ use App\Model\Sys\Cad_automovel;
 
 class HorariosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna a página referente a inserir manualmente o horário de entrada e saída
+    | HTML disponível em resources/views/sys/configuraçoes/horarios.blade.php
+    */
 	public function index()
+	/* Retorna a tela para registrar horario manualmente */
 	{
 		$this->authorize('config_horarios', Cad_entrada_saida::class);
 		return view('sys.configuracoes.horarios');
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
+
 	public function registrar(Request $request)
+	/* Registra horário, verificando se é de automovel ou pedestre */
 	{
 
 

@@ -13,7 +13,16 @@ use App\Model\Sys\Cad_posto;
 
 class PostosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna a página referente a inserir uma nova marca de veículo
+    | HTML disponível em resources/views/sys/configuraçoes/veiculos
+	*/
+
 	public function index()
+	/* Retorna a tela para registrar um novo posto ou graduação */
 	{
 		if (!Auth::user()->hasRole('super-admin')) {
 			return response()->json([
@@ -25,7 +34,15 @@ class PostosController extends Controller
 		return view('sys.configuracoes.postos');
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
+
 	public function store(Request $request)
+	/* Cadastra um novo P/G */
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -79,9 +96,8 @@ class PostosController extends Controller
 		}
 	}
 
-
-
 	public function update(Request $request)
+	/* Atualiza os dados do P/G */
 	{
 		$posto = Cad_posto::findOrFail($request->id);
 		$dados = $request->all();
@@ -136,6 +152,7 @@ class PostosController extends Controller
 	}
 
 	public function postosListagem(Request $request)
+	/* Lista todos postos e graduações */
 	{
 		$data = array();
 		$postos = Cad_posto::all()->sortBy('ordem');

@@ -12,13 +12,30 @@ use DB;
 
 class MarcaVeiculosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna a página referente a inserir uma nova marca de veículo
+    | HTML disponível em resources/views/sys/configuraçoes/veiculos
+    */
+
 	public function index()
+	/* Retorna a tela para registrar uma nova marca de véiculo */
 	{
 		$tipo_v 	 = Cad_tipo_automovel::all();
 		return view('sys.configuracoes.veiculos.marca_veiculos', compact('tipo_v'));
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
+
 	public function store(Request $request)
+	/* Cadastra uma nova marca */
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -42,6 +59,7 @@ class MarcaVeiculosController extends Controller
 	}
 
 	public function update(Request $request)
+	/* Atualiza uma marca já existente */
 	{
 		$marca = Cad_marca::findOrFail($request->id);
 		$dados = $request->all();
@@ -65,6 +83,7 @@ class MarcaVeiculosController extends Controller
 	}
 
 	public function listagem(Request $request)
+	/* Lista todas as marcas */
 	{
 		$data = array();
 		$marcas = DB::table('cad_marca')

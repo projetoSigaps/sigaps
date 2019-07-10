@@ -14,7 +14,16 @@ use DB;
 
 class RelatoriosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna as páginas para gerar os relatórios
+    | HTML disponível em resources/views/sys/relatorios/
+	*/
+
 	public function horarios()
+	/* Retorna tela para gerar relátorio de horarios entrada e saída */
 	{
 		if (!Auth::user()->can('relatorios-hrs')) {
 			return response()->json([
@@ -33,7 +42,9 @@ class RelatoriosController extends Controller
 		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		return view('sys.relatorios.horarios', compact('om', 'posto'));
 	}
+
 	public function automoveis()
+	/* Retorna tela para gerar relátorio de automóveis */
 	{
 		if (!Auth::user()->can('relatorios-aut')) {
 			return response()->json([
@@ -52,7 +63,9 @@ class RelatoriosController extends Controller
 		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		return view('sys.relatorios.automoveis', compact('tp_veiculo', 'om', 'posto'));
 	}
+
 	public function militares()
+	/* Retorna tela para gerar relátorio de militares */
 	{
 		if (!Auth::user()->can('relatorios-mil')) {
 			return response()->json([
@@ -67,10 +80,17 @@ class RelatoriosController extends Controller
 		} else {
 			$om = Cad_om::all();
 		}
-		
+
 		$posto	 = Cad_posto::selectRaw('LPAD(ordem,2,0) as ordem, nome, tipo, id')->where('id', '!=', 34)->orderBy('ordem')->get();
 		return view('sys.relatorios.militares', compact('om', 'posto'));
 	}
+
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
 
 	public function horariosDownloadAuto(Request $request)
 	{

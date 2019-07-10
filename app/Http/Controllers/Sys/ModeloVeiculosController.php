@@ -12,13 +12,30 @@ use DB;
 
 class ModeloVeiculosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna a página referente a inserir um novo modelo de veículo
+    | HTML disponível em resources/views/sys/configuraçoes/veiculos
+	*/
+
 	public function index()
+	/* Retorna a tela para cadastrar um novo modelo de veículo */
 	{
 		$tipo_v 	 = Cad_tipo_automovel::all();
 		return view('sys.configuracoes.veiculos.modelo_veiculos', compact('tipo_v'));
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
+
 	public function store(Request $request)
+	/* Cadastra um novo modelo de veículo */
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -44,6 +61,7 @@ class ModeloVeiculosController extends Controller
 	}
 
 	public function update(Request $request)
+	/* Atualiza um modelo já existente */
 	{
 		$modelo = Cad_modelo::findOrFail($request->id);
 		$dados = $request->all();
@@ -69,6 +87,7 @@ class ModeloVeiculosController extends Controller
 	}
 
 	public function listagem(Request $request)
+	/* Lista todos modelo de veículos */
 	{
 		$data = array();
 		$modelos = DB::table('cad_modelo')
