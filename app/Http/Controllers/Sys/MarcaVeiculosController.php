@@ -23,6 +23,7 @@ class MarcaVeiculosController extends Controller
 	public function index()
 	/* Retorna a tela para registrar uma nova marca de véiculo */
 	{
+		$this->authorize('config_veiculos_marca', Cad_marca::class);
 		$tipo_v 	 = Cad_tipo_automovel::all();
 		return view('sys.configuracoes.veiculos.marca_veiculos', compact('tipo_v'));
 	}

@@ -12,12 +12,30 @@ use App\Model\Sys\Cad_tipo_automovel;
 
 class TipoVeiculosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retorna a página referente a inserir um novo modelo de veículo
+    | HTML disponível em resources/views/sys/configuraçoes/veiculos
+	*/
+
 	public function index()
+	/* Exibi a tela para cadastrar um novo tipo de automovél */
 	{
+		$this->authorize('config_veiculos_tipo', Cad_tipo_automovel::class);
 		return view('sys.configuracoes.veiculos.tipo_veiculos');
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário
+	*/
+
 	public function store(Request $request)
+	/* Cadastra um novo tipo de automovel */
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -39,6 +57,7 @@ class TipoVeiculosController extends Controller
 	}
 
 	public function update(Request $request)
+	/* Atualiza os dados do tipo */
 	{
 		$tipo = Cad_tipo_automovel::findOrFail($request->id);
 		$dados = $request->all();
@@ -60,6 +79,7 @@ class TipoVeiculosController extends Controller
 	}
 
 	public function listagem(Request $request)
+	/* Lista todos tipo de automoveis cadastrados */
 	{
 		$data = array();
 		$tipos = Cad_tipo_automovel::all()->sortBy('nome');

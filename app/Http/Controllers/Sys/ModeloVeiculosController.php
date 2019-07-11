@@ -23,6 +23,7 @@ class ModeloVeiculosController extends Controller
 	public function index()
 	/* Retorna a tela para cadastrar um novo modelo de veículo */
 	{
+		$this->authorize('config_veiculos_modelo', Cad_modelo::class);
 		$tipo_v 	 = Cad_tipo_automovel::all();
 		return view('sys.configuracoes.veiculos.modelo_veiculos', compact('tipo_v'));
 	}
