@@ -93,6 +93,7 @@ class RelatoriosController extends Controller
 	*/
 
 	public function horariosDownloadAuto(Request $request)
+	/* Manda para Download os horários dos automovéis */
 	{
 		$tp_relatorio = strtoupper($request->input('tpRelatorio'));
 
@@ -206,6 +207,7 @@ class RelatoriosController extends Controller
 	}
 
 	public function horariosDownloadPedestres(Request $request)
+	/* Manda para Download os horários dos pedestres */
 	{
 		$tp_relatorio = strtoupper($request->input('tpRelatorio'));
 
@@ -293,6 +295,7 @@ class RelatoriosController extends Controller
 	}
 
 	public function downloadMilitares(Request $request)
+	/* Manda para Download os dados cadastrais dos militares */
 	{
 		$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('components/u5N2xRqf.docx');
 		$templateProcessor->setValue('data', htmlspecialchars(date('d/m/Y H:i')));
@@ -381,6 +384,7 @@ class RelatoriosController extends Controller
 	}
 
 	public function downloadAutomoveis(Request $request)
+	/* Manda para Download os dados de cadastro dos automovéis */
 	{
 		$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('components/RsIKpehk.docx');
 		$templateProcessor->setValue('data', htmlspecialchars(date('d/m/Y H:i')));

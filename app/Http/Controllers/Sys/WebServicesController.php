@@ -23,9 +23,7 @@ class WebServicesController extends Controller
 {
 
 	public function validacaoIdentidade(Request $request)
-	/*
-	Verifica se numero de identidade já existe na hora do cadastro.
-	*/
+	/* Verifica se numero de identidade já existe na hora do cadastro. */
 	{
 		$crtl = Cad_militar::where('ident_militar', '=', $request->ident_militar)->exists();
 		if ($crtl) {
@@ -36,9 +34,7 @@ class WebServicesController extends Controller
 	}
 
 	public function validacaoCnh(Request $request)
-	/*
-	Verifica se numero de CNH já existe na hora do cadastro.
-	*/
+	/* Verifica se numero de CNH já existe na hora do cadastro. */
 	{
 		$crtl = Cad_militar::where('cnh', '=', $request->cnh)->exists();
 		if ($crtl) {
@@ -49,6 +45,7 @@ class WebServicesController extends Controller
 	}
 
 	public function validacaoPlaca(Request $request)
+	/* Verifica se já existe um veículo ativo com a mesma placa */
 	{
 		$crtl = Cad_automovel::where('placa', '=', $request->placa)->where('baixa', '=', 0)->exists();
 		if ($crtl) {
@@ -59,6 +56,7 @@ class WebServicesController extends Controller
 	}
 
 	public function validacaoRenavam(Request $request)
+	/* Verifica se já existe um veículo ativo com o mesmo renavam */
 	{
 		$crtl = Cad_automovel::where('renavan', '=', $request->renavam)->where('baixa', '=', 0)->exists();
 		if ($crtl) {
@@ -69,8 +67,10 @@ class WebServicesController extends Controller
 	}
 	public function listagemMilitares(Request $request)
 	/*
-	Utilizado para popular o DataTables, retorna os dados em formato JSON (Ver documentação https://datatables.net/manual).
-	Para cada página, faz um request no DB.
+	*	Retorna a militares cadastrados no sistema 
+	*	Obs:Utilizado para popular o DataTables, retorna os dados em formato JSON (Ver documentação https://datatables.net/manual).
+	*	Para cada página, faz um request no DB
+	*
 	*/
 	{
 		$this->authorize('militares_list', Cad_militar::class);
@@ -187,8 +187,10 @@ class WebServicesController extends Controller
 
 	public function pesquisarViatura(Request $request)
 	/*
-	Utilizado para popular o DataTables, retorna os dados em formato JSON (Ver documentação https://datatables.net/manual).
-	Para cada página, faz um request no DB.
+	*	Retorna os automovéis cadastrados no sistema, de acordo com o militar
+	*	Obs:Utilizado para popular o DataTables, retorna os dados em formato JSON (Ver documentação https://datatables.net/manual).
+	*	Para cada página, faz um request no DB
+	*
 	*/
 	{
 		$usuario_vtr = Cad_militar::where('om_id', '=', $request->id)->where('posto', '=', 34)->first();
@@ -272,8 +274,10 @@ class WebServicesController extends Controller
 
 	public function pesquisarVeiculo(Request $request)
 	/*
-	Utilizado para popular o DataTables, retorna os dados em formato JSON (Ver documentação https://datatables.net/manual).
-	Para cada página, faz um request no DB.
+	*	Retorna as viaturas cadastradas no sistema, de acordo com a OM 
+	*	Obs:Utilizado para popular o DataTables, retorna os dados em formato JSON (Ver documentação https://datatables.net/manual).
+	*	Para cada página, faz um request no DB
+	*
 	*/
 	{
 
@@ -336,6 +340,9 @@ class WebServicesController extends Controller
 	}
 
 	public function pesquisaMilitar(Request $request)
+	/*
+	*	Realiza a pesquisa de um militar em especifico, de acordo com o tipo de documento
+	*/
 	{
 
 		$tp_doc = addslashes($request->tipo_documento);
@@ -434,6 +441,7 @@ class WebServicesController extends Controller
 	}
 
 	public function pesquisaMarca(Request $request)
+	/* Pesquisa todas marcas vinculadas ao tipo de automovel */
 	{
 		$result = Cad_marca::where('tipo_id', '=', $request->id_tipo)
 			->orderBy('nome', 'asc')
@@ -446,6 +454,7 @@ class WebServicesController extends Controller
 	}
 
 	public function pesquisaModelo(Request $request)
+	/* Pesquisa todos os modelos vinculados a marca de automovel */
 	{
 		$result = Cad_modelo::where('marca_id', '=', $request->id_marca)
 			->orderBy('nome', 'asc')
@@ -458,6 +467,7 @@ class WebServicesController extends Controller
 	}
 
 	public function pesquisaOM(Request $request)
+	/* Pesquisa todas OM's cadastradas */
 	{
 		$result = Cad_Om::where('id', '=', $request->id)->first();
 		if (!empty($result)) {
@@ -470,6 +480,7 @@ class WebServicesController extends Controller
 	}
 
 	public function pesquisaPosto(Request $request)
+	/* Pesquisa todos postos cadastrados */
 	{
 		$result = Cad_posto::where('id', '=', $request->id)->first();
 
@@ -543,11 +554,12 @@ class WebServicesController extends Controller
 	}
 
 	public function trocarSenha(Request $request)
+	/* Executa a operação para trocar a senha do USUÁRIO */
 	{
 		$result =  User::where('login', $request->login)->first();
 
 		if (!empty($result)) {
-			$usuario = User::where('id', $result->id)->update(['password' => bcrypt($result->login), 'password_changed_at' => NULL]);
+			User::where('id', $result->id)->update(['password' => bcrypt($result->login), 'password_changed_at' => NULL]);
 			return response()->json([
 				'msg' => "Senha trocada com sucesso!"
 			]);

@@ -13,12 +13,20 @@ use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_viaturas;
 use App\Model\Sys\Cad_om;
 use App\Model\Sys\Cad_logs;
-use App\User;
 use DB;
 
 class ViaturasController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retornam as páginas referente ao CRUD do VEICULO 
+    | HTML disponível em resources/views/sys/configuracoes/viaturas
+	*/
+
 	public function create()
+	/* Exibi a tela de cadastro de viatura */
 	{
 		$this->authorize('config_vtr_add', Cad_viaturas::class);
 
@@ -27,17 +35,18 @@ class ViaturasController extends Controller
 		} else {
 			$om = Cad_om::all();
 		}
-
 		return view('sys.configuracoes.viaturas.cadastro', compact('om'));
 	}
 
 	public function lista()
+	/* Lista todas viaturas cadastradas */
 	{
 		$this->authorize('config_vtr_list', Cad_viaturas::class);
 		return view('sys.configuracoes.viaturas.listagem');
 	}
 
 	public function show($id)
+	/* Monta a tela para edição de dados da viatura */
 	{
 		$viatura = Cad_automovel::findOrFail($id);
 		$vtr = Cad_viaturas::where('automovel_id', $viatura->id)->first();
@@ -52,19 +61,17 @@ class ViaturasController extends Controller
 		return view('sys.configuracoes.viaturas.editar', compact('om', 'vtr', 'viatura', 'tp_veiculo', 'marca', 'modelo'));
 	}
 
-	public function criar_log($id_operacao, $id_militar, $id_veiculo, $id_operador, $endereco_ip)
-	{
-		$log = new Cad_logs;
-		$log->id_operacao = $id_operacao;
-		$log->id_militar = $id_militar;
-		$log->id_veiculo = $id_veiculo;
-		$log->id_operador = $id_operador;
-		$log->data_hora = date('Y-m-d H:i');
-		$log->endereco_ip = $endereco_ip;
-		$log->save();
-	}
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário, como por exemplo o próprio CRUD
+	*/
 
 	public function store(Request $request)
+	/*	Cadastra uma nova viatura
+	*	Obs: Verifica que ele insere registro em duas tabelas, em automoveis e outra de viatura.
+	*/
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -125,6 +132,9 @@ class ViaturasController extends Controller
 
 
 	public function update(Request $request, $id)
+	/*	Atualiza os dados cadastrais da viatura 
+	*	Obs: Verifica que ele atualiza registro em duas tabelas, em automoveis e outra de viatura.
+	*/
 	{
 		$veiculo = Cad_automovel::findOrFail($id);
 		$dados 	= $request->all();
@@ -172,6 +182,7 @@ class ViaturasController extends Controller
 	}
 
 	public function disabled(Request $request, $id)
+	/* Desabilita a viatura */
 	{
 		$viatura = Cad_automovel::findOrFail($id);
 		$viatura->baixa = 1;
@@ -181,11 +192,25 @@ class ViaturasController extends Controller
 	}
 
 	public function enable(Request $request, $id)
+	/* Habilita a viatura */
 	{
 		$viatura = Cad_automovel::findOrFail($id);
 		$viatura->baixa = 0;
 		$viatura->save();
 		$this->criar_log(28, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Ativado com sucesso!');
+	}
+
+	public function criar_log($id_operacao, $id_militar, $id_veiculo, $id_operador, $endereco_ip)
+	/* Cria log para as operações*/
+	{
+		$log = new Cad_logs;
+		$log->id_operacao = $id_operacao;
+		$log->id_militar = $id_militar;
+		$log->id_veiculo = $id_veiculo;
+		$log->id_operador = $id_operador;
+		$log->data_hora = date('Y-m-d H:i');
+		$log->endereco_ip = $endereco_ip;
+		$log->save();
 	}
 }

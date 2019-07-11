@@ -15,14 +15,23 @@ use App\Model\Sys\Cad_om;
 
 class UsuariosController extends Controller
 {
+	/*
+    |--------------------------------------------------------------------------
+    | VIEWS 
+    |--------------------------------------------------------------------------
+    | Retornam as páginas referente ao CRUD dos USUÁRIOS 
+    | HTML disponível em resources/views/sys/usuarios
+	*/
 
 	public function lista()
+	/* Lista todos usuários cadastrados no sistema */
 	{
 		$this->authorize('config_usuario_list', User::class);
 		return view('sys.configuracoes.usuarios.listagem');
 	}
 
 	public function create()
+	/* Monta a tela para cadastro de um novo usuário */
 	{
 		$this->authorize('config_usuario_add', User::class);
 		$roles  = Role::get();
@@ -31,6 +40,7 @@ class UsuariosController extends Controller
 	}
 
 	public function show($id)
+	/* Exibe a tela de edição de usuário */
 	{
 		$this->authorize('config_usuario_edit', User::class);
 		$usuario = User::findOrFail($id);
@@ -39,8 +49,15 @@ class UsuariosController extends Controller
 		return view('sys.configuracoes.usuarios.editar', compact('roles', 'om', 'usuario'));
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Manipula o evento da interface do usuário, como por exemplo o próprio CRUD
+    */
 
 	public function store(Request $request)
+	/* Cadastra um novo usúario no sistema */
 	{
 		$dados 	= $request->all();
 		$regras = [
@@ -76,8 +93,8 @@ class UsuariosController extends Controller
 		}
 	}
 
-
 	public function update(Request $request, $id)
+	/* Atualiza os dados do usuário */
 	{
 		$usuario = User::findOrFail($id);
 		$dados 	= $request->all();
@@ -93,7 +110,6 @@ class UsuariosController extends Controller
 		}
 
 		try {
-
 			$usuario->name = trim($dados['nome_usuario']);
 			$usuario->email = trim($dados['email']);
 			$usuario->om_id = trim($dados['om_id']);
@@ -114,6 +130,7 @@ class UsuariosController extends Controller
 	}
 
 	public function UsuariosListagem(Request $request)
+	/* Lista todos usuários do sistema */
 	{
 		$data = array();
 		$usuarios = User::select('users.*', 'cad_om.nome as om_nome')->join('cad_om', 'users.om_id', '=', 'cad_om.id')->get();

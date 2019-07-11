@@ -28,6 +28,13 @@ class CrachaController extends Controller
 		return view('sys.configuracoes.trocarCracha');
 	}
 
+	/*
+    |--------------------------------------------------------------------------
+    | OPERAÇÕES 
+    |--------------------------------------------------------------------------
+    | Gera os crachás
+    */
+
 	public function veiculo(Request $request, $id)
 	/*
 	Faz as consulta dos dados do militar e enviar para a view montar o crachá de Veículo;

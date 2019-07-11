@@ -32,23 +32,25 @@ class VeiculosController extends Controller
 	*/
 
 	public function index()
+	/* Listagem de Veiculos */
 	{
-		/* Listagem de Veiculos */
 		$this->authorize('veiculos_list', Cad_automovel::class);
 		return view('sys.veiculos.listagem');
 	}
 
 	public function create()
+	/* Cadastro de Veiculos */
 	{
-		/* Cadastro de Veiculos */
+
 		$this->authorize('veiculos_add', Cad_automovel::class);
 		$tp_veiculo = Cad_tipo_automovel::where('id', '!=', 3)->orderBy('nome')->get();
 		return view('sys.veiculos.cadastro', compact('tp_veiculo'));
 	}
 
 	public function show($id)
+	/* Editar dados do Veículo */
 	{
-		/* Editar dados do Veículo */
+
 		$veiculo = Cad_automovel::findOrFail($id);
 		$militar = Cad_militar::select(
 			'cad_militar.nome',
