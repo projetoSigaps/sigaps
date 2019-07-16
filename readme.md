@@ -1,58 +1,52 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Sobre API - Neoway
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<p>Este projeto foi desenvolvido para fins de processo seletivo, aplicado pela empresa Neoway.</p>
+<p><ul>Foi criado uma interface UI para gerenciamento de CPF e CNPJ, portando o sistema consiste em:
+    <li>Criar Registro</li>
+    <li>Listar Registros</li>
+    <li>Atualizar Registro</li>
+    <li>Apagar Registro</li>
+    <li>Adicionar um registro a uma Blacklist</li>
+    <li>Remover um registro da Blacklist</li>
+</ul></p>
+<p>Utilizado o conceito de SPA (Single Page Application)</p>
+<p>Para as telas de listagem, foi implementado opções de filtragem por número e ordenação</p>
+<p></p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Tecnologias Utilizadas
+- Front End:    [Vue.js]
+- Back End:     [PHP], [Laravel]
+- Banco de Dados (NoSQL):   [MongoDB]
+- Container:   [Docker],[Docker-Compose]
+- Gerenciador de Dependecias:   [Npm],[Composer]
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Utilização
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+<p>O acesso a API deverá ser feito através do endereço **localhost:8000**</p>
+<p>Devido ao padrão arquitetural da API, para consultar o uptime do servidor e a quantidade
+de suas consultas, deverá ser acessado atráves do seguinte endereço: **localhost:8000/status**</p>
+<p>Suas operação são expostas atráves de serviços REST, podendo ser acessados através do verbos HTTP,
+como por exemplo:
+<ul> 
+    <li>GET: **localhost:8000/api/registros**, para listar todos registros</li>
+    <li>GET: **localhost:8000/api/registro/edit/{id}**, para exibir um determinado registro</li>
+    <li>PUT: **localhost:8000/api/registro/edit/{id}**, para atualizar o registro</li>
+    <li>DELETE: **localhost:8000/api/registro/delete/{id}**, para deletar o registro</li>
+    <li>POST: **localhost:8000/api/registro/create**, para criar um novo registro</li>
+</ul>
 
-## Learning Laravel
+## Instalação
+<p>Requisito obrigatório que a máquina tenha o docker instalado</p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+1. Deverá ter uma conta no - **[Docker Hub](http://docker-hub.com)**.
+2. Criar uma pasta no seu computador/servidor com o nome que desejar.
+3. Criar um arquivo com o nome Dockerfile
+4. Incluir as seguintes Linhas ao arquivo:
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+5. executar o comando:
+    
+## Criado por
 
-## Laravel Sponsors
+- **[Lucas Vieira](lucsolivier@gmail.com)**
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
