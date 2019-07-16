@@ -40,17 +40,48 @@ como por exemplo:
 
 1. Deverá ter uma conta no **[Docker Hub](https://hub.docker.com/)**.
 2. Criar uma pasta no seu computador/servidor com o nome que desejar.
-3. Criar um arquivo com o nome Dockerfile
-4. Incluir a seguinte linha ao arquivo:
+3. Criar um arquivo com o nome docker-compose.yml
+4. Incluir as seguintes linhas ao arquivo:
 ```
-FROM wyveo/nginx-php-fpm:php72
+version: "3.1" 
+services:
+  app:
+      image: lucasvieira93/api_neoway
+      container_name: neoway_app
+      ports:
+        - "8000:80"
+      links:
+        - mongodb
+      networks:
+        - app-network
+  mongodb:
+      image: mongo:latest
+      container_name: neoway_db
+      expose:
+        - "27017"
+      ports:
+        - "27017:27017"
+      restart: always
+      environment:
+        - MONGO_DATA_DIR=data/mongodb
+        - MONGO_LOG_DIR=data/logs/
+        - MONGODB_DATABASE=laravel_db
+        - MONGODB_USER=mongodb 
+        - MONGODB_PASS=mongodb
+      volumes:
+        - ./database/.mongodb/data/:/data/db
+      networks:
+        - app-network
+networks:
+  app-network:
+    driver: bridge
 ```
-5. Executar o comando:
+5. Executar o comando dento da pasta:
 ```
 $ sudo docker-compose up -d --build
 ```
     
-## Criado por
+## Criado e mantido por
 
-- **[Lucas Vieira](malito:lucsolivier@gmail.com)**
+- **Lucas Vieira (lucsolivier@gmail.com)**
 
