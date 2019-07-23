@@ -14,7 +14,7 @@ class CreateCadMilitar extends Migration
     public function up()
     {
         Schema::create('cad_militar', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('nome', 200)->nullable(false);
             $table->string('nome_guerra', 200)->nullable(false);
             $table->string('ident_militar', 100)->nullable(false);

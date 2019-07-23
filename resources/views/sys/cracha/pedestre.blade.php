@@ -19,7 +19,7 @@ $foto = $militar->om_id.'/'.$militar->posto.'/'.$militar->ident_militar.'/'.$mil
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	<table style="min-width:211px;TABLE-LAYOUT: fixed;position:static;font-size:11px;font-family:sans-serif;border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;">
+	<table bgcolor="{{$militar->cor_cracha}}" style="min-width:211px;TABLE-LAYOUT: fixed;position:static;font-size:11px;font-family:sans-serif;border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;">
 		<tr>
 			<td>
 				<img style="width:29px;" src="{{asset('images/brasao.gif')}}">
@@ -42,7 +42,7 @@ $foto = $militar->om_id.'/'.$militar->posto.'/'.$militar->ident_militar.'/'.$mil
 
 				<td style="border-left:1px solid black;width: 108px;"><img style='width: 108px;' src="data:image/png;base64,{{base64_encode($qrImage)}}"></td>
 			</tr>
-			<tr style="border-size:2px;border-style:solid;border-color:black;width: 100%;height:10%;">
+			<tr bgcolor="{{$militar->cor_cracha}}" style="border-size:2px;border-style:solid;border-color:black;width: 100%;height:10%;">
 				<td colspan="3" style="border-top:1px solid black;word-break:">
 					Código: <b>{{$militar->posto_letra.$militar->id}}</b><br>
 					P/G: <b>{{$militar->posto_nome}}</b><br>

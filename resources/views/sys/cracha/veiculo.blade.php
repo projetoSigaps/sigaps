@@ -18,7 +18,7 @@ unlink($filePath);
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	<table style="min-width:330px;TABLE-LAYOUT: fixed;position:static;font-size:11px;font-family:sans-serif;border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;">
+	<table bgcolor="{{$veiculo->cor_cracha}}" style="min-width:330px;TABLE-LAYOUT: fixed;position:static;font-size:11px;font-family:sans-serif;border-top:1px solid black;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;">
 		<tr>
 			<td style="font-size: 18px;font-weight: bold;border-bottom: 1px solid black;padding-top:15px;padding-bottom: 15px;"><center>{{$veiculo->om_nome}}</center></td>
 		</tr>
@@ -35,7 +35,7 @@ unlink($filePath);
 
 				<td style="padding:26px;border:3px solid black;"><img src="data:image/png;base64,{{base64_encode($qrImage)}}"></td>
 			</tr>
-			<tr style="border-size:2px;border-style:solid;border-color:black;width: 100%;height:10%;">
+			<tr bgcolor="{{$veiculo->cor_cracha}}" style="border-size:2px;border-style:solid;border-color:black;width: 100%;height:10%;">
 				<td colspan="3" style="border-top:1px solid black;padding-top: 8px;padding-bottom: 8px;">
 
 					<p style='text-transform: uppercase;font-size:16px;'><b>{{$veiculo->posto_nome." ".$veiculo->nome_guerra}}</b></p>

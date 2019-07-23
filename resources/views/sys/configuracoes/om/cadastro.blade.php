@@ -97,6 +97,13 @@
 					<span class="form-control-feedback" id="numero1"></span>
 				</div>
 			</div>
+			<div class="form-group has-feedback">
+				<label class="field control-label col-md-2"></label>
+				<div class="field col-md-2">
+					<input class="form-control" type="text" id="cor_cracha" name="cor_cracha" placeholder="Cor do Crachá" required>
+					<span class="form-control-feedback" id="cor_cracha1"></span>
+				</div>
+			</div>
 			<hr>
 			<div class="box-footer">
 				<center>

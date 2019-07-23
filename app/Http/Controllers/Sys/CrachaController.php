@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Sys\Cad_automovel;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_viaturas;
+use App\Model\Sys\Cad_om;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Sys\Cad_logs;
 use DB;
@@ -59,7 +60,8 @@ class CrachaController extends Controller
 			'cad_posto.letra',
 			'cad_marca.nome as marca',
 			'cad_modelo.nome as modelo',
-			'cad_om.nome as om_nome'
+			'cad_om.nome as om_nome',
+			'cad_om.cor_cracha'
 		)
 			->join(
 				'cad_marca',
@@ -142,7 +144,8 @@ class CrachaController extends Controller
 				'cad_posto.letra',
 				'cad_marca.nome as marca',
 				'cad_modelo.nome as modelo',
-				'cad_om.nome as om_nome'
+				'cad_om.nome as om_nome',
+				'cad_om.cor_cracha'
 			)
 			->join(
 				'cad_marca',
@@ -225,7 +228,8 @@ class CrachaController extends Controller
 			'cad_militar.nome_guerra',
 			'cad_posto.nome as posto_nome',
 			'cad_posto.letra as posto_letra',
-			'cad_om.nome as om_nome'
+			'cad_om.nome as om_nome',
+			'cad_om.cor_cracha'
 		)
 			->join(
 				'cad_posto',

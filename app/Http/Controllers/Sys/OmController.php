@@ -66,7 +66,8 @@ class OmController extends Controller
 			'bairro' => 'required',
 			'endereco' => 'required',
 			'numero' => 'required',
-			'datafile' => 'required|max:6000|image|mimes:jpeg,png'
+			'datafile' => 'required|max:6000|image|mimes:jpeg,png',
+			'cor_cracha' => 'required'
 		];
 		$validacao = Validator::make($dados, $regras);
 		if ($validacao->fails()) {
@@ -94,6 +95,7 @@ class OmController extends Controller
 			$om->bairro = $dados['bairro'];
 			$om->endereco = $dados['endereco'];
 			$om->numero = $dados['numero'];
+			$om->cor_cracha = $dados['cor_cracha'];
 			$om->datafile = $nome_foto;
 			$om->save();
 
@@ -138,7 +140,8 @@ class OmController extends Controller
 			'cidade' => 'required',
 			'bairro' => 'required',
 			'endereco' => 'required',
-			'numero' => 'required'
+			'numero' => 'required',
+			'cor_cracha' => 'required'
 		];
 		$validacao = Validator::make($dados, $regras);
 		if ($validacao->fails()) {
@@ -166,6 +169,7 @@ class OmController extends Controller
 			$om->bairro = $dados['bairro'];
 			$om->endereco = $dados['endereco'];
 			$om->numero = $dados['numero'];
+			$om->cor_cracha = $dados['cor_cracha'];
 			$om->save();
 
 			Cad_militar::where('om_id', '=', $om->id)

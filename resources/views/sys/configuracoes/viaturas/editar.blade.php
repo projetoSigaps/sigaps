@@ -97,7 +97,7 @@ if($viatura->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 
 					<div class="form-group has-feedback">
 						<div class="field col-md-4">	
-							<input id="placa" value="{{$viatura->placa}}" minlength="8" type="text" name="placa" class="form-control maskPlaca" placeholder="Placa / EB" required>
+							<input id="placa" value="{{$viatura->placa}}" minlength="8" type="text" name="placa" class="form-control" placeholder="Placa / EB" required>
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">

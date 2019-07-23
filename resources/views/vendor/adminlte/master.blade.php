@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
         @yield('title', config('adminlte.title', 'AdminLTE 2'))
-    @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+        @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/sys/app-sys.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/sys/components/jasny-bootstrap-3.1.3.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>
@@ -30,6 +32,7 @@
 <![endif]-->
 
 </head>
+
 <body class="hold-transition @yield('body_class')">
     @yield('body')
     <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
@@ -37,13 +40,14 @@
     <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
     <script src="{{ asset('js/sys/app-sys.js') }}"></script>
     <script src="{{ asset('js/sys/components/mask.js') }}"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.min.js"></script>
+
     <!-- DataTables -->
     <script src="{{ asset('js/sys/components/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/sys/components/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('js/sys/components/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('js/sys/components/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('js/sys/components/jszip.min.js') }}"></script>
-    <script src="{{ asset('js/sys/components/vfs_fonts.js') }}"></script>
+
 
     <script src="{{ asset('js/sys/components/jquery.download.js') }}"></script>
     <script src="{{ asset('js/sys/components/jquery.validate-1.15.0.js') }}"></script>
@@ -56,4 +60,5 @@
     @yield('adminlte_js')
 
 </body>
+
 </html>

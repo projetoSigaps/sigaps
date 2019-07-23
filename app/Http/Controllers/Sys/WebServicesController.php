@@ -193,7 +193,7 @@ class WebServicesController extends Controller
 	*
 	*/
 	{
-		$usuario_vtr = Cad_militar::where('om_id', '=', $request->id)->where('posto', '=', 34)->first();
+		$usuario_vtr = Cad_militar::where('om_id', '=', $request->id)->where('posto', 34)->first();
 		if (empty($usuario_vtr)) {
 			echo "<p style=\"margin-bottom: 0px;vertical-align:middle;\" class=\"alert-danger\"> Sem Usuário Vinculado! </p>";
 			die();
@@ -202,7 +202,8 @@ class WebServicesController extends Controller
 		$veiculos = DB::table('cad_automovel')
 			->select(
 				'cad_automovel.*',
-				'cad_viaturas.*',
+				'cad_viaturas.vtr_cmt',
+				'cad_viaturas.cat',
 				'cad_marca.nome as marca',
 				'cad_modelo.nome as modelo'
 			)
@@ -218,7 +219,7 @@ class WebServicesController extends Controller
 				'=',
 				'cad_automovel.modelo_id'
 			)
-			->join(
+			->leftJoin(
 				'cad_viaturas',
 				'cad_viaturas.automovel_id',
 				'=',
@@ -236,8 +237,8 @@ class WebServicesController extends Controller
 
 		foreach ($veiculos as $value) {
 
-			$editar =  route('sys.configuracoes.viaturas.editar', $value->automovel_id);
-			$selo 	=  route('sys.cracha.viatura', $value->automovel_id);
+			$editar =  route('sys.configuracoes.viaturas.editar', $value->id);
+			$selo 	=  route('sys.cracha.viatura', $value->id);
 
 			if ($value->baixa == 0) {
 				$value->baixa = "<span class=\"label label-success\">Ativo</span>";
@@ -253,7 +254,7 @@ class WebServicesController extends Controller
 
 			$tbl .= "
 			<tr style=\"font-size:13px;\" class=\"success\">
-			<td style=\"vertical-align:middle;\">Nº Crachá: <b>" . $value->automovel_id . "</b></td>
+			<td style=\"vertical-align:middle;\">Nº Crachá: <b>" . $value->id . "</b></td>
 			<td style=\"vertical-align:middle;\">Tipo: <b>" . $value->cat . "</b></td>
 			<td style=\"vertical-align:middle;\">Marca/Modelo: <b> " . $value->marca . "/" . $value->modelo . "</b></td>
 			<td style=\"vertical-align:middle;\">Placa: <b>" . $value->placa . "</b></td>

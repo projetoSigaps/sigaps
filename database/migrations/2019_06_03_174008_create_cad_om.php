@@ -24,6 +24,7 @@ class CreateCadOm extends Migration
             $table->string('endereco', 150)->nullable();
             $table->string('bairro', 150)->nullable();
             $table->string('numero', 150)->nullable();
+            $table->string('cor_cracha', 100)->nullable();
             $table->string('datafile',150)->nullable(false);
         });
     }

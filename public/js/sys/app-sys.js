@@ -31,6 +31,7 @@ $(document).ready(function () {
 		}
 	});
 
+	$('#cor_cracha').colorpicker();
 
 	$('select[name="mes_cnh"]').change(function () {
 		$('input[name="ano_cnh"]').removeAttr('disabled');
@@ -95,6 +96,8 @@ $(document).ready(function () {
 	$(".maskMoney").mask("000.000.000,00", { reverse: true });
 	$(".maskMoney").keypress(verificaNumero);
 
+
+	$('#placa').unmask();
 	$('#categoria').change(function () {
 		var cat = $(this).find('option:selected').val();
 		if (cat == "OP") $('#placa').val('').unmask();
