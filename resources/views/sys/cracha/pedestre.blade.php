@@ -82,7 +82,7 @@ $foto = $militar->om_id.'/'.$militar->posto.'/'.$militar->ident_militar.'/'.$mil
 			</td>
 		</tr>
 		<tr>
-			<td style="border-top:1px solid black;"><center>Chefe Serviço Policia</center></td>
+			<td style="border-top:1px solid black;"><center>Chefe do Serviço Polícia</center></td>
 		</tr>
 	</table>
 </body>

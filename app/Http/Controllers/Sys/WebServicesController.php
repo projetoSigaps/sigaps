@@ -313,7 +313,12 @@ class WebServicesController extends Controller
 		foreach ($veiculos as $value) {
 
 			$editar =  route('sys.veiculos.cadastro.editar', $value->id);
-			$selo 	=  route('sys.cracha.veiculo', $value->id);
+			
+			if ($value->tipo_id == 2) {
+				$selo 	=  route('sys.cracha.moto', $value->id);
+			} else {
+				$selo 	=  route('sys.cracha.veiculo', $value->id);
+			}
 
 			if ($value->baixa == 0) {
 				$value->baixa = "<span class=\"label label-success\">Ativo</span>";

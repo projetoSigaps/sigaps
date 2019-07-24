@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Model\Sys\Cad_automovel;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_viaturas;
-use App\Model\Sys\Cad_om;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Sys\Cad_logs;
 use DB;
@@ -54,6 +53,7 @@ class CrachaController extends Controller
 			'cad_automovel.id',
 			'cad_automovel.placa',
 			'cad_automovel.baixa',
+			'cad_automovel.tipo_id',
 			'cad_militar.nome_guerra',
 			'cad_militar.om_id',
 			'cad_posto.nome as posto_nome',
@@ -117,7 +117,12 @@ class CrachaController extends Controller
 		}
 
 		$this->criar_log(30, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
-		return view('sys.cracha.veiculo', compact('veiculo'));
+
+		if ($veiculo->tipo_id == 2) {
+			return view('sys.cracha.moto', compact('veiculo'));
+		} else {
+			return view('sys.cracha.veiculo', compact('veiculo'));
+		}
 	}
 
 	public function viatura(Request $request, $id)

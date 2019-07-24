@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function () {
 	Route::get('veiculo/{id}', 'VeiculosController@show')->name('sys.veiculos.cadastro.editar');
 	Route::get('veiculos/cadastro', 'VeiculosController@create')->name('sys.veiculos.cadastro');
 	Route::get('veiculo/{id}/cracha', 'CrachaController@veiculo')->name('sys.cracha.veiculo');
+	Route::get('moto/{id}/cracha', 'CrachaController@veiculo')->name('sys.cracha.moto');
 	Route::post('veiculo/{id}/ativar', 'VeiculosController@enable')->name('sys.veiculo.ativar');
 	Route::post('veiculo/{id}/desativar', 'VeiculosController@disabled')->name('sys.veiculo.desativar');
 	Route::post('veiculo/{id}', 'VeiculosController@update')->name('sys.veiculos.cadastro.atualiza');

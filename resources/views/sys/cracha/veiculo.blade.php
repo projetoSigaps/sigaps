@@ -73,7 +73,7 @@ unlink($filePath);
 	</td>
 </tr>
 <tr>
-	<td style="border-top:1px solid black;"><center>Chefe do Serviço de Policia</center></td>
+	<td style="border-top:1px solid black;"><center>Chefe do Serviço de Polícia</center></td>
 </tr>
 </table>
 </body>
