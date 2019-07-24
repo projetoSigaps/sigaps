@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Exceptions;
+
 use Illuminate\Auth\Access\AuthorizationException;
 
 use Exception;
@@ -51,11 +52,27 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof AuthorizationException) {
             return response()->json([
-            'Error' => '403, Forbidden', 
-            'Exception' => strtoupper( substr( md5(rand()), 0, 20)), 
-            'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
-        ], 403);
+                'Error' => '403, Forbidden',
+                'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+                'Descrição' => 'Você não tem autorização para visualizar este conteúdo!',
+            ], 403);
         }
+
+        if ($this->isHttpException($exception)) {
+            switch ($exception->getStatusCode()) {
+                case '404':
+                    return response()->json([
+                        'Error' => '404, Not Found',
+                        'Exception' => strtoupper(substr(md5(rand()), 0, 20)),
+                        'Descrição' => 'Página não encontrada!',
+                    ], 404);
+                    break;
+                default:
+                    return parent::render($request, $exception);
+                    break;
+            }
+        }
+
         // this will still show the error if there is any in your code.
         return parent::render($request, $exception);
     }
