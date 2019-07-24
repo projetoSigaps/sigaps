@@ -16,14 +16,13 @@
 
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('css/sys/components/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/sys/components/buttons.dataTables.min.css') }}">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sys/app-sys.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/sys/components/jasny-bootstrap-3.1.3.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/sys/components/bootstrap-colorpicker.min.css') }}">
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>
@@ -40,14 +39,9 @@
     <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
     <script src="{{ asset('js/sys/app-sys.js') }}"></script>
     <script src="{{ asset('js/sys/components/mask.js') }}"></script>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.min.js"></script>
-
+    <script src="{{ asset('js/sys/components/bootstrap-colorpicker.min.js') }}"></script>
     <!-- DataTables -->
     <script src="{{ asset('js/sys/components/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/sys/components/dataTables.buttons.min.js') }}"></script>
-
 
     <script src="{{ asset('js/sys/components/jquery.download.js') }}"></script>
     <script src="{{ asset('js/sys/components/jquery.validate-1.15.0.js') }}"></script>
