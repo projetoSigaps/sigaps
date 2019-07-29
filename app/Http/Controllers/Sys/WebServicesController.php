@@ -47,7 +47,7 @@ class WebServicesController extends Controller
 	public function validacaoPlaca(Request $request)
 	/* Verifica se já existe um veículo ativo com a mesma placa */
 	{
-		$crtl = Cad_automovel::where('placa', '=', $request->placa)->where('baixa', '=', 0)->exists();
+		$crtl = Cad_automovel::where('placa', '=', $request->placa)->where('baixa', '=', 1)->exists();
 		if ($crtl) {
 			return response()->json([
 				'error' => "Já existe um veículo ATIVO com esta placa!"
@@ -58,7 +58,7 @@ class WebServicesController extends Controller
 	public function validacaoRenavam(Request $request)
 	/* Verifica se já existe um veículo ativo com o mesmo renavam */
 	{
-		$crtl = Cad_automovel::where('renavan', '=', $request->renavam)->where('baixa', '=', 0)->exists();
+		$crtl = Cad_automovel::where('renavan', '=', $request->renavam)->where('baixa', '=', 1)->exists();
 		if ($crtl) {
 			return response()->json([
 				'error' => "Já existe um veículo ATIVO com este renavam!"
@@ -240,7 +240,7 @@ class WebServicesController extends Controller
 			$editar =  route('sys.configuracoes.viaturas.editar', $value->id);
 			$selo 	=  route('sys.cracha.viatura', $value->id);
 
-			if ($value->baixa == 0) {
+			if ($value->baixa == 1) {
 				$value->baixa = "<span class=\"label label-success\">Ativo</span>";
 			} else {
 				$value->baixa = "<span class=\"label label-danger\">Desativada</span>";
@@ -320,7 +320,7 @@ class WebServicesController extends Controller
 				$selo 	=  route('sys.cracha.veiculo', $value->id);
 			}
 
-			if ($value->baixa == 0) {
+			if ($value->baixa == 1) {
 				$value->baixa = "<span class=\"label label-success\">Ativo</span>";
 			} else {
 				$value->baixa = "<span class=\"label label-danger\">Desativado</span>";

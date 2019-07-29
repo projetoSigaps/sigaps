@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Sys;
 
-use Illuminate\Http\Request;
+use Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -103,6 +103,147 @@ class HorariosController extends Controller
 
 			default:
 				return redirect()->route('sys.configuracoes.horarios')->with('error', 'Selecione um tipo de registro!');
+				break;
+		}
+	}
+
+	public function registrarCracha()
+	/* Registra horário, verificando se é de automovel ou pedestre */
+	{
+		$token = parse_url(Request::fullUrl(), PHP_URL_QUERY); // PEGA APENAS O TOKEN DA URL
+		$token = substr(strrchr($token, "-"), 1);
+		$token = preg_replace("/[^0-9]/", "", $token);
+
+		if (!ctype_digit($token) && (int) $token <= 0) {
+			echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>TOKEN INVÁLIDO!</p>";
+			die();
+		}
+
+		$tipo = explode("/", parse_url(Request::fullUrl(), PHP_URL_PATH));
+
+		$data = date("Y-m-d H:i:s");
+
+
+		switch ($tipo[2]) {
+			case 'RegEntradaMil.php':
+				$militar = Cad_militar::select('cad_om.nome as om_nome', 'cad_posto.nome as posto_nome', 'cad_militar.*')
+					->join(
+						'cad_posto',
+						'cad_militar.posto',
+						'=',
+						'cad_posto.id'
+					)
+					->join(
+						'cad_om',
+						'cad_militar.om_id',
+						'=',
+						'cad_om.id'
+					)
+					->where(
+						'cad_militar.id',
+						$token
+					)
+					->first();
+
+				if (!$militar) {
+					echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>NÃO ENCONTRADO!</p>";
+					die();
+				}
+				if (!$militar->status) {
+					echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>CRACHÁ DESATIVADO!</p>";
+					die();
+				}
+
+				$horario = Cad_entrada_saida::where('militar_id', $token)->orderBy('id', 'desc')->first();
+
+				if (!empty($horario)) {
+					switch ($horario->flag) {
+						case 1:
+							Cad_entrada_saida::where('id', $horario->id)->update(['dtSaida' => $data, 'flag' => 0]);
+							$status = "exit.png";
+							break;
+						case 0:
+							$registra = new Cad_entrada_saida;
+							$registra->militar_id = $token;
+							$registra->flag = 1;
+							$registra->dtEntrada = $data;
+							$registra->om_id = 14;
+							$registra->save();
+							$status = "enter.png";
+							break;
+						default:
+							echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>TENTE NOVAMENTE!</p>";
+							die();
+							break;
+					}
+				} else {
+					$registra = new Cad_entrada_saida;
+					$registra->militar_id = $token;
+					$registra->flag = 1;
+					$registra->dtEntrada = $data;
+					$registra->om_id = 14;
+					$registra->save();
+					$status = "enter.png";
+				}
+				return view('layouts.pedestre', compact('militar', 'status'));
+				break;
+
+			case 'RegEntradaAuto.php':
+				$automovel = Cad_automovel::select('cad_om.nome as om_nome', 'cad_posto.nome as posto_nome', 'cad_militar.*', 'cad_marca.nome as marca', 'cad_modelo.nome as modelo', 'cad_automovel.*')
+					->join('cad_militar', 'cad_militar.id', '=', 'cad_automovel.militar_id')
+					->join('cad_modelo', 'cad_modelo.id', '=', 'cad_automovel.modelo_id')
+					->join('cad_marca', 'cad_marca.id', '=', 'cad_automovel.marca_id')
+					->join('cad_om', 'cad_om.id', '=', 'cad_militar.om_id')
+					->join('cad_posto', 'cad_posto.id', '=', 'cad_militar.posto')
+					->where('cad_automovel.id', $token)
+					->first();
+
+				if (!$automovel) {
+					echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>NÃO ENCONTRADO!</p>";
+					die();
+				}
+				if (!$automovel->baixa) {
+					echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>CRACHÁ DESATIVADO!</p>";
+					die();
+				}
+
+				$horario = Cad_entrada_saida::where('automovel_id', $token)->orderBy('id', 'desc')->first();
+
+				if (!empty($horario)) {
+					switch ($horario->flag) {
+						case 1:
+							Cad_entrada_saida::where('id', $horario->id)->update(['dtSaida' => $data, 'flag' => 0]);
+							$status = "exit.png";
+							break;
+						case 0:
+							$registra = new Cad_entrada_saida;
+							$registra->automovel_id = $token;
+							$registra->flag = 1;
+							$registra->dtEntrada = $data;
+							$registra->om_id = 14;
+							$registra->save();
+							$status = "enter.png";
+							break;
+						default:
+							echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>TENTE NOVAMENTE!</p>";
+							die();
+							break;
+					}
+				} else {
+					$registra = new Cad_entrada_saida;
+					$registra->automovel_id = $token;
+					$registra->flag = 1;
+					$registra->dtEntrada = $data;
+					$registra->om_id = 14;
+					$registra->save();
+					$status = "enter.png";
+				}
+				return view('layouts.automoveis', compact('automovel', 'status'));
+				break;
+
+			default:
+				echo "<p style='text-align:center;font-weight:bold;font-size:90px;margin-top:10%;background-color:red;color:white;'>ERRO NA OPERAÇÂO!</p>";
+				die();
 				break;
 		}
 	}

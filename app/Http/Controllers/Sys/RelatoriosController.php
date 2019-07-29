@@ -486,7 +486,7 @@ class RelatoriosController extends Controller
 				$value->doc_venc = date('d/m/Y', strtotime(str_replace('-', '/', $value->doc_venc)));
 			}
 
-			if ($value->baixa == 1) {
+			if ($value->baixa == 0) {
 				$value->baixa = "Desativado";
 			} else {
 				$value->baixa = "Ativado";

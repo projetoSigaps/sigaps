@@ -197,25 +197,28 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function () {
 	Route::post('webservices/consultas/pedestres/', 'ConsultaController@consultaPedestres');
 	Route::post('webservices/consultas/automoveis/', 'ConsultaController@consultaAutomoveis');
 	Route::post('webservices/configuraçoes/usuario/', 'WebServicesController@trocarSenha');
-
-
-	Route::get('storage/doc/{filename}', function ($filename) {
-		$path = storage_path('app/_DOC/' . base64_decode($filename));
-		if (!File::exists($path)) {
-			abort(404);
-		}
-
-		$file = File::get($path);
-		$type = File::mimeType($path);
-		$response = Response::make($file, 200);
-		$response->header("Content-Type", $type);
-		return $response;
-	});
 });
 
 Auth::routes();
+
+Route::get('storage/doc/{filename}', function ($filename) {
+	$path = storage_path('app/_DOC/' . base64_decode($filename));
+	if (!File::exists($path)) {
+		abort(404);
+	}
+
+	$file = File::get($path);
+	$type = File::mimeType($path);
+	$response = Response::make($file, 200);
+	$response->header("Content-Type", $type);
+	return $response;
+});
+
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::post('senha/trocar', 'Auth\ChangePasswordController@changePassword')->name('password.change');
+
+
+Route::get('controllers/{parametros}', 'Sys\HorariosController@registrarCracha');

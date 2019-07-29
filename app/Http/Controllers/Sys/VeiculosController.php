@@ -132,7 +132,7 @@ class VeiculosController extends Controller
 		];
 
 		$crtl = Cad_automovel::where('placa', '=', $request->placa)
-			->where('baixa', '=', 0)
+			->where('baixa', '=', 1)
 			->where('id', '<>', $id)
 			->exists();
 		if ($crtl) {
@@ -185,7 +185,7 @@ class VeiculosController extends Controller
 		}
 
 		$crtl = Cad_automovel::where('placa', '=', $request->placa)
-			->where('baixa', '=', 0)
+			->where('baixa', '=', 1)
 			->exists();
 		if ($crtl) {
 			return back()->with('error', 'Este veículo já possui cadastro ATIVO!');
@@ -203,7 +203,7 @@ class VeiculosController extends Controller
 			$veiculo->doc_venc = date('Y-m-d', strtotime(str_replace('/', '-', $dados['doc_venc'])));
 			$veiculo->origem = $dados['origem'];
 			$veiculo->ano_auto = $dados['ano_auto'];
-			$veiculo->baixa = 0;
+			$veiculo->baixa = 1;
 			$veiculo->save();
 			$this->criar_log(2, NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 			return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Cadastro realizado com sucesso!');
@@ -226,7 +226,7 @@ class VeiculosController extends Controller
 			return back()->with('error', $validacao->errors()->first());
 		}
 
-		$veiculo->baixa = 1;
+		$veiculo->baixa = 0;
 		$veiculo->save();
 		$this->criar_log($dados['motivo-dtv'], NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Desativado com sucesso!');
@@ -247,13 +247,13 @@ class VeiculosController extends Controller
 		}
 
 		$crtl = Cad_automovel::where('placa', '=', $veiculo->placa)
-			->where('baixa', '=', 0)
+			->where('baixa', '=', 1)
 			->exists();
 		if ($crtl) {
 			return back()->with('error', 'Já existe algum veículo ativo com esta placa!');
 		}
 
-		$veiculo->baixa = 0;
+		$veiculo->baixa = 1;
 		$veiculo->save();
 		$this->criar_log($dados['motivo-atv'], NULL, $veiculo->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.veiculos.cadastro.editar', $veiculo->id)->with('success', 'Ativado com sucesso!');
