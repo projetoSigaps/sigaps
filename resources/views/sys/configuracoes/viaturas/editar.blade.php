@@ -9,7 +9,7 @@
 @section('content')
 <?php
 
-if($viatura->baixa == 0){$status = 'Ativado';} else $status = 'Desativado'; 
+if($viatura->baixa == 1){$status = 'Ativado';} else $status = 'Desativado'; 
 
 ?>
 
@@ -146,9 +146,9 @@ if($viatura->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 						</div>
 						<hr>
 
-						@if($viatura->baixa == 0)
+						@if($viatura->baixa == 1)
 						<a href="{{route('sys.configuracoes.viaturas.desativar',$viatura->id)}}" class="btn btn-flat btn-danger">Desativar <span class="fa fa-lock"></span></a>
-						@else($viatura->status == 1)
+						@else($viatura->status == 0)
 						<a href="{{route('sys.configuracoes.viaturas.ativar',$viatura->id)}}" class="btn btn-flat btn-success">Ativar <span class="fa fa-unlock"></span></a>
 						@endif
 						<a href="{{route('sys.cracha.viatura',$viatura->id)}}" target="_blank" class="btn btn-flat btn-warning">Gerar Crachá 
