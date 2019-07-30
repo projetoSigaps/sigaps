@@ -134,7 +134,7 @@ if($viatura->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 							</p>
 						</div>
 					</div>
-					@if ($viatura->baixa == 1)
+					@if ($viatura->baixa == 0)
 					<div class="form-group has-error">
 						@else
 						<div class="form-group has-success">
