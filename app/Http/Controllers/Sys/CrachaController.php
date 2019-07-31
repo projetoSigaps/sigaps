@@ -112,7 +112,7 @@ class CrachaController extends Controller
 			return back()->with('error', 'Já existe algum veículo ativo com esta placa!');
 		}
 
-		if ($veiculo->baixa == 1) {
+		if (!$veiculo->baixa) {
 			return back()->with('error', 'Veículo com STATUS DESATIVADO!');
 		}
 
@@ -202,7 +202,7 @@ class CrachaController extends Controller
 		if ($vtr->vtr_cmt == 0) {
 			$viatura->letra = "X";
 		}
-		if ($viatura->baixa == 1) {
+		if (!$viatura->baixa) {
 			return back()->with('error', 'Viatura com STATUS DESATIVADO!');
 		}
 		$this->criar_log(31, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
@@ -260,7 +260,7 @@ class CrachaController extends Controller
 			return abort(404);
 		}
 
-		if ($militar->status == 2) {
+		if (!$militar->status) {
 			return back()->with('error', 'Militar com STATUS DESATIVADO!');
 		}
 

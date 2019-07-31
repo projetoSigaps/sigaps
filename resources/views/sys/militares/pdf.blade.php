@@ -131,7 +131,7 @@ $foto = $militar->om_id.'/'.$militar->posto.'/'.$militar->ident_militar.'/'.$mil
     <td>{{$value->cor}}</td>
     <td>{{$value->renavan}}</td>
     <td>
-      @if($value->baixa == 0) ATIVADO
+      @if($value->baixa == 1) ATIVADO
       @else DESATIVADO
       @endif
     </td>
