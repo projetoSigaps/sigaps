@@ -9,7 +9,7 @@
 
 <?php
 
-if($veiculo->baixa == 0){$status = 'Ativado';} else $status = 'Desativado'; 
+if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado'; 
 
 ?>
 
@@ -144,7 +144,7 @@ if($veiculo->baixa == 0){$status = 'Ativado';} else $status = 'Desativado';
 							<span class="form-control-feedback" id="ano_auto1"></span>
 						</div>
 					</div>
-					@if ($veiculo->baixa == 1)
+					@if ($veiculo->baixa == 0)
 					<div class="form-group has-error">
 						@else
 						<div class="form-group has-success">
