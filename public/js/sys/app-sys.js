@@ -531,12 +531,12 @@ $(document).ready(function () {
 
 	$('#relatorio-automovel').click(function () {
 		var form = $('.form').serialize();
-		$.download('/relatorios/automoveis/', decodeURIComponent(form), 'post');
+		$.download('/relatorios/automoveis', decodeURIComponent(form), 'post');
 	});
 
 	$('#relatorio-militar').click(function () {
 		var form = $('.form').serialize();
-		$.download('/relatorios/militares/', decodeURIComponent(form), 'post');
+		$.download('/relatorios/militares', decodeURIComponent(form), 'post');
 	});
 
 	$('#relatorio-horario-auto').click(function () {
@@ -546,7 +546,7 @@ $(document).ready(function () {
 
 	$('#relatorio-horario-pedestre').click(function () {
 		var form = $('.form').serialize();
-		$.download('/relatorios/horarios/pedestres/', decodeURIComponent(form), 'post');
+		$.download('/relatorios/horarios/pedestres', decodeURIComponent(form), 'post');
 	});
 
 
