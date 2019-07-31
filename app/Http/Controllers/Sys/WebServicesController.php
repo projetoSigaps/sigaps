@@ -158,7 +158,7 @@ class WebServicesController extends Controller
 				if ($value->status == 1) {
 					$status = "<span class='label label-success'>Ativo</span>";
 				}
-				if ($value->status == 2) {
+				if ($value->status == 0) {
 					$status = "<span class='label label-danger'>Desativado</span>";
 				}
 
