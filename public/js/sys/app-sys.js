@@ -541,7 +541,7 @@ $(document).ready(function () {
 
 	$('#relatorio-horario-auto').click(function () {
 		var form = $('.form').serialize();
-		$.download('/relatorios/horarios/automoveis/', decodeURIComponent(form), 'post');
+		$.download('/relatorios/horarios/automoveis', decodeURIComponent(form), 'post');
 	});
 
 	$('#relatorio-horario-pedestre').click(function () {
