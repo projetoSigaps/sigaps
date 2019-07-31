@@ -196,7 +196,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Sys'], function () {
 	Route::post('webservices/modelo_veiculo/consulta', 'WebServicesController@pesquisaModeloVeiculo');
 	Route::post('webservices/consultas/pedestres/', 'ConsultaController@consultaPedestres');
 	Route::post('webservices/consultas/automoveis/', 'ConsultaController@consultaAutomoveis');
-	Route::post('webservices/configuraçoes/usuario/', 'WebServicesController@trocarSenha');
+	Route::post('webservices/configuracoes/usuario/', 'WebServicesController@trocarSenha');
 });
 
 Auth::routes();
