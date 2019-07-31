@@ -155,9 +155,9 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 							</div>
 						</div>
 
-						@if($veiculo->baixa == 0)
+						@if($veiculo->baixa == 1)
 						<a data-toggle="modal" data-target="#desativar-veiculo" target="_blank" class="btn btn-flat btn-danger">Desativar <span class="fa fa-lock"></span></a>
-						@else($veiculo->status == 1)
+						@else($veiculo->status == 0)
 						<a data-toggle="modal" data-target="#ativar-veiculo" target="_blank" class="btn btn-flat btn-success">Ativar <span class="fa fa-unlock"></span></a>
 						@endif
 
