@@ -21,12 +21,12 @@ class CrachaController extends Controller
     | HTML disponível em resources/views/sys/cracha
 	*/
 
-	public function trocarCrachaIndex()
-	/* Página onde é solicitado a troca de crachá */
-	{
-		$this->authorize('trocarCracha', Cad_militar::class);
-		return view('sys.configuracoes.trocarCracha');
-	}
+    public function trocarCrachaIndex()
+    /* Página onde é solicitado a troca de crachá */
+    {
+    	$this->authorize('trocarCracha', Cad_militar::class);
+    	return view('sys.configuracoes.trocarCracha');
+    }
 
 	/*
     |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class CrachaController extends Controller
     | Gera os crachás
     */
 
-	public function veiculo(Request $request, $id)
+    public function veiculo(Request $request, $id)
 	/*
 	Faz as consulta dos dados do militar e enviar para a view montar o crachá de Veículo;
 	Registra na tabela cad_logs a operação;
@@ -63,37 +63,37 @@ class CrachaController extends Controller
 			'cad_om.nome as om_nome',
 			'cad_om.cor_cracha'
 		)
-			->join(
-				'cad_marca',
-				'cad_marca.id',
-				'=',
-				'cad_automovel.marca_id'
-			)
-			->join(
-				'cad_modelo',
-				'cad_modelo.id',
-				'=',
-				'cad_automovel.modelo_id'
-			)
-			->join(
-				'cad_militar',
-				'cad_militar.id',
-				'=',
-				'cad_automovel.militar_id'
-			)
-			->join(
-				'cad_om',
-				'cad_militar.om_id',
-				'=',
-				'cad_om.id'
-			)
-			->join(
-				'cad_posto',
-				'cad_militar.posto',
-				'=',
-				'cad_posto.id'
-			)
-			->where('cad_automovel.id', '=', $id);
+		->join(
+			'cad_marca',
+			'cad_marca.id',
+			'=',
+			'cad_automovel.marca_id'
+		)
+		->join(
+			'cad_modelo',
+			'cad_modelo.id',
+			'=',
+			'cad_automovel.modelo_id'
+		)
+		->join(
+			'cad_militar',
+			'cad_militar.id',
+			'=',
+			'cad_automovel.militar_id'
+		)
+		->join(
+			'cad_om',
+			'cad_militar.om_id',
+			'=',
+			'cad_om.id'
+		)
+		->join(
+			'cad_posto',
+			'cad_militar.posto',
+			'=',
+			'cad_posto.id'
+		)
+		->where('cad_automovel.id', '=', $id);
 
 		if (!Auth::user()->hasRole('super-admin')) {
 			$veiculo = $veiculo->where('cad_militar.om_id', Auth::user()->om_id);
@@ -105,9 +105,9 @@ class CrachaController extends Controller
 		}
 
 		$crtl = DB::table('cad_automovel')->where('placa', '=', $veiculo->placa)
-			->where('baixa', '=', 0)
-			->where('id', '<>', $veiculo->id)
-			->exists();
+		->where('baixa', '=', 0)
+		->where('id', '<>', $veiculo->id)
+		->exists();
 		if ($crtl) {
 			return back()->with('error', 'Já existe algum veículo ativo com esta placa!');
 		}
@@ -140,50 +140,50 @@ class CrachaController extends Controller
 		}
 
 		$viatura = DB::table('cad_automovel')
-			->select(
-				'cad_automovel.id',
-				'cad_automovel.placa',
-				'cad_automovel.baixa',
-				'cad_militar.nome_guerra',
-				'cad_posto.nome as posto_nome',
-				'cad_posto.letra',
-				'cad_marca.nome as marca',
-				'cad_modelo.nome as modelo',
-				'cad_om.nome as om_nome',
-				'cad_om.cor_cracha'
-			)
-			->join(
-				'cad_marca',
-				'cad_marca.id',
-				'=',
-				'cad_automovel.marca_id'
-			)
-			->join(
-				'cad_modelo',
-				'cad_modelo.id',
-				'=',
-				'cad_automovel.modelo_id'
-			)
-			->join(
-				'cad_militar',
-				'cad_militar.id',
-				'=',
-				'cad_automovel.militar_id'
-			)
-			->join(
-				'cad_om',
-				'cad_militar.om_id',
-				'=',
-				'cad_om.id'
-			)
-			->join(
-				'cad_posto',
-				'cad_militar.posto',
-				'=',
-				'cad_posto.id'
-			)
-			->where('cad_automovel.id', '=', $id)
-			->first();
+		->select(
+			'cad_automovel.id',
+			'cad_automovel.placa',
+			'cad_automovel.baixa',
+			'cad_militar.nome_guerra',
+			'cad_posto.nome as posto_nome',
+			'cad_posto.letra',
+			'cad_marca.nome as marca',
+			'cad_modelo.nome as modelo',
+			'cad_om.nome as om_nome',
+			'cad_om.cor_cracha'
+		)
+		->join(
+			'cad_marca',
+			'cad_marca.id',
+			'=',
+			'cad_automovel.marca_id'
+		)
+		->join(
+			'cad_modelo',
+			'cad_modelo.id',
+			'=',
+			'cad_automovel.modelo_id'
+		)
+		->join(
+			'cad_militar',
+			'cad_militar.id',
+			'=',
+			'cad_automovel.militar_id'
+		)
+		->join(
+			'cad_om',
+			'cad_militar.om_id',
+			'=',
+			'cad_om.id'
+		)
+		->join(
+			'cad_posto',
+			'cad_militar.posto',
+			'=',
+			'cad_posto.id'
+		)
+		->where('cad_automovel.id', '=', $id)
+		->first();
 
 		if (!Auth::user()->hasRole('super-admin')) {
 			$viatura = $viatura->where('cad_militar.om_id', Auth::user()->om_id);
@@ -236,19 +236,19 @@ class CrachaController extends Controller
 			'cad_om.nome as om_nome',
 			'cad_om.cor_cracha'
 		)
-			->join(
-				'cad_posto',
-				'cad_militar.posto',
-				'=',
-				'cad_posto.id'
-			)
-			->join(
-				'cad_om',
-				'cad_militar.om_id',
-				'=',
-				'cad_om.id'
-			)
-			->where('cad_militar.id', '=', $id);
+		->join(
+			'cad_posto',
+			'cad_militar.posto',
+			'=',
+			'cad_posto.id'
+		)
+		->join(
+			'cad_om',
+			'cad_militar.om_id',
+			'=',
+			'cad_om.id'
+		)
+		->where('cad_militar.id', '=', $id);
 
 		if (!Auth::user()->hasRole('super-admin')) {
 			$militar = $militar->where('cad_militar.om_id', Auth::user()->om_id);
@@ -294,10 +294,10 @@ class CrachaController extends Controller
 			** Consulta qual foi o ulitmo número registrado
 			*/
 			$value = DB::table('INFORMATION_SCHEMA.TABLES')
-				->select('AUTO_INCREMENT as last_id')
-				->where('TABLE_SCHEMA', $nameDB)
-				->where('TABLE_NAME', $nameTB)
-				->first();
+			->select('AUTO_INCREMENT as last_id')
+			->where('TABLE_SCHEMA', $nameDB)
+			->where('TABLE_NAME', $nameTB)
+			->first();
 
 			/*
 			** Atualiza o ID do Militar
