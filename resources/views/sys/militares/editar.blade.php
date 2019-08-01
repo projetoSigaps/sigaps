@@ -179,7 +179,7 @@
 						<center>
 							@if($militar->status == 1)
 							<a href="" data-toggle="modal" data-target="#desativar-militar" target="_blank" class="btn btn-flat btn-danger">Desativar <span class="fa fa-lock"></span></a>
-							@else($militar->status == 2)
+							@else($militar->status == 0)
 							<a href="" data-toggle="modal" data-target="#ativar-militar" target="_blank" class="btn btn-flat btn-success">Ativar <span class="fa fa-unlock"></span></a>
 							@endif
 							<a class="btn btn-flat btn-primary novo-veiculo">Novo Veículo <span class="fa fa-plus-square"></span></a>
