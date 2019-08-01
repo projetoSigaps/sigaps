@@ -182,8 +182,7 @@ class CrachaController extends Controller
 				'=',
 				'cad_posto.id'
 			)
-			->where('cad_automovel.id', '=', $id)
-			->first();
+			->where('cad_automovel.id', '=', $id);
 
 		if (!Auth::user()->hasRole('super-admin')) {
 			$viatura = $viatura->where('cad_militar.om_id', Auth::user()->om_id);
