@@ -165,7 +165,7 @@
 					</div>
 				</div>
 
-				@if ($militar->status == 2)
+				@if ($militar->status == 0)
 				<div class="form-group has-error">
 					@else
 					<div class="form-group has-success">
