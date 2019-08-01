@@ -80,29 +80,29 @@ class WebServicesController extends Controller
 
 		if (empty($request->input('search.value'))) {
 			$militares = DB::table('cad_militar')
-				->select(
-					'cad_militar.nome',
-					'cad_militar.nome_guerra',
-					'cad_militar.ident_militar',
-					'cad_posto.nome as posto_nome',
-					'cad_om.nome as om_nome',
-					'cad_militar.id',
-					'cad_militar.status'
-				)
-				->selectRaw('LPAD(cad_posto.ordem,2,0) as ordem')
-				->join(
-					'cad_posto',
-					'cad_militar.posto',
-					'=',
-					'cad_posto.id'
-				)
-				->join(
-					'cad_om',
-					'cad_militar.om_id',
-					'=',
-					'cad_om.id'
-				)
-				->where('cad_posto.id', '!=', 34);
+			->select(
+				'cad_militar.nome',
+				'cad_militar.nome_guerra',
+				'cad_militar.ident_militar',
+				'cad_posto.nome as posto_nome',
+				'cad_om.nome as om_nome',
+				'cad_militar.id',
+				'cad_militar.status'
+			)
+			->selectRaw('LPAD(cad_posto.ordem,2,0) as ordem')
+			->join(
+				'cad_posto',
+				'cad_militar.posto',
+				'=',
+				'cad_posto.id'
+			)
+			->join(
+				'cad_om',
+				'cad_militar.om_id',
+				'=',
+				'cad_om.id'
+			)
+			->where('cad_posto.id', '!=', 34);
 			if (!Auth::user()->hasRole('super-admin')) {
 				$militares->where('cad_militar.om_id', Auth::user()->om_id);
 			}
@@ -111,35 +111,35 @@ class WebServicesController extends Controller
 		} else {
 			$search = $request->input('search.value');
 			$militares = DB::table('cad_militar')
-				->select(
-					'cad_militar.nome',
-					'cad_militar.nome_guerra',
-					'cad_militar.ident_militar',
-					'cad_posto.nome as posto_nome',
-					'cad_om.nome as om_nome',
-					'cad_militar.id',
-					'cad_militar.status'
-				)
-				->selectRaw('LPAD(cad_posto.ordem,2,0) as ordem')
-				->join(
-					'cad_posto',
-					'cad_militar.posto',
-					'=',
-					'cad_posto.id'
-				)
-				->join(
-					'cad_om',
-					'cad_militar.om_id',
-					'=',
-					'cad_om.id'
-				)
-				->where(
-					function ($query) use ($search) {
-						$query->where('cad_militar.nome', 'LIKE', "%{$search}%")
-							->orWhere('cad_militar.ident_militar', 'LIKE', "%{$search}%")
-							->orWhere('cad_militar.nome_guerra', 'LIKE', "%{$search}%");
-					}
-				);
+			->select(
+				'cad_militar.nome',
+				'cad_militar.nome_guerra',
+				'cad_militar.ident_militar',
+				'cad_posto.nome as posto_nome',
+				'cad_om.nome as om_nome',
+				'cad_militar.id',
+				'cad_militar.status'
+			)
+			->selectRaw('LPAD(cad_posto.ordem,2,0) as ordem')
+			->join(
+				'cad_posto',
+				'cad_militar.posto',
+				'=',
+				'cad_posto.id'
+			)
+			->join(
+				'cad_om',
+				'cad_militar.om_id',
+				'=',
+				'cad_om.id'
+			)
+			->where(
+				function ($query) use ($search) {
+					$query->where('cad_militar.nome', 'LIKE', "%{$search}%")
+					->orWhere('cad_militar.ident_militar', 'LIKE', "%{$search}%")
+					->orWhere('cad_militar.nome_guerra', 'LIKE', "%{$search}%");
+				}
+			);
 			if (!Auth::user()->hasRole('super-admin')) {
 				$militares->where('cad_militar.om_id', Auth::user()->om_id);
 			}
@@ -170,7 +170,7 @@ class WebServicesController extends Controller
 				$nestedData['om_nome'] = $value->om_nome;
 				$nestedData['status'] = $status;
 				$nestedData['options'] =
-					"<a target='_blank' href='{$editar}' title='Editar' class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></a>
+				"<a target='_blank' href='{$editar}' title='Editar' class=\"btn btn-sm btn-primary\"><i class=\"fa fa-edit\"></i></a>
 				<a target='_blank' href='{$selo}' title='Gerar Selo' class=\"btn btn-sm btn-warning\"><i class=\"fa fa-qrcode\"></i></a>";
 				$data[] = $nestedData;
 			}
@@ -200,33 +200,33 @@ class WebServicesController extends Controller
 		}
 
 		$veiculos = DB::table('cad_automovel')
-			->select(
-				'cad_automovel.*',
-				'cad_viaturas.vtr_cmt',
-				'cad_viaturas.cat',
-				'cad_marca.nome as marca',
-				'cad_modelo.nome as modelo'
-			)
-			->join(
-				'cad_marca',
-				'cad_marca.id',
-				'=',
-				'cad_automovel.marca_id'
-			)
-			->join(
-				'cad_modelo',
-				'cad_modelo.id',
-				'=',
-				'cad_automovel.modelo_id'
-			)
-			->leftJoin(
-				'cad_viaturas',
-				'cad_viaturas.automovel_id',
-				'=',
-				'cad_automovel.id'
-			)
-			->where('cad_automovel.militar_id', '=', $usuario_vtr->id)
-			->get();
+		->select(
+			'cad_automovel.*',
+			'cad_viaturas.vtr_cmt',
+			'cad_viaturas.cat',
+			'cad_marca.nome as marca',
+			'cad_modelo.nome as modelo'
+		)
+		->join(
+			'cad_marca',
+			'cad_marca.id',
+			'=',
+			'cad_automovel.marca_id'
+		)
+		->join(
+			'cad_modelo',
+			'cad_modelo.id',
+			'=',
+			'cad_automovel.modelo_id'
+		)
+		->leftJoin(
+			'cad_viaturas',
+			'cad_viaturas.automovel_id',
+			'=',
+			'cad_automovel.id'
+		)
+		->where('cad_automovel.militar_id', '=', $usuario_vtr->id)
+		->get();
 
 		if ($veiculos->isEmpty()) {
 			echo "<p style=\"margin-bottom: 0px;vertical-align:middle;\" class=\"alert-warning\">Nenhum Registro Encontrado!</p>";
@@ -283,25 +283,25 @@ class WebServicesController extends Controller
 	{
 
 		$veiculos = DB::table('cad_automovel')
-			->select(
-				'cad_automovel.*',
-				'cad_marca.nome as marca',
-				'cad_modelo.nome as modelo'
-			)
-			->join(
-				'cad_marca',
-				'cad_marca.id',
-				'=',
-				'cad_automovel.marca_id'
-			)
-			->join(
-				'cad_modelo',
-				'cad_modelo.id',
-				'=',
-				'cad_automovel.modelo_id'
-			)
-			->where('cad_automovel.militar_id', '=', $request->id)
-			->get();
+		->select(
+			'cad_automovel.*',
+			'cad_marca.nome as marca',
+			'cad_modelo.nome as modelo'
+		)
+		->join(
+			'cad_marca',
+			'cad_marca.id',
+			'=',
+			'cad_automovel.marca_id'
+		)
+		->join(
+			'cad_modelo',
+			'cad_modelo.id',
+			'=',
+			'cad_automovel.modelo_id'
+		)
+		->where('cad_automovel.militar_id', '=', $request->id)
+		->get();
 
 		if ($veiculos->isEmpty()) {
 			echo "<p style=\"margin-bottom: 0px;vertical-align:middle;\" class=\"alert-warning\">Nenhum Registro Encontrado!</p>";
@@ -357,92 +357,92 @@ class WebServicesController extends Controller
 		switch ($tp_doc) {
 
 			case "cnh":
-				$militar = DB::table('cad_militar')
-					->select(
-						'cad_militar.ident_militar',
-						'cad_militar.id as militar_id',
-						'cad_militar.nome_guerra',
-						'cad_militar.nome',
-						'cad_militar.cnh',
-						'cad_militar.cnh_cat',
-						DB::raw("DATE_FORMAT(cad_militar.cnh_venc, '%Y') as cnh_venc"),
-						'cad_posto.nome as posto_nome',
-						'cad_om.nome as om_nome'
-					)
-					->join(
-						'cad_posto',
-						'cad_militar.posto',
-						'=',
-						'cad_posto.id'
-					)
-					->join(
-						'cad_om',
-						'cad_militar.om_id',
-						'=',
-						'cad_om.id'
-					)
-					->where('cad_militar.cnh', '=', $num_doc);
+			$militar = DB::table('cad_militar')
+			->select(
+				'cad_militar.ident_militar',
+				'cad_militar.id as militar_id',
+				'cad_militar.nome_guerra',
+				'cad_militar.nome',
+				'cad_militar.cnh',
+				'cad_militar.cnh_cat',
+				DB::raw("DATE_FORMAT(cad_militar.cnh_venc, '%Y') as cnh_venc"),
+				'cad_posto.nome as posto_nome',
+				'cad_om.nome as om_nome'
+			)
+			->join(
+				'cad_posto',
+				'cad_militar.posto',
+				'=',
+				'cad_posto.id'
+			)
+			->join(
+				'cad_om',
+				'cad_militar.om_id',
+				'=',
+				'cad_om.id'
+			)
+			->where('cad_militar.cnh', '=', $num_doc);
 
-				if (!Auth::user()->hasRole('super-admin')) {
-					$militar->where('cad_militar.om_id', Auth::user()->om_id);
-				}
+			if (!Auth::user()->hasRole('super-admin')) {
+				$militar->where('cad_militar.om_id', Auth::user()->om_id);
+			}
 
-				$militar = $militar->first();
-				if (!empty($militar)) {
-					return response()->json($militar);
-				} else {
-					return response()->json([
-						'error' => "Nenhum militar encontrado!"
-					]);
-				}
-				break;
+			$militar = $militar->first();
+			if (!empty($militar)) {
+				return response()->json($militar);
+			} else {
+				return response()->json([
+					'error' => "Nenhum militar encontrado!"
+				]);
+			}
+			break;
 
 			case "ident_militar":
-				$militar = DB::table('cad_militar')
-					->select(
-						'cad_militar.ident_militar',
-						'cad_militar.id as militar_id',
-						'cad_militar.nome_guerra',
-						'cad_militar.nome',
-						'cad_militar.cnh',
-						'cad_militar.cnh_cat',
-						DB::raw("DATE_FORMAT(cad_militar.cnh_venc, '%d/%m/%Y') as cnh_venc"),
-						'cad_posto.nome as posto_nome',
-						'cad_om.nome as om_nome'
-					)
-					->join(
-						'cad_posto',
-						'cad_militar.posto',
-						'=',
-						'cad_posto.id'
-					)
-					->join(
-						'cad_om',
-						'cad_militar.om_id',
-						'=',
-						'cad_om.id'
-					)
-					->where('cad_militar.ident_militar', '=', $num_doc);
+			$militar = DB::table('cad_militar')
+			->select(
+				'cad_militar.ident_militar',
+				'cad_militar.id as militar_id',
+				'cad_militar.nome_guerra',
+				'cad_militar.nome',
+				'cad_militar.cnh',
+				'cad_militar.cnh_cat',
+				DB::raw("DATE_FORMAT(cad_militar.cnh_venc, '%d/%m/%Y') as cnh_venc"),
+				'cad_posto.nome as posto_nome',
+				'cad_om.nome as om_nome'
+			)
+			->join(
+				'cad_posto',
+				'cad_militar.posto',
+				'=',
+				'cad_posto.id'
+			)
+			->join(
+				'cad_om',
+				'cad_militar.om_id',
+				'=',
+				'cad_om.id'
+			)
+			->where('cad_militar.ident_militar', '=', $num_doc);
 
-				if (!Auth::user()->hasRole('super-admin')) {
-					$militar->where('cad_militar.om_id', Auth::user()->om_id);
-				}
+			if (!Auth::user()->hasRole('super-admin')) {
+				$militar->where('cad_militar.om_id', Auth::user()->om_id);
+			}
 
-				$militar = $militar->first();
-				if (!empty($militar)) {
-					return response()->json($militar);
-				} else {
-					return response()->json([
-						'error' => "Nenhum militar encontrado!"
-					]);
-				}
-				break;
+			$militar = $militar->first();
+			if (!empty($militar)) {
+				return response()->json($militar);
+			} else {
+				return response()->json([
+					'error' => "Nenhum militar encontrado!"
+				]);
+			}
+			break;
 
 			default:
-				return response()->json([
-					'error' => "Tipo de documento inválido!"
-				]);
-				break;
+			return response()->json([
+				'error' => "Tipo de documento inválido!"
+			]);
+			break;
 		}
 	}
 
@@ -450,8 +450,8 @@ class WebServicesController extends Controller
 	/* Pesquisa todas marcas vinculadas ao tipo de automovel */
 	{
 		$result = Cad_marca::where('tipo_id', '=', $request->id_tipo)
-			->orderBy('nome', 'asc')
-			->get();
+		->orderBy('nome', 'asc')
+		->get();
 		$marca 	= "";
 		foreach ($result as $value) {
 			$marca .= "<option value=\"{$value->id}\">{$value->nome}</option>";
@@ -463,8 +463,8 @@ class WebServicesController extends Controller
 	/* Pesquisa todos os modelos vinculados a marca de automovel */
 	{
 		$result = Cad_modelo::where('marca_id', '=', $request->id_marca)
-			->orderBy('nome', 'asc')
-			->get();
+		->orderBy('nome', 'asc')
+		->get();
 		$modelo 	= "";
 		foreach ($result as $value) {
 			$modelo .= "<option value=\"{$value->id}\">{$value->nome}</option>";
@@ -494,23 +494,23 @@ class WebServicesController extends Controller
 
 			switch ($result->letra) {
 				case "A":
-					$result->tipo = 1;
-					break;
+				$result->tipo = 1;
+				break;
 				case "B":
-					$result->tipo = 2;
-					break;
+				$result->tipo = 2;
+				break;
 				case "C":
-					$result->tipo = 3;
-					break;
+				$result->tipo = 3;
+				break;
 				case "D":
-					$result->tipo = 4;
-					break;
+				$result->tipo = 4;
+				break;
 				case "E":
-					$result->tipo = 5;
-					break;
+				$result->tipo = 5;
+				break;
 				case "F":
-					$result->tipo = 6;
-					break;
+				$result->tipo = 6;
+				break;
 			}
 			return response()->json($result);
 		} else {
@@ -547,8 +547,8 @@ class WebServicesController extends Controller
 	{
 		$result['modelo'] = Cad_modelo::findOrFail($request->id);
 		$result['marca'] = Cad_marca::where('tipo_id', '=', $result['modelo']->tipo_id)
-			->orderBy('nome')
-			->get();
+		->orderBy('nome')
+		->get();
 
 		if (!empty($result)) {
 			return response()->json($result);
