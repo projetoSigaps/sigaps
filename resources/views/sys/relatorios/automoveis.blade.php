@@ -23,7 +23,7 @@
 		<div class="well">
 			<form class="form form-horizontal" type="POST">
 				{{csrf_field()}}
-				<div class="form-group" >
+				<div class="form-group">
 					<label class="col-xs-2 control-label">P/G: </label>
 					<div class="col-xs-2">
 						<select class="form-control" name="rel_posto" id="rel-posto">
@@ -38,7 +38,9 @@
 					<label class="col-xs-2 control-label">Organização Militar: </label>
 					<div class="col-xs-2">
 						<select class="form-control" name="rel_om" id="rel-om">
-							<option value="0">Todas</option>
+							@if(auth()->user()->hasRole('super-admin'))
+							<option value="0">Todos</option>
+							@endif
 							@foreach($om as $value)
 							<option value="{{$value->id}}">{{$value->nome}}</option>
 							@endforeach
@@ -58,24 +60,24 @@
 				<div class="form-group">
 					<label class="col-xs-2 control-label">Placa: </label>
 					<div class="col-xs-1">
-						<input value="" type="text" id="placa_rel" name="placa_rel" class="maskPlaca form-control"  placeholder="Opcional">
+						<input value="" type="text" id="placa_rel" name="placa_rel" class="maskPlaca form-control" placeholder="Opcional">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-2 control-label">Renavam: </label>
 					<div class="col-xs-2">
-						<input value="" type="text" id="renavam" name="renavam" class="form-control maskNum"  placeholder="Opcional">
+						<input value="" type="text" id="renavam" name="renavam" class="form-control maskNum" placeholder="Opcional">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-xs-2 control-label">Cor: </label>
 					<div class="col-xs-2">
-						<input value="" type="text" id="cor" name="cor" class="form-control"  placeholder="Opcional">
+						<input value="" type="text" id="cor" name="cor" class="form-control" placeholder="Opcional">
 					</div>
 					<label class="col-xs-1 control-label">Ano: </label>
 					<div class="col-xs-1">
-						<input value="" type="text" id="ano" name="ano" class="form-control"  placeholder="Opcional">
+						<input value="" type="text" id="ano" name="ano" class="form-control" placeholder="Opcional">
 					</div>
 				</div>
 				<div class="form-group">
