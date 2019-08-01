@@ -168,6 +168,9 @@ class RelatoriosController extends Controller
 		if ($request->rel_om) {
 			$query->where('cad_om.id', $request->rel_om);
 		}
+		if ($tp_relatorio == "Viatura") {
+			$query->where('cad_posto.id', 34);
+		}
 
 		$query = $query->orderBy("cad_entrada_saida.id", "DESC")->get();
 
