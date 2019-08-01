@@ -115,7 +115,7 @@ class ViaturasController extends Controller
 			$veiculo->origem = "BRASIL";
 			$veiculo->doc_venc = date('Y-m-d', strtotime(str_replace('/', '-', $dados['doc_venc'])));
 			$veiculo->ano_auto = $dados['ano_auto'];
-			$veiculo->baixa = 0;
+			$veiculo->baixa = 1;
 			$veiculo->save();
 
 			$viatura = new Cad_viaturas;
@@ -185,7 +185,7 @@ class ViaturasController extends Controller
 	/* Desabilita a viatura */
 	{
 		$viatura = Cad_automovel::findOrFail($id);
-		$viatura->baixa = 1;
+		$viatura->baixa = 0;
 		$viatura->save();
 		$this->criar_log(18, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Desativado com sucesso!');
@@ -195,7 +195,7 @@ class ViaturasController extends Controller
 	/* Habilita a viatura */
 	{
 		$viatura = Cad_automovel::findOrFail($id);
-		$viatura->baixa = 0;
+		$viatura->baixa = 1;
 		$viatura->save();
 		$this->criar_log(28, NULL, $viatura->id, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.configuracoes.viaturas.editar', $viatura->id)->with('success', 'Ativado com sucesso!');
