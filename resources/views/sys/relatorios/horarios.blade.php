@@ -52,7 +52,9 @@
 					<label class="col-xs-2 control-label">Organização Militar: </label>
 					<div class="col-xs-2">
 						<select class="form-control" name="rel_om" id="rel-om">
+							@if(auth()->user()->hasRole('super-admin'))
 							<option value="0">Todos</option>
+							@endif
 							@foreach($om as $value)
 							<option value="{{$value->id}}">{{$value->nome}}</option>
 							@endforeach
