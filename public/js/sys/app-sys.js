@@ -62,7 +62,7 @@ $(document).ready(function () {
 	*
 	*/
 
-	$(".maskPlaca").mask("SSS-9999"),{ clearIfNotMatch: true };
+	$(".maskPlaca").mask("SSS-9999");
 	$(".maskPlaca").keyup(function () {
 		$(this).val($(this).val().toUpperCase());
 	});
