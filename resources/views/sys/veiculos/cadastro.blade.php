@@ -119,7 +119,7 @@
 						</div>
 						<div class="field col-md-4">	
 
-							<input id="placa" minlength="8" type="text" name="placa" class="form-control maskPlaca" placeholder="Placa" required>
+							<input minlength="8" type="text" name="placa" class="form-control maskPlaca" placeholder="Placa" required>
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">
