@@ -19,7 +19,7 @@ $foto = $automovel->om_id . '/' . $automovel->posto . '/' . $automovel->ident_mi
         <div class="col-sm-12">
             <div class="col-sm-5 thumb text-center">
                 <figure>
-                    <img class="photo" onerror="this.src='{{asset(images/unknown.jpg)}}'" src="{{Storage::disk('_DOC')->url(base64_encode($foto))}}" id="foto" alt="Foto">
+                    <img class="photo" src="{{Storage::disk('_DOC')->url(base64_encode($foto))}}" id="foto" alt="Foto">
                     <img class="status" style='margin-top:5px;' src="{{asset('images/'.$status)}}">
                 </figure>
             </div>
