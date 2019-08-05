@@ -19,7 +19,7 @@ $foto = $militar->om_id . '/' . $militar->posto . '/' . $militar->ident_militar 
         <div class="col-sm-12">
             <div class="col-sm-5 thumb text-center">
                 <figure>
-                    <img class="photo" onerror='this.src="/sigaps/assets/img/unknown.jpg"' src="{{Storage::disk('_DOC')->url(base64_encode($foto))}}" id="foto" alt="Foto">
+                    <img class="photo" onerror="this.onerror=null;this.src='http://sigaps.cmo.eb.mil.br/images/unknown.jpg';" src="{{Storage::disk('_DOC')->url(base64_encode($foto))}}" id="foto" alt="Foto">
                     <img class="status" style='margin-top:5px;' src="{{asset('images/'.$status)}}">
                 </figure>
             </div>
