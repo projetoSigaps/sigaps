@@ -28,7 +28,7 @@
 		</div>
 		@endif
 		<form action="{{route('sys.militares.cadastro.atualiza', $militar->id)}}" class="form-horizontal form" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="MAX_FILE_SIZE" value="50000" />
+			<input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
 			{{csrf_field()}}
 			<?php
 
