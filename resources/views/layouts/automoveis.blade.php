@@ -1,6 +1,10 @@
 <?php
 
-$foto = $automovel->om_id . '/' . $automovel->posto . '/' . $automovel->ident_militar . '/' . $automovel->datafile; //Pega o caminho da foto 
+if ($automovel->posto == "34") {
+    $foto = $automovel->datafile;
+} else {
+    $foto = $automovel->om_id . '/' . $automovel->posto . '/' . $automovel->ident_militar . '/' . $automovel->datafile; //Pega o caminho da foto 
+}
 
 ?>
 <html>
@@ -30,8 +34,8 @@ $foto = $automovel->om_id . '/' . $automovel->posto . '/' . $automovel->ident_mi
                 <p class="well well-sm text-success text-center">{{date("H:i")}}</p>
             </div>
             <div class="col-sm-7 info">
-                <p class="well well-sm text-danger text-center">{{$automovel->marca}} -  {{$automovel->modelo}}</p>
-                <p class="well well-sm text-danger text-center">{{$automovel->placa}} •  {{$automovel->cor}}</p>
+                <p class="well well-sm text-danger text-center">{{$automovel->marca}} - {{$automovel->modelo}}</p>
+                <p class="well well-sm text-danger text-center">{{$automovel->placa}} • {{$automovel->cor}}</p>
             </div>
         </div>
     </div>
