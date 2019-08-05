@@ -198,7 +198,7 @@ class MilitaresController extends Controller
 				return redirect()->back()->with('error', 'Falha ao enviar a foto!')->withInput();
 			}
 		}else{
-			return redirect()->back()->with('error', 'Falha ao enviar a foto!')->withInput();
+			return redirect()->back()->with('error', $request->file('datafile')->getErrorMessage())->withInput();
 		}
 
 		if ($dados['cnh_venc']) {
