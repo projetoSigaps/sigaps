@@ -17,10 +17,7 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
     	$roles = [
-    		'super-admin',
-    		'administrador',
-    		'operador',
-    		'registrador',
+            'auditor',
     	];
 
     	foreach ($roles as $role) {
@@ -137,6 +134,15 @@ class RoleTableSeeder extends Seeder
                 case 'registrador':
 
                 $rhp->givePermissionTo('config-horarios');
+
+                break;
+
+                case 'auditor':
+
+                $rhp->givePermissionTo('relatorios-menu');
+                $rhp->givePermissionTo('relatorios-aut');
+                $rhp->givePermissionTo('relatorios-hrs');
+                $rhp->givePermissionTo('relatorios-mil');
 
                 break;
 
