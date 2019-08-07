@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Sys;
 
+use Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use App\Model\Sys\Cad_militar;
 use App\Model\Sys\Cad_entrada_saida;
 use App\Model\Sys\Cad_automovel;
-
 
 class HorariosController extends Controller
 {
@@ -108,10 +107,10 @@ class HorariosController extends Controller
 		}
 	}
 
-	public function registrarCracha(Request $request)
+	public function registrarCracha()
 	/* Registra horário, verificando se é de automovel ou pedestre */
 	{
-		$token = parse_url($request->fullUrl(), PHP_URL_QUERY); // PEGA APENAS O TOKEN DA URL
+		$token = parse_url(Request::fullUrl(), PHP_URL_QUERY); // PEGA APENAS O TOKEN DA URL
 		$token = substr(strrchr($token, "-"), 1);
 		$token = preg_replace("/[^0-9]/", "", $token);
 
@@ -120,7 +119,7 @@ class HorariosController extends Controller
 			die();
 		}
 
-		$tipo = explode("/", parse_url($request->fullUrl(), PHP_URL_PATH));
+		$tipo = explode("/", parse_url(Request::fullUrl(), PHP_URL_PATH));
 
 		$data = date("Y-m-d H:i:s");
 
