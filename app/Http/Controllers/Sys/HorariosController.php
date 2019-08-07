@@ -33,12 +33,12 @@ class HorariosController extends Controller
     | Manipula o evento da interface do usuário
 	*/
 
-	public function registrar(Request $request)
+	public function registrar()
 	/* Registra horário, verificando se é de automovel ou pedestre */
 	{
 
 
-		$dados 	= $request->all();
+		$dados 	= Request::all();
 		$regras = [
 			'reg_horario' => 'required',
 			'cod_cracha' => 'required',
