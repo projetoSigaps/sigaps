@@ -328,12 +328,6 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'Testar Crachá',
-            'icon'    => 'check-square-o',
-            'icon_color' => 'white',
-            'url'  => '#',
-        ],
     ],
 
     /*
