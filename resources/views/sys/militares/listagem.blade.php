@@ -22,8 +22,9 @@
 		<table width="100%" cellspacing="0" class="table text-center table-compact table-condensed table-hover tb">
 			{{csrf_field()}}
 			<thead>
-				<tr style="background-color:#00a65a;color:#FFFFFF;"> 
-					<th style="text-align:center">P/G</th>
+				<tr style="background-color:#00a65a;color:#FFFFFF;">
+					<th style="text-align:center;width: 80px;">Nº Crachá</th>
+					<th style="text-align:center;">P/G</th>
 					<th style="text-align:center">Nome de Guerra</th>
 					<th style="text-align:center;">Nome</th>
 					<th style="text-align:center;">Identidade</th>

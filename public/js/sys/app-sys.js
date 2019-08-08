@@ -62,7 +62,7 @@ $(document).ready(function () {
 	*
 	*/
 
-	$(".maskPlaca").mask("SSS-9999"),{ clearIfNotMatch: true };
+	$(".maskPlaca").mask("SSS-9999"), { clearIfNotMatch: true };
 	$(".maskPlaca").keyup(function () {
 		$(this).val($(this).val().toUpperCase());
 	});
@@ -111,7 +111,7 @@ $(document).ready(function () {
 			return this.optional(element) || regexp.test(value);
 		},
 		"A senha dever ter letras e números."
-		);
+	);
 
 	$('button[name="trocar_ps"]').on('click', function () {
 		var $val = $("input[name='login_usuario']").val();
@@ -129,7 +129,7 @@ $(document).ready(function () {
 				if (data.error) {
 					alert(data.error);
 				} else
-				alert(data.msg);
+					alert(data.msg);
 			}
 		});
 	});
@@ -680,17 +680,17 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{
-			className: 'details-control',
-			orderable: false,
-			data: null,
-			defaultContent: ''
-		},
-		{ data: 'posto_nome' },
-		{ data: 'nome_guerra' },
-		{ data: 'nome' },
-		{ data: 'ident_militar' },
-		{ data: 'om_nome' }
+			{
+				className: 'details-control',
+				orderable: false,
+				data: null,
+				defaultContent: ''
+			},
+			{ data: 'posto_nome' },
+			{ data: 'nome_guerra' },
+			{ data: 'nome' },
+			{ data: 'ident_militar' },
+			{ data: 'om_nome' }
 		]
 	});
 
@@ -746,9 +746,9 @@ $(document).ready(function () {
 
 	$(".tb_auto thead input").on('keyup change', function () {
 		table_auto
-		.column($(this).parent().index() + ':visible')
-		.search(this.value)
-		.draw();
+			.column($(this).parent().index() + ':visible')
+			.search(this.value)
+			.draw();
 	});
 
 	var tb_vtr = $('.tb_vtr').DataTable({
@@ -767,15 +767,15 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{
-			className: 'details-control',
-			orderable: false,
-			data: null,
-			defaultContent: ''
-		},
-		{ data: 'nome' },
-		{ data: 'descricao' },
-		{ data: 'codom' }
+			{
+				className: 'details-control',
+				orderable: false,
+				data: null,
+				defaultContent: ''
+			},
+			{ data: 'nome' },
+			{ data: 'descricao' },
+			{ data: 'codom' }
 		]
 	});
 
@@ -844,13 +844,14 @@ $(document).ready(function () {
 			url: "/js/sys/components/datatables_pt-BR.json"
 		},
 		columns: [
-		{ data: 'posto_nome' },
-		{ data: 'nome_guerra' },
-		{ data: 'nome' },
-		{ data: 'ident_militar' },
-		{ data: 'om_nome' },
-		{ data: 'status' },
-		{ data: 'options' }
+			{ data: 'id' },
+			{ data: 'posto_nome' },
+			{ data: 'nome_guerra' },
+			{ data: 'nome' },
+			{ data: 'ident_militar' },
+			{ data: 'om_nome' },
+			{ data: 'status' },
+			{ data: 'options' }
 		]
 	});
 
@@ -872,12 +873,12 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'posto_nome' },
-		{ data: 'nome_guerra' },
-		{ data: 'cod_cracha' },
-		{ data: 'dtEntrada' },
-		{ data: 'dtSaida' },
-		{ data: 'om_nome' }
+			{ data: 'posto_nome' },
+			{ data: 'nome_guerra' },
+			{ data: 'cod_cracha' },
+			{ data: 'dtEntrada' },
+			{ data: 'dtSaida' },
+			{ data: 'om_nome' }
 		]
 	});
 
@@ -899,14 +900,14 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'posto_nome' },
-		{ data: 'nome_guerra' },
-		{ data: 'cod_cracha' },
-		{ data: 'marca_modelo' },
-		{ data: 'placa' },
-		{ data: 'dtEntrada' },
-		{ data: 'dtSaida' },
-		{ data: 'om_nome' }
+			{ data: 'posto_nome' },
+			{ data: 'nome_guerra' },
+			{ data: 'cod_cracha' },
+			{ data: 'marca_modelo' },
+			{ data: 'placa' },
+			{ data: 'dtEntrada' },
+			{ data: 'dtSaida' },
+			{ data: 'om_nome' }
 		]
 	});
 
@@ -927,10 +928,10 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'letra' },
-		{ data: 'nome' },
-		{ data: 'tipo' },
-		{ data: 'options' }
+			{ data: 'letra' },
+			{ data: 'nome' },
+			{ data: 'tipo' },
+			{ data: 'options' }
 		]
 	});
 
@@ -950,9 +951,9 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'nome' },
-		{ data: 'descricao' },
-		{ data: 'options' }
+			{ data: 'nome' },
+			{ data: 'descricao' },
+			{ data: 'options' }
 		]
 	});
 
@@ -973,8 +974,8 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'nome' },
-		{ data: 'options' }
+			{ data: 'nome' },
+			{ data: 'options' }
 		]
 	});
 
@@ -994,9 +995,9 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'tipo' },
-		{ data: 'nome' },
-		{ data: 'options' }
+			{ data: 'tipo' },
+			{ data: 'nome' },
+			{ data: 'options' }
 		]
 	});
 
@@ -1016,10 +1017,10 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'tipo' },
-		{ data: 'marca' },
-		{ data: 'modelo' },
-		{ data: 'options' }
+			{ data: 'tipo' },
+			{ data: 'marca' },
+			{ data: 'modelo' },
+			{ data: 'options' }
 		]
 	});
 
@@ -1039,11 +1040,11 @@ $(document).ready(function () {
 			}
 		},
 		columns: [
-		{ data: 'nome' },
-		{ data: 'login' },
-		{ data: 'om_nome' },
-		{ data: 'perfil' },
-		{ data: 'options' },
+			{ data: 'nome' },
+			{ data: 'login' },
+			{ data: 'om_nome' },
+			{ data: 'perfil' },
+			{ data: 'options' },
 		]
 	});
 
