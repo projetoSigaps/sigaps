@@ -32,7 +32,7 @@
 							</select>
 						</div>
 						<div class="col-md-3">
-							<input type="text" id="numero_documento" class="maskNum form-control"  placeholder="Número do documento" >
+							<input type="text" id="numero_documento" class="maskNum form-control" placeholder="Número do documento">
 						</div>
 						<div class="col-md-3">
 							<button class="btn btn-flat btn-default buscar-militar" type="submit" onclick="return false;" id="buscar-militar">
@@ -114,12 +114,11 @@
 					</div>
 					<div class="form-group has-feedback">
 						<div class="field col-md-4">
-							<input id="exercicio_documento" type="text" class="form-control maskNum" placeholder="Exercício">
+							<input id="exercicio_documento" type="text" class="form-control maskNum" placeholder="Exercício" required>
 							<span class="form-control-feedback" id="exercicio_documento1"></span>
 						</div>
-						<div class="field col-md-4">	
-
-							<input minlength="8" type="text" name="placa" class="form-control maskPlaca" placeholder="Placa" required>
+						<div class="field col-md-4">
+							<input minlength="8" type="text" name="placa" class="form-control maskPlaca placa_documento" placeholder="Placa" required>
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">

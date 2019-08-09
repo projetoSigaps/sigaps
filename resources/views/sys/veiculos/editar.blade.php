@@ -9,7 +9,9 @@
 
 <?php
 
-if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado'; 
+if ($veiculo->baixa == 1) {
+	$status = 'Ativado';
+} else $status = 'Desativado';
 
 ?>
 
@@ -74,7 +76,7 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 				<input type="hidden" name="ident_militar" value="{{$militar->ident_militar}}">
 			</div>
 		</div>
-		<div class="panel panel-success" id="panel-veiculo" >
+		<div class="panel panel-success" id="panel-veiculo">
 			<div class="panel-heading">Informações do Veículo</div>
 			<div class="panel-body">
 				<form class="form form-horizontal" method="post" id="form-veiculo" action="{{route('sys.veiculos.cadastro.atualiza', $veiculo->id)}}">
@@ -84,7 +86,7 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 							<label class="control-label">Tipo de veículo: </label>
 							<select required class="form-control automovel_tipo" name="tipo_id" id="automovel_tipo" onchange="if($(this).find('option:selected').val()=='2'){$('#curso-moto').show(); }else{$('#curso-moto').hide(); }">
 								@foreach($tp_veiculo as $value)
-								<option <?php if($veiculo->tipo_id==$value->id) echo "selected"; ?> value="{{$value->id}}">{{$value->nome}}</option>
+								<option <?php if ($veiculo->tipo_id == $value->id) echo "selected"; ?> value="{{$value->id}}">{{$value->nome}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -93,7 +95,7 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 							<label class="control-label">Marca do veículo: </label>
 							<select required name="marca_id" id="automovel_marca" class="form-control automovel_marca">
 								@foreach($marca as $value)
-								<option <?php if($veiculo->marca_id==$value->id) echo "selected"; ?> value="{{$value->id}}">{{$value->nome}}</option>
+								<option <?php if ($veiculo->marca_id == $value->id) echo "selected"; ?> value="{{$value->id}}">{{$value->nome}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -102,7 +104,7 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 							<label class="control-label">Modelo do veículo: </label>
 							<select required name="modelo_id" id="automovel_modelo" class="form-control automovel_modelo">
 								@foreach($modelo as $value)
-								<option <?php if($veiculo->modelo_id==$value->id) echo "selected"; ?> value="{{$value->id}}">{{$value->nome}}</option>
+								<option <?php if ($veiculo->modelo_id == $value->id) echo "selected"; ?> value="{{$value->id}}">{{$value->nome}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -110,16 +112,15 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 
 					<div class="form-group has-feedback">
 						<div class="field col-md-4">
-							<input id="exercicio_documento" type="text" class="form-control maskNum" placeholder="Exercício">
+							<input id="exercicio_documento" type="text" class="form-control maskNum" placeholder="Exercício" value="{{(current(explode('-',$veiculo->doc_venc))-1)}}">
 							<span class="form-control-feedback" id="exercicio_documento1"></span>
 						</div>
-						<div class="field col-md-4">	
-
-							<input minlength="8" type="text" name="placa" class="form-control maskPlaca" placeholder="Placa" value="{{$veiculo->placa}}" required>
+						<div class="field col-md-4">
+							<input minlength="8" type="text" name="placa" class="form-control maskPlaca placa_documento" placeholder="Placa" value="{{$veiculo->placa}}" required>
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">
-							<input id="renavan"  maxlength="13" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" value="{{$veiculo->renavan}}" required>
+							<input id="renavan" maxlength="13" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" value="{{$veiculo->renavan}}" required>
 							<span class="form-control-feedback" id="renavan1"></span>
 						</div>
 					</div>
@@ -162,88 +163,88 @@ if($veiculo->baixa == 1){$status = 'Ativado';} else $status = 'Desativado';
 						@endif
 
 						<a href="{{route('sys.cracha.veiculo',$veiculo->id)}}" target="_blank" class="btn btn-flat btn-warning">Gerar Crachá <span class=" fa fa-qrcode"></span></a>
-						<button type="submit" class="btn btn-flat btn-primary" value="Salvar" >Salvar <i class="fa fa-floppy-o"></i></button>
-					</form>
-				</div>
+						<button type="submit" class="btn btn-flat btn-primary" value="Salvar">Salvar <i class="fa fa-floppy-o"></i></button>
+				</form>
 			</div>
-			<div class="panel box box-warning">
-				<a data-toggle="collapse" data-parent="#accordion" href="#historico">
-					<div class="box-header with-border">
-						<h4 class="box-title">
-							<i class="fa fa-history"></i> Histórico
-						</h4>
-					</div>
-				</a>
-				<div id="historico" class="panel-collapse collapse">
-					<div class="box-body">
-						<ul>
-							@forelse($log as $value)
-							<li>
-								<b class="text-info">Horário: </b>{{date('d/m/Y H:i', strtotime($value->data_hora))}}
-								<b class="text-info">Operador: </b>{{$value->name}}
-								<b class="text-info">Evento: </b> {{$value->evento}} - {{$value->descricao}}
-							</li>
-							@empty
-							<li>
-								<b class="text-danger">Nenhum registro encontrado!</b>
-							</li>
-							@endforelse
-						</ul>
-					</div>
+		</div>
+		<div class="panel box box-warning">
+			<a data-toggle="collapse" data-parent="#accordion" href="#historico">
+				<div class="box-header with-border">
+					<h4 class="box-title">
+						<i class="fa fa-history"></i> Histórico
+					</h4>
+				</div>
+			</a>
+			<div id="historico" class="panel-collapse collapse">
+				<div class="box-body">
+					<ul>
+						@forelse($log as $value)
+						<li>
+							<b class="text-info">Horário: </b>{{date('d/m/Y H:i', strtotime($value->data_hora))}}
+							<b class="text-info">Operador: </b>{{$value->name}}
+							<b class="text-info">Evento: </b> {{$value->evento}} - {{$value->descricao}}
+						</li>
+						@empty
+						<li>
+							<b class="text-danger">Nenhum registro encontrado!</b>
+						</li>
+						@endforelse
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div class="modal modal-success fade" tabindex="-1" role="dialog" id="ativar-veiculo">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title"><i class="fa fa-unlock"></i> Selecione o motivo</h4>
+<div class="modal modal-success fade" tabindex="-1" role="dialog" id="ativar-veiculo">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"><i class="fa fa-unlock"></i> Selecione o motivo</h4>
+			</div>
+			<form action="{{route('sys.veiculo.ativar', $veiculo->id) }}" class="form-horizontal form" method="post">
+				<div class="modal-body">
+					{{csrf_field()}}
+					<select name="motivo-atv" class="form-control" id="motivo-atv" required>
+						@foreach($evento as $value)
+						@if($value->evento == 'ATIVOU VEÍCULO')
+						<option value="{{$value->id}}">{{$value->descricao}}</option>
+						@endif
+						@endforeach
+					</select>
 				</div>
-				<form  action="{{route('sys.veiculo.ativar', $veiculo->id) }}" class="form-horizontal form" method="post">
-					<div class="modal-body">
-						{{csrf_field()}}
-						<select name="motivo-atv" class="form-control" id="motivo-atv" required>
-							@foreach($evento as $value)
-							@if($value->evento == 'ATIVOU VEÍCULO')
-							<option value="{{$value->id}}">{{$value->descricao}}</option>
-							@endif
-							@endforeach
-						</select>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Salvar</button>
-					</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Salvar</button>
+				</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<div class="modal modal-danger fade" tabindex="-1" role="dialog" id="desativar-veiculo">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"><i class="fa fa-lock"></i> Selecione o motivo</h4>
+			</div>
+			<form action="{{route('sys.veiculo.desativar', $veiculo->id) }}" class="form-horizontal form" method="post">
+				<div class="modal-body">
+					{{csrf_field()}}
+					<select name="motivo-dtv" class="form-control" id="motivo-dtv" required>
+						@foreach($evento as $value)
+						@if($value->evento == 'DESATIVOU VEÍCULO')
+						<option value="{{$value->id}}">{{$value->descricao}}</option>
+						@endif
+						@endforeach
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Salvar</button>
 				</div>
 			</form>
 		</div>
 	</div>
-
-	<div class="modal modal-danger fade" tabindex="-1" role="dialog" id="desativar-veiculo">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title"><i class="fa fa-lock"></i> Selecione o motivo</h4>
-				</div>
-				<form action="{{route('sys.veiculo.desativar', $veiculo->id) }}" class="form-horizontal form" method="post">
-					<div class="modal-body">
-						{{csrf_field()}}
-						<select name="motivo-dtv" class="form-control" id="motivo-dtv" required>
-							@foreach($evento as $value)
-							@if($value->evento == 'DESATIVOU VEÍCULO')
-							<option value="{{$value->id}}">{{$value->descricao}}</option>
-							@endif
-							@endforeach
-						</select>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-default"><i class="fa fa-floppy-o"></i> Salvar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	@stop
+</div>
+@stop

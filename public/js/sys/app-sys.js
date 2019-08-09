@@ -153,6 +153,57 @@ $(document).ready(function () {
 
 	/*
 	*
+	* CALCULA A DATA DE VENCIMENTO DO VEÍCULO
+	*
+	*/
+	$('.placa_documento').keyup(function (event) {
+		var $v = $(this).val();
+		if ($v.length == 8 && event.which != 13) {
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-Token': $('.form input[name=_token]').val()
+				}
+			});
+			$.ajax({
+				url: "/webservices/veiculos/detran/pesquisar",
+				type: "POST",
+				data: { placa: $v },
+				success: function (data) {
+					if (data.length == 6) {
+						var $ano = $("#exercicio_documento").val();
+						if ($ano != "") $('input#doc_venc').val(data + (parseInt($ano) + 1));
+					}
+				}
+			});
+		}
+	});
+
+	$('#exercicio_documento').keyup(function (event) {
+		if ($("#exercicio_documento").val().length == 4) {
+			var $v = $('.placa_documento').val();
+			if ($v.length == 8 && event.which != 13) {
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-Token': $('.form input[name=_token]').val()
+					}
+				});
+				$.ajax({
+					url: "/webservices/veiculos/detran/pesquisar",
+					type: "POST",
+					data: { placa: $v },
+					success: function (data) {
+						if (data.length == 6) {
+							var $ano = $("#exercicio_documento").val();
+							if ($ano != "") $('input#doc_venc').val(data + (parseInt($ano) + 1));
+						}
+					}
+				});
+			}
+		}
+	});
+
+	/*
+	*
 	* CONSULTA CEP
 	*
 	*/
