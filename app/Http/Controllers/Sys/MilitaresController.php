@@ -270,12 +270,12 @@ class MilitaresController extends Controller
 			return back()->with('error', $validacao->errors()->first());
 		}
 
-		$militar->status = 2;
+		$militar->status = 0;
 		$militar->save();
 
 		/* Desativa AQUI os automovéis */
 		foreach ($veiculo as $key => $value) {
-			$veiculo[$key]->baixa = 1;
+			$veiculo[$key]->baixa = 0;
 			$veiculo[$key]->save();
 			$this->criar_log($dados['motivo-dtv'], 0, $veiculo[$key]->id, Auth::user()->id, $request->getClientIp());
 		}
