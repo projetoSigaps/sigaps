@@ -251,7 +251,7 @@ class MilitaresController extends Controller
 
 		$militar->status = 1;
 		$militar->save();
-		$this->criar_log($dados['motivo-atv'], $militar->id, 0, Auth::user()->id, $request->getClientIp());
+		$this->criar_log($dados['motivo-atv'], $militar->id, NULL, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.militares.cadastro.editar', $militar->id)->with('success', 'Ativado com sucesso!');
 	}
 
@@ -277,10 +277,10 @@ class MilitaresController extends Controller
 		foreach ($veiculo as $key => $value) {
 			$veiculo[$key]->baixa = 0;
 			$veiculo[$key]->save();
-			$this->criar_log($dados['motivo-dtv'], 0, $veiculo[$key]->id, Auth::user()->id, $request->getClientIp());
+			$this->criar_log($dados['motivo-dtv'], NULL, $veiculo[$key]->id, Auth::user()->id, $request->getClientIp());
 		}
 
-		$this->criar_log($dados['motivo-dtv'], $militar->id, 0, Auth::user()->id, $request->getClientIp());
+		$this->criar_log($dados['motivo-dtv'], $militar->id, NULL, Auth::user()->id, $request->getClientIp());
 		return redirect()->route('sys.militares.cadastro.editar', $militar->id)->with('success', 'Desativado com sucesso!');
 	}
 
