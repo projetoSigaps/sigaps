@@ -24,10 +24,8 @@ class CrachaController extends Controller
 	public function trocarCrachaIndex()
 	/* Página onde é solicitado a troca de crachá */
 	{
-		/*
 		$this->authorize('trocarCracha', Cad_militar::class);
 		return view('sys.configuracoes.trocarCracha');
-		*/
 	}
 
 	/*
