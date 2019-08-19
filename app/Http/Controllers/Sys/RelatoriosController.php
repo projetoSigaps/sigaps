@@ -347,7 +347,7 @@ class RelatoriosController extends Controller
 		if ($request->rel_om) {
 			$query->where('cad_om.id', $request->rel_om);
 		}
-		if ($request->status == 1 && $request->status == 0) {
+		if (is_numeric($request->status)) {
 			$query->where('cad_militar.status', $request->status);
 		}
 
