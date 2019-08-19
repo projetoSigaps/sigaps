@@ -51,9 +51,9 @@
 					<label class="col-xs-2 control-label">Status: </label>
 					<div class="col-xs-2">
 						<select name="status" class="form-control">
-							<option Selected value="">Todos</option>
+							<option selected value="todos">Todos</option>
 							<option value="1">Ativado</option>
-							<option value="2">Desativado</option>
+							<option value="0">Desativado</option>
 						</select>
 					</div>
 				</div>

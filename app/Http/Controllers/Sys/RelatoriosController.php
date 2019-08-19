@@ -462,7 +462,7 @@ class RelatoriosController extends Controller
 		if ($request->rel_om) {
 			$query->where('cad_om.id', $request->rel_om);
 		}
-		if ($request->status) {
+		if (is_numeric($request->status)) {
 			$query->where('cad_automovel.baixa', $request->status);
 		}
 		if ($request->tipo_id) {
