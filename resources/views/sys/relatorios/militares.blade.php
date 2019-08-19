@@ -24,6 +24,12 @@
 			<form class="form-horizontal form" type="POST">
 				{{csrf_field()}}
 				<div class="form-group">
+					<label class="col-xs-2 control-label">Nome de Guerra: </label>
+					<div class="col-xs-2">
+						<input value="" type="text" id="nome_guerra" name="nome_guerra" class="form-control" placeholder="Opcional">
+					</div>
+				</div>
+				<div class="form-group">
 					<label class="col-xs-2 control-label">P/G: </label>
 					<div class="col-xs-2">
 						<select class="form-control" name="rel_posto" id="rel-posto">
@@ -31,7 +37,6 @@
 							@foreach($posto as $value)
 							<option value="{{$value->id}}">{{$value->nome}}</option>
 							@endforeach
-						</select>
 						</select>
 					</div>
 				</div>
@@ -46,16 +51,15 @@
 							<option value="{{$value->id}}">{{$value->nome}}</option>
 							@endforeach
 						</select>
-						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-xs-2 control-label">Status: </label>
 					<div class="col-xs-2">
 						<select name="status" class="form-control">
-							<option Selected value="0">Todos</option>
+							<option selected>Todos</option>
 							<option value="1">Ativado</option>
-							<option value="2">Desativado</option>
+							<option value="0">Desativado</option>
 						</select>
 					</div>
 				</div>

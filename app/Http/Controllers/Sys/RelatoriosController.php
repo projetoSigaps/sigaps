@@ -329,6 +329,10 @@ class RelatoriosController extends Controller
 				'cad_om.id'
 			);
 
+		if ($request->nome_guerra) {
+			$query->where('cad_militar.nome_guerra', 'LIKE', "%{$request->nome_guerra}%");
+		}
+
 		if ($request->cnh_cat) {
 			$query->where('cad_militar.cnh_cat', 'LIKE', "%{$request->cnh_cat}%");
 		}
