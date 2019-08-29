@@ -122,7 +122,7 @@
 							<span class="form-control-feedback" id="placa1"></span>
 						</div>
 						<div class="field col-md-4">
-							<input id="renavan" maxlength="13" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" required>
+							<input id="renavan" minlength="5" maxlength="13" type="text" name="renavan" class="form-control maskNum" placeholder="Renavam" required>
 							<span class="form-control-feedback" id="renavan1"></span>
 						</div>
 					</div>
